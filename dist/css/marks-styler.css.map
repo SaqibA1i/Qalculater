@@ -1,0 +1,14 @@
+{
+	"version": 3,
+	"file": "marks-styler.css",
+	"sources": [
+		"../../scss/marks-styler.scss",
+		"../../scss/_base.scss"
+	],
+	"sourcesContent": [
+		"@import \"base\";\r\n",
+		"body {\r\n  background-color: aquamarine;\r\n}"
+	],
+	"names": [],
+	"mappings": "ACAA,AAAA,IAAI,CAAC;EACH,gBAAgB,EAAE,UAAU;CAC7B"
+}
