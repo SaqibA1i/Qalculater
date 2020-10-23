@@ -9,6 +9,7 @@
     border: solid 2px $yellow;
     border-radius: 50%;
     color: $white;
-    background-color: $black;
+    background-color: transparent;
+    box-shadow: $box-shadow-black;
   }
 }
