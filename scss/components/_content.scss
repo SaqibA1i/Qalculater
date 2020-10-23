@@ -1,0 +1,23 @@
+.content-container {
+  background-color: $black;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  .content-course {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    color: $white;
+    border: solid 1px black;
+    margin: 10px 5px 5px 10px;
+  }
+
+  @include phone {
+    width: 100%;
+  }
+}
