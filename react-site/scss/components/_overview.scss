@@ -1,0 +1,21 @@
+.overview-container {
+  padding: 10px 30px;
+  margin: 20px;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  border-radius: 15px;
+  box-shadow: $box-shadow-black;
+  border: solid 2px $yellow;
+
+  .overview-header {
+    font-family: fantasy;
+  }
+
+  .overview-mark {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
+    margin: auto 0;
+    font-size: 40px;
+  }
+}
