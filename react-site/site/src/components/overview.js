@@ -14,7 +14,7 @@ function Overview({ data, selected }) {
         })
         courseCompletion = courseCompletion != 0 ? (total / courseCompletion) : 0;
         setMark((courseCompletion * 100).toPrecision(3));
-    }, [selected])
+    }, [data, selected])
     return (
         <div className="overview-container">
             {
