@@ -25,7 +25,7 @@ function Assessments({ data, selected, updateJson }) {
     }, [data, selected])
 
     const removeAssessment = (assessment) => {
-        NotificationManager.error(selected, assessment[0] + " is deleted")
+        NotificationManager.error(assessment + " is deleted", selected)
         let json = data;
         let updatedAssessments = [];
         assessments.map(a => {
