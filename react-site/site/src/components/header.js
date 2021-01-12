@@ -9,6 +9,7 @@ function Header({ setCourseBoolHelper }) {
             </div>
             <button
                 class="header-add-course"
+                id = "header-add-course"
                 onClick={setCourseBoolHelper}
             >
                 +

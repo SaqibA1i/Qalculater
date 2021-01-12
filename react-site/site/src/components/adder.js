@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import '../marks-styler.css';
 
+import 'react-notifications/lib/notifications.css';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+
+
 function Adder({ data, selected, updateJson }) {
     const [visible, setVisible] = useState(false);
 
@@ -19,7 +23,9 @@ function Adder({ data, selected, updateJson }) {
         updatedAssessments.push([name, parseInt(percentage), parseInt(weightage)]);
 
         json[selected] = updatedAssessments;
+        setVisible(false);
         updateJson(json);
+        NotificationManager.info(name + " gained " + percentage + "%", selected)
     }
     return (
         <div className="adder-container">

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import '../marks-styler.css';
 
+import 'react-notifications/lib/notifications.css';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+
+
 function Assessments({ data, selected, updateJson }) {
     const [assessments, setAssessments] = useState([]);
     const [courseCompletion, setCompletion] = useState(0);
@@ -15,11 +19,13 @@ function Assessments({ data, selected, updateJson }) {
             console.log(assessment[2])
         })
         setCompletion(total);
+        setAssessments(newAssessments);
         console.log(total)
         console.log(data[selected])
     }, [data, selected])
 
     const removeAssessment = (assessment) => {
+        NotificationManager.error(selected, assessment[0] + " is deleted")
         let json = data;
         let updatedAssessments = [];
         assessments.map(a => {

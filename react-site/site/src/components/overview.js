@@ -13,7 +13,7 @@ function Overview({ data, selected }) {
             console.log(total)
         })
         courseCompletion = courseCompletion != 0 ? (total / courseCompletion) : 0;
-        setMark((courseCompletion * 100).toPrecision(2));
+        setMark((courseCompletion * 100).toPrecision(3));
     }, [selected])
     return (
         <div className="overview-container">
