@@ -8,6 +8,8 @@ import org.json.simple.parser.ParseException;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +24,7 @@ public class RequestHandler {
 
 
     @PostMapping("/update")
-    public String updateJson(@RequestParam(name = "dataJson") String dataJson) throws ParseException {
+    public ResponseEntity<String> updateJson(@RequestParam(name = "dataJson") String dataJson) throws ParseException {
         logger.info(dataJson);
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(dataJson);
@@ -58,7 +60,7 @@ public class RequestHandler {
                 );
         logger.info(response);
 
-        return "redirect:/";
+        return new ResponseEntity<>("Your marks are updated", HttpStatus.OK);
     }
 
 }

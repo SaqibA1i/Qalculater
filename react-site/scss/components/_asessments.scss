@@ -4,12 +4,12 @@
   border: solid 2px $yellow;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   overflow-y: scroll;
-  height: 400px;
+  height: 510px;
   box-shadow: $box-shadow-black;
 
   .assessment-completion {
+    margin-top: 10px;
     text-align: center;
   }
 
