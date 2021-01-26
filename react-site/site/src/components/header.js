@@ -4,9 +4,6 @@ import '../marks-styler.css';
 function Header({ setCourseBoolHelper }) {
     return (
         <div className="header-container">
-            <div class="header-brand">
-                Qalculater
-            </div>
             <button
                 class="header-add-course"
                 id = "header-add-course"

@@ -20,15 +20,43 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 
 function App() {
   const [data, setData] = useState({});
+  const [totalAvg, setTotalAvg] = useState(0);
   const [selectedCourse, setSelected] = useState("");
   const [courseAddBool, setCourseBool] = useState(false);
-
+  const gpaScale = [
+    {0:"0.00"},
+    {56: "1.30"},
+    {60: "1.70"},
+    {63: "2.00"},
+    {67: "2.30"},
+    {70: "2.70"},
+    {73: "3.00"},
+    {77: "3.30"},
+    {80: "3.70"},
+    {85: "3.90"},
+    {90: "4.00"},
+    {100: "4.00"},
+  ]
   useEffect(async () => {
     $.get("https://gitlab.com/api/v4/projects/23578539/repository/files/data%2Ejson/raw?ref=master", function (data) {
       setData(JSON.parse(data))
+
     });
   }, [])
 
+  function getGpa(percentage) {
+    if(percentage == 100){
+      return "4.00";
+    }
+    for (let i = 0; i < gpaScale.length - 1; i++) {
+        let firstKey = parseInt(Object.keys(gpaScale[i])); //56
+        let secondKey = parseInt(Object.keys(gpaScale[i + 1]));//60
+        if (percentage >= firstKey && percentage < secondKey) {
+            return gpaScale[i][firstKey];
+        }
+    }
+    return gpaScale[percentage];
+}
   function setSelHelper(course) {
     console.log(course);
     document.getElementById(course).classList.add("selected")
@@ -66,6 +94,7 @@ function App() {
     <div className="App">
       <Header
         setCourseBoolHelper={setCourseBoolHelper}
+        
       />
       <CourseAdder
         courseAddBool={courseAddBool}
@@ -75,10 +104,12 @@ function App() {
       <Content
         data={data}
         setSelHelper={setSelHelper}
+        totalAvg={totalAvg}
       />
       <Overview
         data={data}
         selected={selectedCourse}
+        getGpa={getGpa}
       />
       <Adder
         data={data}

@@ -17,5 +17,26 @@
     font-weight: 100;
     margin: auto 0;
     font-size: 40px;
+
+    .overview-gpa {
+      font-size: 20px;
+      font-style: italic;
+    }
+
+    .awesome {
+      color: $awesome;
+    }
+
+    .good {
+      color: $good;
+    }
+
+    .okay {
+      color: $okay;
+    }
+
+    .bad {
+      color: $bad;
+    }
   }
 }

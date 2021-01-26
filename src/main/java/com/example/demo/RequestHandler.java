@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class RequestHandler {
     Logger logger = LoggerFactory.getLogger(RequestHandler.class);
-
+    // initialize the variable
 
     @PostMapping("/update")
     public ResponseEntity<String> updateJson(@RequestParam(name = "dataJson") String dataJson) throws ParseException {

@@ -22,6 +22,8 @@ function Assessments({ data, selected, updateJson }) {
         setAssessments(newAssessments);
         console.log(total)
         console.log(data[selected])
+        // set width of completion bar
+        document.getElementById("assessment-completion-bar").style.width = total+"px";
     }, [data, selected])
 
     const removeAssessment = (assessment) => {
@@ -41,6 +43,9 @@ function Assessments({ data, selected, updateJson }) {
         <div className="assessment-container">
             <div class="assessment-completion">
                 Course Completion <b>{courseCompletion}</b>  %
+            </div>
+            <div id="assessment-completion-bar" class="assessment-completion-bar">
+
             </div>
             {assessments.map(assessment =>
                 <div class="assessment-single assessment-data">
