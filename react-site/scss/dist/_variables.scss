@@ -17,6 +17,8 @@ $phone-width: 413px;
 // styling
 $theme-bg-white: linear-gradient(to bottom right, #4f72a056, white);
 $theme-bg-black: linear-gradient(to bottom right, #4f72a056, $black);
+$box-inner-gradient:linear-gradient(150deg, #ffffff17, transparent);
+$yellow-inner-gradient: linear-gradient(95deg, #bf941fad, #ffa500);
 $box-shadow-white: 12px 12px 16px 0 rgba(0, 0, 0, 0.11), -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
 $box-shadow-black: 12px 12px 16px 0 rgba(0, 0, 0, 0.11), -8px -8px 12px 0 rgba(0, 0, 0, 0.3);
 $box-shadow-black-course: 6px 6px 8px 0 rgba(0, 0, 0, 0.16), -4px -4px 6px 0 rgba(100, 100, 100, 0.29);

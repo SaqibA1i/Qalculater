@@ -33,7 +33,8 @@
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  background: $yellow;
+  background-image: $yellow-inner-gradient;
+  box-shadow: $box-shadow-black-course;
   font-size: x-large;
   color: $black;
 }

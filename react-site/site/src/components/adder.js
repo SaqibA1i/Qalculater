@@ -31,7 +31,7 @@ function Adder({ data, selected, updateJson }) {
         <div className="adder-container">
             {selected != "" && (
                 <>
-                    <button className="adder-button" onClick={() => setVisible(!visible)}>+</button>
+                    <button className = "header-add-course" onClick={() => setVisible(!visible)}>+</button>
                     {visible ?
                         <div class="adder-inputs">
                             <input

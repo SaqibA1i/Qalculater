@@ -59,7 +59,7 @@ function Assessments({ data, selected, updateJson }) {
                         <p>{"Weightage: " + assessment[2]}</p>
                     </div>
                     <div>
-                        <button class="assessment-remove" onClick={() => removeAssessment(assessment[0])}>X</button>
+                        <button class="header-add-course" onClick={() => removeAssessment(assessment[0])}>x</button>
                     </div>
                 </div>
             )}
