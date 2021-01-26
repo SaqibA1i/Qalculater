@@ -1,12 +1,11 @@
 .assessment-container {
   margin: 20px;
   border-radius: 15px;
-  border: solid 2px $yellow;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
   height: 510px;
-  box-shadow: $box-shadow-black;
+  box-shadow: $box-shadow-black-course;
 
   .assessment-completion {
     margin-top: 10px;
@@ -23,8 +22,7 @@
   .assessment-data {
     padding: 20px 30px 20px 30px;
     border-radius: 10px;
-    border: solid 2px $yellow;
-    box-shadow: $box-shadow-black;
+    box-shadow: $box-shadow-black-course;
     height: 100px;
     margin: 10px 20px 10px 20px;
   }
