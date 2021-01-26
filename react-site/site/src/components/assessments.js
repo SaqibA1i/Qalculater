@@ -23,11 +23,13 @@ function Assessments({ data, selected, updateJson }) {
         console.log(total)
         console.log(data[selected])
         // set width of completion bar
-        document.getElementById("assessment-completion-bar").style.width = total+"px";
+        document.getElementById("assessment-completion-bar").style.width = total + "px";
     }, [data, selected])
 
     const removeAssessment = (assessment) => {
-        NotificationManager.error(assessment + " is deleted", selected)
+        let result = window.confirm("Sure you want to delete ?");
+        if (result) {
+            NotificationManager.error(assessment + " is deleted", selected)
         let json = data;
         let updatedAssessments = [];
         assessments.map(a => {
@@ -38,6 +40,8 @@ function Assessments({ data, selected, updateJson }) {
         )
         json[selected] = updatedAssessments;
         updateJson(json);
+        }
+        
     }
     return (
         <div className="assessment-container">
