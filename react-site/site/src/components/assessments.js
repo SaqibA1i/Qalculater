@@ -23,7 +23,7 @@ function Assessments({ data, selected, updateJson }) {
         console.log(total)
         console.log(data[selected])
         // set width of completion bar
-        document.getElementById("assessment-completion-bar").style.width = total + "px";
+        document.getElementById("assessment-completion-bar").style.width = total + "%";
     }, [data, selected])
 
     const removeAssessment = (assessment) => {
