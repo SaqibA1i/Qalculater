@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "publish": "git add . && git commit -m \"Test\"",
+    "qalc": "build.cmd",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
