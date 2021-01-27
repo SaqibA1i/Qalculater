@@ -3,9 +3,10 @@
   border-radius: 15px;
   display: flex;
   flex-direction: column;
+  background-color: #1313131c;
   overflow-y: scroll;
   height: 510px;
-  box-shadow: $box-shadow-black-course;
+  box-shadow: $box-inner-shadow;
 
   .assessment-completion {
     margin-top: 10px;
