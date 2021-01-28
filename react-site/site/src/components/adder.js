@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../marks-styler.css';
-
+import { PlusCircle, Upload } from 'react-bootstrap-icons';
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 
@@ -31,7 +31,11 @@ function Adder({ data, selected, updateJson }) {
         <div className="adder-container">
             {selected != "" && (
                 <>
-                    <button className = "header-add-course" onClick={() => setVisible(!visible)}>+</button>
+                    <button
+                        className="header-add-course"
+                        onClick={() => setVisible(!visible)}>
+                        <PlusCircle size={15} />
+                    </button>
                     {visible ?
                         <div class="adder-inputs">
                             <input
@@ -53,11 +57,11 @@ function Adder({ data, selected, updateJson }) {
                                     placeholder="Weight of Assessment" />
                             </div>
                             <button
-                                class="assessment-remove"
+                                class="header-add-course"
                                 onClick={add}
                             >
-                                submit
-                        </button>
+                                <Upload size={15} />
+                            </button>
 
                         </div> : ("")}
                 </>

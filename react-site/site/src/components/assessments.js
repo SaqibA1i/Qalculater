@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../marks-styler.css';
+import {PenFill, ArchiveFill} from 'react-bootstrap-icons';
 
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
@@ -30,18 +31,22 @@ function Assessments({ data, selected, updateJson }) {
         let result = window.confirm("Sure you want to delete ?");
         if (result) {
             NotificationManager.error(assessment + " is deleted", selected)
-        let json = data;
-        let updatedAssessments = [];
-        assessments.map(a => {
-            if (a[0] != assessment) {
-                updatedAssessments.push(a);
+            let json = data;
+            let updatedAssessments = [];
+            assessments.map(a => {
+                if (a[0] != assessment) {
+                    updatedAssessments.push(a);
+                }
             }
+            )
+            json[selected] = updatedAssessments;
+            updateJson(json);
         }
-        )
-        json[selected] = updatedAssessments;
-        updateJson(json);
-        }
-        
+
+    }
+
+    const editAssessment = (assessment) =>{
+
     }
     return (
         <div className="assessment-container">
@@ -55,11 +60,12 @@ function Assessments({ data, selected, updateJson }) {
                 <div class="assessment-single assessment-data">
                     <div>
                         <b>{assessment[0]}</b>
-                        <p>{"Mark: " + assessment[1] + " % "}</p>
-                        <p>{"Weightage: " + assessment[2]}</p>
+                        <p>Mark: {assessment[1]}%</p>
+                        <p>Weightage: {assessment[2]}</p>
                     </div>
                     <div>
-                        <button class="header-add-course" onClick={() => removeAssessment(assessment[0])}>x</button>
+                        <button class="header-add-course"><PenFill size={15} /></button>
+                        <button class="header-add-course" onClick={() => removeAssessment(assessment[0])}><ArchiveFill size={15}/></button>
                     </div>
                 </div>
             )}

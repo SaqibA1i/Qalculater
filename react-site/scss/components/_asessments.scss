@@ -24,8 +24,15 @@
     padding: 20px 30px 20px 30px;
     border-radius: 10px;
     box-shadow: $box-shadow-black-course;
-    height: 100px;
     margin: 10px 20px 10px 20px;
+  }
+
+  .assessment-input {
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 5px 10px 5px 10px;
+    margin: 5px;
+    color: $white;
   }
 
   .assessment-single {

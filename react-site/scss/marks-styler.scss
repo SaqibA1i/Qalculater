@@ -14,3 +14,17 @@
 body {
   box-shadow: $box-inner-shadow;
 }
+
+input {
+  border: 0;
+  width: auto;
+  color: $white;
+  font-size: 15px;
+  font-style: italic;
+  background-color: transparent;
+  font-weight: 500;
+  border-radius: 20px;
+  padding: 5px 10px;
+  margin: 0 5px 5px 5px;
+  box-shadow: inset 2px 2px 3px 0 rgba(0, 0, 0, 0.2), inset -2px -2px 3px 0 rgba(255, 255, 255, 0.068);
+}

@@ -1,6 +1,7 @@
 import { data } from 'jquery';
 import React, { useEffect, useState } from 'react';
 import '../marks-styler.css';
+import { PlusCircle, Upload } from 'react-bootstrap-icons';
 
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
@@ -18,17 +19,17 @@ function CourseAdder({ courseAddBool, updateJson, data }) {
             <NotificationContainer />
             {
                 courseAddBool ?
-                    <div className="adder-container" style={{ "margin-top": "40px" }} >
+                    <div className="adder-container" style={{ "margin": "40px auto -60px auto" }} >
                         <div class="adder-inputs">
                             <input
                                 type="text"
                                 id="courseName"
                                 placeholder="Add Course Name" />
                             <button
-                                class="assessment-remove"
+                                class="header-add-course"
                                 onClick={update}
                             >
-                                submit
+                                <Upload size={15} />
                         </button>
                         </div>
                     </div > : ("")
