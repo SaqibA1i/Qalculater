@@ -59,7 +59,11 @@ function App() {
 }
   function setSelHelper(course) {
     console.log(course);
-    document.getElementById(course).classList.add("selected")
+    // loop through all courses to remove class
+    for (let course in data) {
+      document.getElementById(course).classList = "content-course";
+  }
+    document.getElementById(course).classList = "content-dipped";
     setSelected(course);
   }
 
