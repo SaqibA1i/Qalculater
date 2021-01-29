@@ -16,11 +16,12 @@ function Adder({ data, selected, updateJson }) {
         percentage = percentage != null ? percentage : 0;
 
         let weightage = document.getElementById("assessmentWeightage").value;
+        console.log(weightage);
         weightage = weightage != null ? weightage : 0;
 
         let json = data;
         let updatedAssessments = data[selected];
-        updatedAssessments.push([name, parseInt(percentage), parseInt(weightage)]);
+        updatedAssessments.push([name, percentage, weightage]);
 
         json[selected] = updatedAssessments;
         setVisible(false);
@@ -48,13 +49,13 @@ function Adder({ data, selected, updateJson }) {
                                     id="assessmentPercentage"
                                     max="100"
                                     min="0"
-                                    placeholder="Your percentage acheived" />
+                                    placeholder="Percent" />
                                 <input
                                     type="number"
                                     id="assessmentWeightage"
                                     max="100"
                                     min="0"
-                                    placeholder="Weight of Assessment" />
+                                    placeholder="Weight" />
                             </div>
                             <button
                                 class="header-add-course"
