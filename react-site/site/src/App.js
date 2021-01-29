@@ -98,7 +98,6 @@ function App() {
     <div className="App">
       <Header
         setCourseBoolHelper={setCourseBoolHelper}
-        
       />
       <CourseAdder
         courseAddBool={courseAddBool}
