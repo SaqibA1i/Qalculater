@@ -60,7 +60,7 @@ function Adder({ data, selected, updateJson }) {
                                 class="header-add-course"
                                 onClick={add}
                             >
-                                <Upload size={15} color={"white"} />
+                                <Upload size={15}/>
                             </button>
 
                         </div> : ("")}
