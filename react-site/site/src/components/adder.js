@@ -21,7 +21,7 @@ function Adder({ data, selected, updateJson }) {
 
         let json = data;
         let updatedAssessments = data[selected];
-        updatedAssessments.push([name, percentage, weightage]);
+        updatedAssessments.push([name, parseFloat(percentage), parseFloat(weightage)]);
 
         json[selected] = updatedAssessments;
         setVisible(false);
