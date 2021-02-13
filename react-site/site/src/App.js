@@ -38,7 +38,7 @@ function App() {
     {100: "4.33"},
   ]
   useEffect(async () => {
-    $.get("https://gitlab.com/api/v4/projects/24379836/repository/files/yanish%2Ejson/raw?ref=master", function (data) {
+    $.get("https://gitlab.com/api/v4/projects/24379836/repository/files/data2%2Ejson/raw?ref=master", function (data) {
       setData(JSON.parse(data))
 
     });
@@ -86,7 +86,7 @@ function App() {
     XHR.onreadystatechange = function () {
       if (XHR.readyState == XMLHttpRequest.DONE) {
         NotificationManager.success(XHR.responseText);
-        $.get("https://gitlab.com/api/v4/projects/24379836/repository/files/yanish%2Ejson/raw?ref=master", function (data) {
+        $.get("https://gitlab.com/api/v4/projects/24379836/repository/files/data2%2Ejson/raw?ref=master", function (data) {
           setData(JSON.parse(data))
           NProgress.done();
           document.getElementById("header-add-course").classList.remove("hide");
