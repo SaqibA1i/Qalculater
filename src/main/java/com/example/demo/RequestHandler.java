@@ -37,7 +37,7 @@ public class RequestHandler {
         JSONArray actions = new JSONArray();
         JSONObject singleAction = new JSONObject();
         singleAction.put("action", "update");
-        singleAction.put("file_path", "data.json");
+        singleAction.put("file_path", "yanish.json");
 
         singleAction.put("content", json.toString());
 

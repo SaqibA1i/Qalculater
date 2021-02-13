@@ -34,11 +34,11 @@ function App() {
     {77: "3.30"},
     {80: "3.70"},
     {85: "3.90"},
-    {90: "4.00"},
-    {100: "4.00"},
+    {90: "4.33"},
+    {100: "4.33"},
   ]
   useEffect(async () => {
-    $.get("https://gitlab.com/api/v4/projects/23578539/repository/files/data%2Ejson/raw?ref=master", function (data) {
+    $.get("https://gitlab.com/api/v4/projects/23578539/repository/files/yanish%2Ejson/raw?ref=master", function (data) {
       setData(JSON.parse(data))
 
     });
