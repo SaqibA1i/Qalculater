@@ -37,7 +37,7 @@ public class RequestHandler {
         JSONArray actions = new JSONArray();
         JSONObject singleAction = new JSONObject();
         singleAction.put("action", "update");
-        singleAction.put("file_path", "data2.json");
+        singleAction.put("file_path", "yanish.json");
 
         singleAction.put("content", json.toString());
 
@@ -54,7 +54,7 @@ public class RequestHandler {
         RestTemplate restTemplate = new RestTemplate();
         String response =
                 restTemplate.postForObject(
-                        "https://gitlab.com/api/v4/projects/24379836/repository/commits",
+                        "https://gitlab.com/api/v4/projects/23578539/repository/commits",
                         entity,
                         String.class
                 );
