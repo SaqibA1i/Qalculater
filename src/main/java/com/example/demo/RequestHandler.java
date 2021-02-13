@@ -54,7 +54,7 @@ public class RequestHandler {
         RestTemplate restTemplate = new RestTemplate();
         String response =
                 restTemplate.postForObject(
-                        "https://gitlab.com/api/v4/projects/23578539/repository/commits",
+                        "https://gitlab.com/api/v4/projects/24379836/repository/commits",
                         entity,
                         String.class
                 );
