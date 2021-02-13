@@ -86,7 +86,7 @@ function App() {
     XHR.onreadystatechange = function () {
       if (XHR.readyState == XMLHttpRequest.DONE) {
         NotificationManager.success(XHR.responseText);
-        $.get("https://gitlab.com/api/v4/projects/23578539/repository/files/data%2Ejson/raw?ref=master", function (data) {
+        $.get("https://gitlab.com/api/v4/projects/23578539/repository/files/yanish%2Ejson/raw?ref=master", function (data) {
           setData(JSON.parse(data))
           NProgress.done();
           document.getElementById("header-add-course").classList.remove("hide");
