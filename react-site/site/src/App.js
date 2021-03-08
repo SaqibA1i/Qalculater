@@ -60,7 +60,8 @@ function App() {
           totalA += total;
         }
       }
-      setTotalAvg((totalA / 6).toPrecision(4));
+      console.log(totalA);
+      setTotalAvg((totalA / 5.5).toPrecision(4));
     });
   }, [])
 
