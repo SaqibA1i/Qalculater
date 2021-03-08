@@ -1,0 +1,52 @@
+.content-container {
+  background-color: $black;
+  display: flex;
+  margin-top: 60px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  .content-dipped {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    margin: 10px 5px 5px 10px;
+    box-shadow: $box-small-inner-shadow;
+  }
+
+  .content-course {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    margin: 10px 5px 5px 10px;
+    box-shadow: $box-shadow-black-course;
+
+    .content-dipped {
+      box-shadow: $box-small-inner-shadow;
+    }
+  }
+
+  .content-course:hover {
+    box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+    border: solid 2px grey;
+  }
+
+  @include phone {
+    width: 100%;
+  }
+}
+
+.hide {
+  display: none;
+}

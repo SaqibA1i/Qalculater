@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import '../marks-styler.css';
 
-function Overview({ data, selected, getGpa }) {
+
+function Overview({ data, selected, getGpa, setColor }) {
     const [currentMark, setMark] = useState(0);
     const [gpa, setGpa] = useState("0.00");
 

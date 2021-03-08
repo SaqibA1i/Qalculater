@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import $ from "jquery"
-import './marks-styler.css';
+import './scss/marks-styler.scss';
 
 // Nprogress
 import NProgress from 'nprogress';
@@ -23,46 +23,66 @@ function App() {
   const [totalAvg, setTotalAvg] = useState(0);
   const [selectedCourse, setSelected] = useState("");
   const [courseAddBool, setCourseBool] = useState(false);
+  const [color, setColor] = useState("");
   const gpaScale = [
-    {0:"0.00"},
-    {56: "1.30"},
-    {60: "1.70"},
-    {63: "2.00"},
-    {67: "2.30"},
-    {70: "2.70"},
-    {73: "3.00"},
-    {77: "3.30"},
-    {80: "3.70"},
-    {85: "3.90"},
-    {90: "4.00"},
-    {100: "4.00"},
+    { 0: "0.00" },
+    { 56: "1.30" },
+    { 60: "1.70" },
+    { 63: "2.00" },
+    { 67: "2.30" },
+    { 70: "2.70" },
+    { 73: "3.00" },
+    { 77: "3.30" },
+    { 80: "3.70" },
+    { 85: "3.90" },
+    { 90: "4.00" },
+    { 100: "4.00" },
   ]
   useEffect(async () => {
     $.get("https://gitlab.com/api/v4/projects/23578539/repository/files/data%2Ejson/raw?ref=master", function (data) {
       setData(JSON.parse(data))
-
+      data = JSON.parse(data);
+      let totalA = 0;
+      for (let selected in data) {
+        let total = 0;
+        let courseCompletion = 0;
+        let assessments = data[selected] != null ? data[selected] : [];
+        assessments.map(assessment => {
+          courseCompletion += assessment[2]
+          total += ((assessment[1] / 100) * assessment[2]);
+        })
+        total/=courseCompletion;
+        total*=100;
+        if (selected == "ECE 109") {
+          totalA += total * 0.5;
+        }
+        else {
+          totalA += total;
+        }
+      }
+      setTotalAvg((totalA / 6).toPrecision(4));
     });
   }, [])
 
   function getGpa(percentage) {
-    if(percentage == 100){
+    if (percentage == 100) {
       return "4.00";
     }
     for (let i = 0; i < gpaScale.length - 1; i++) {
-        let firstKey = parseInt(Object.keys(gpaScale[i])); //56
-        let secondKey = parseInt(Object.keys(gpaScale[i + 1]));//60
-        if (percentage >= firstKey && percentage < secondKey) {
-            return gpaScale[i][firstKey];
-        }
+      let firstKey = parseInt(Object.keys(gpaScale[i])); //56
+      let secondKey = parseInt(Object.keys(gpaScale[i + 1]));//60
+      if (percentage >= firstKey && percentage < secondKey) {
+        return gpaScale[i][firstKey];
+      }
     }
     return gpaScale[percentage];
-}
+  }
   function setSelHelper(course) {
     console.log(course);
     // loop through all courses to remove class
     for (let course in data) {
       document.getElementById(course).classList = "content-course";
-  }
+    }
     document.getElementById(course).classList = "content-dipped";
     setSelected(course);
   }
@@ -98,6 +118,7 @@ function App() {
     <div className="App">
       <Header
         setCourseBoolHelper={setCourseBoolHelper}
+        totalAvg={totalAvg}
       />
       <CourseAdder
         courseAddBool={courseAddBool}
@@ -108,11 +129,13 @@ function App() {
         data={data}
         setSelHelper={setSelHelper}
         totalAvg={totalAvg}
+        color={color}
       />
       <Overview
         data={data}
         selected={selectedCourse}
         getGpa={getGpa}
+        setColor={setColor}
       />
       <Adder
         data={data}

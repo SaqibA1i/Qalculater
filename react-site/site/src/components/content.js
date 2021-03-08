@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import '../marks-styler.css';
 
-function Content({ data, setSelHelper, totalAvg }) {
+function Content({ data, setSelHelper, totalAvg,color }) {
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
@@ -11,14 +10,14 @@ function Content({ data, setSelHelper, totalAvg }) {
         }
         setCourses(newCourses);
         console.log(newCourses)
-    }, [data])
+    }, [data,color])
 
     
     return (
         <div className="content-container">
             {
                 courses.map(course =>
-                    <div className="content-course" id={course} onClick={() => setSelHelper(course)}>
+                    <div className={"content-course "+color} id={course} onClick={() => setSelHelper(course)}>
                         {course}
                     </div>
 

@@ -1,0 +1,36 @@
+// Colors
+$white: #f8f1f194;
+$darkBlack: rgb(31, 30, 30);
+$black: #333;
+$yellow: #ffa62b;
+$awesome:rgba(21, 112, 21, 0.774);
+$good:rgb(94, 128, 0);
+$okay:yellow;
+$bare:rgb(255, 123, 0);
+$bad:#bd3c2f;
+
+// Dark theme
+$dark-text: black;
+$dark-back: white;
+$dark-accent: blue;
+
+// White theme
+$light-text: black;
+$light-back: white;
+$light-accent: blue;
+
+// layout
+$desktop-width: 1200px;
+$tablet-width: 768px;
+$phone-width: 413px;
+
+// styling
+$theme-bg-white: linear-gradient(to bottom right, #4f72a056, white);
+$theme-bg-black: linear-gradient(to bottom right, #4f72a056, $black);
+$box-inner-gradient:linear-gradient(150deg, #ffffff17, transparent);
+$yellow-inner-gradient: linear-gradient(95deg, #bf941fad, #ffa500);
+$box-shadow-white: 12px 12px 16px 0 rgba(0, 0, 0, 0.11), -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+$box-shadow-black: 12px 12px 16px 0 rgba(0, 0, 0, 0.11), -8px -8px 12px 0 rgba(0, 0, 0, 0.3);
+$box-shadow-black-course: 6px 6px 8px 0 rgba(0, 0, 0, 0.16), -4px -4px 6px 0 rgba(100, 100, 100, 0.29);
+$box-inner-shadow: inset 2px 2px 3px 0 rgba(0, 0, 0, 0.2), inset -2px -2px 3px 0 hsla(0, 0%, 100%, 0.068);
+$box-small-inner-shadow:inset 2px 2px 3px 0 rgba(0, 0, 0, 0.2), inset -2px -2px 3px 0 rgba(255, 255, 255, 0.068);

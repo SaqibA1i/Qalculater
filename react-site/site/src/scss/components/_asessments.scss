@@ -1,0 +1,54 @@
+.assessment-container {
+  margin: 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  background-color: #1313131c;
+  overflow-y: scroll;
+  height: 510px;
+  box-shadow: $box-inner-shadow;
+
+  .assessment-completion {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .assessment-completion-bar {
+    height: 3px;
+    background-color: rgba(253, 253, 253, 0.671);
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .assessment-data {
+    padding: 20px 30px 20px 30px;
+    border-radius: 10px;
+    box-shadow: $box-shadow-black-course;
+    margin: 10px 20px 10px 20px;
+  }
+
+  .assessment-input {
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 5px 10px 5px 10px;
+    margin: 5px;
+    color: $white;
+  }
+
+  .assessment-single {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .assessment-remove {
+    border: 0;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background: $yellow;
+    font-size: x-large;
+    color: $black;
+  }
+}

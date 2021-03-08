@@ -1,6 +1,6 @@
 import { data } from 'jquery';
 import React, { useEffect, useState } from 'react';
-import '../marks-styler.css';
+
 import { PlusCircle, Upload } from 'react-bootstrap-icons';
 
 import 'react-notifications/lib/notifications.css';

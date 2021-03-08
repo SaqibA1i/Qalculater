@@ -1,16 +1,15 @@
 import React from 'react';
-import '../marks-styler.css';
-
-function Header({ setCourseBoolHelper }) {
+function Header({ setCourseBoolHelper, totalAvg }) {
     return (
         <div className="header-container">
             <button
                 class="header-add-course"
-                id = "header-add-course"
+                id="header-add-course"
                 onClick={setCourseBoolHelper}
             >
-                +
-                </button>
+
+                {totalAvg}
+            </button>
 
         </div>
     )
