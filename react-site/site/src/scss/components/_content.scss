@@ -21,7 +21,8 @@
   }
 
   .content-course {
-    width: 100px;
+    width: auto;
+    padding: 5px 10px;
     height: 30px;
     border-radius: 5px;
     text-align: center;
@@ -31,6 +32,13 @@
     color: $white;
     margin: 10px 5px 5px 10px;
     box-shadow: $box-shadow-black-course;
+
+    .course-avg {
+      color: $yellow;
+      font-size: 15px;
+      font-style: italic;
+      margin: 0 10px;
+    }
 
     .content-dipped {
       box-shadow: $box-small-inner-shadow;

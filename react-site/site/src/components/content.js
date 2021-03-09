@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function Content({ data, setSelHelper, totalAvg,color }) {
+function Content({ data, setSelHelper, totalAvg,color,asTotal }) {
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
@@ -17,8 +17,9 @@ function Content({ data, setSelHelper, totalAvg,color }) {
         <div className="content-container">
             {
                 courses.map(course =>
-                    <div className={"content-course "+color} id={course} onClick={() => setSelHelper(course)}>
+                    <div className={"content-course "+asTotal[course][1]} id={course} onClick={() => setSelHelper(course)}>
                         {course}
+                        <span class="course-avg">{asTotal[course][0]} %</span>
                     </div>
 
                 )

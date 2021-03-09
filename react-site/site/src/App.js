@@ -24,6 +24,7 @@ function App() {
   const [selectedCourse, setSelected] = useState("");
   const [courseAddBool, setCourseBool] = useState(false);
   const [color, setColor] = useState("");
+  const [assessTotal, setTotal] = useState({});
   const gpaScale = [
     { 0: "0.00" },
     { 56: "1.30" },
@@ -42,6 +43,7 @@ function App() {
     $.get("https://gitlab.com/api/v4/projects/23578539/repository/files/data%2Ejson/raw?ref=master", function (data) {
       setData(JSON.parse(data))
       data = JSON.parse(data);
+      let asTotal = {};
       let totalA = 0;
       for (let selected in data) {
         let total = 0;
@@ -51,8 +53,21 @@ function App() {
           courseCompletion += assessment[2]
           total += ((assessment[1] / 100) * assessment[2]);
         })
-        total/=courseCompletion;
-        total*=100;
+        total /= courseCompletion;
+        total *= 100;
+        // set color
+        let className = ""
+        let newGpa = getGpa(total);
+        if (newGpa >= 3.90) {
+          className = "awesome";
+        } else if (newGpa >= 3.70) {
+          className = "good";
+        } else if (newGpa >= 3.3) {
+          className = "okay";
+        } else {
+          className = "bad";
+        }
+        asTotal[selected] = [total.toPrecision(4),className];
         if (selected == "ECE 109") {
           totalA += total * 0.5;
         }
@@ -60,7 +75,8 @@ function App() {
           totalA += total;
         }
       }
-      console.log(totalA);
+      setTotal(asTotal);
+      console.log(JSON.stringify(asTotal));
       setTotalAvg((totalA / 5.5).toPrecision(4));
     });
   }, [])
@@ -81,10 +97,10 @@ function App() {
   function setSelHelper(course) {
     console.log(course);
     // loop through all courses to remove class
-    for (let course in data) {
-      document.getElementById(course).classList = "content-course";
+    for (let crse in data) {
+      document.getElementById(crse).classList.remove("content-dipped");
     }
-    document.getElementById(course).classList = "content-dipped";
+    document.getElementById(course).classList.add("content-dipped");
     setSelected(course);
   }
 
@@ -131,6 +147,7 @@ function App() {
         setSelHelper={setSelHelper}
         totalAvg={totalAvg}
         color={color}
+        asTotal={assessTotal}
       />
       <Overview
         data={data}
