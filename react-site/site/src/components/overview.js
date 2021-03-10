@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 function Overview({ data, selected, getGpa, setColor }) {
     const [currentMark, setMark] = useState(0);
     const [gpa, setGpa] = useState("0.00");
-// TODO use the assestotal for current mark in course
+// TODO use the assestotal for current mark in
     useEffect(() => {
         let total = 0;
         let courseCompletion = 0;

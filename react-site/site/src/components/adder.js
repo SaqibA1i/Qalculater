@@ -33,6 +33,7 @@ function Adder({ data, selected, updateJson }) {
                 <>
                     <button
                         className="header-add-course"
+                        style={{"margin":"0","margin-top":"10px"}}
                         onClick={() => setVisible(!visible)}>
                         +
                     </button>

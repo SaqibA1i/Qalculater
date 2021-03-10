@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import {PenFill, ArchiveFill} from 'react-bootstrap-icons';
+import { PenFill, ArchiveFill } from 'react-bootstrap-icons';
 
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
@@ -45,7 +45,7 @@ function Assessments({ data, selected, updateJson }) {
 
     }
 
-    const editAssessment = (assessment) =>{
+    const editAssessment = (assessment) => {
 
     }
     return (
@@ -54,19 +54,17 @@ function Assessments({ data, selected, updateJson }) {
                 Course Completion <b>{courseCompletion}</b>  %
             </div>
             <div id="assessment-completion-bar" class="assessment-completion-bar">
-
             </div>
             {assessments.map(assessment =>
                 <div class="assessment-single assessment-data">
-                    <div>
-                        <b>{assessment[0]}</b>
-                        <p>Mark: {assessment[1]}%</p>
-                        <p>Weightage: {assessment[2]}</p>
+                    <div style={{"width":"100%"}}>
+                        <b class="assessment-header">
+                            {assessment[0]} 
+                            <i><span class="mark">{assessment[1]}%</span>  worth  <span class="worth">{assessment[2]}</span></i>
+                            <button class="header-add-course" onClick={() => removeAssessment(assessment[0])}><ArchiveFill size={15} /></button>
+                        </b>
                     </div>
-                    <div>
-                        <button class="header-add-course"><PenFill size={15} /></button>
-                        <button class="header-add-course" onClick={() => removeAssessment(assessment[0])}><ArchiveFill size={15}/></button>
-                    </div>
+                    <div></div>
                 </div>
             )}
         </div>

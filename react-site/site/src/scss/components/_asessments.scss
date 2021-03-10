@@ -3,9 +3,9 @@
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  background-color: #1313131c;
+  background-color: #0088ff04;
   overflow-y: scroll;
-  height: 510px;
+  height: 410px;
   box-shadow: $box-inner-shadow;
 
   .assessment-completion {
@@ -15,13 +15,13 @@
 
   .assessment-completion-bar {
     height: 3px;
-    background-color: rgba(253, 253, 253, 0.671);
+    background-color: $second-accent;
     margin-top: 10px;
     width: 100%;
   }
 
   .assessment-data {
-    padding: 20px 30px 20px 30px;
+    padding: 5px 20px;
     border-radius: 10px;
     box-shadow: $box-shadow-black-course;
     margin: 10px 20px 10px 20px;
@@ -32,14 +32,28 @@
     border-radius: 10px;
     padding: 5px 10px 5px 10px;
     margin: 5px;
-    color: $white;
+    color: $main-text;
+  }
+
+  .assessment-header{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    .mark{
+      color: $second-accent;
+      font-weight: 300;
+    }
+    .worth{
+      color: rgba(0, 40, 198, 0.579);
+      font-weight: 500;
+    }
   }
 
   .assessment-single {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
   }
 
   .assessment-remove {
@@ -47,8 +61,8 @@
     border-radius: 50%;
     height: 40px;
     width: 40px;
-    background: $yellow;
+    background: $second-accent;
     font-size: x-large;
-    color: $black;
+    color: $back-ground;
   }
 }

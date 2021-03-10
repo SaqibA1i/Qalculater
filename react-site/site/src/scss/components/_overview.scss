@@ -9,7 +9,7 @@
 
   .overview-header {
     font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-    background-image: $yellow-inner-gradient;
+    background-image: $second-accent-inner-gradient;
     background-size: 100%;
     background-repeat: repeat;
     -webkit-background-clip: text;
@@ -21,7 +21,7 @@
     font-weight: 100;
     margin: auto 0;
     font-size: 40px;
-    background-image: linear-gradient(95deg, #ffffffad, #5e5e5e);
+    background-image: $second-accent-inner-gradient;
     background-size: 100%;
     background-repeat: repeat;
     -webkit-background-clip: text;
@@ -52,5 +52,21 @@
 
 .bad {
   border: solid 1px $bad;
+}
+
+.awesomeC {
+  color: $awesome;
+}
+
+.goodC {
+  color: $good;
+}
+
+.okayC {
+  color: $okay;
+}
+
+.badC {
+  color: $bad;
 }
 

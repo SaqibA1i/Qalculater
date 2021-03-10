@@ -1,5 +1,5 @@
 .header-container {
-  background: $black;
+  background: $back-ground;
   width: 100%;
   position: fixed;
   top: 0;
@@ -9,13 +9,13 @@
   align-items: center;
   height: 60px;
   left: 0;
-  border-bottom: solid 1px $yellow;
+  border-bottom: solid 1px $second-accent;
 }
 
 .header-brand {
   font-size: 35px;
   margin: 10px;
-  color: $white;
+  color: $main-text;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -23,7 +23,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: $yellow;
+  background-color: $second-accent;
   margin: 10px;
 }
 
@@ -33,9 +33,9 @@
   border-radius: 5px;
   width: auto;
   height: 30px;
-  background-image: $yellow-inner-gradient;
+  background-image: $second-accent-inner-gradient;
   box-shadow: $box-shadow-black-course;
   font-size: 17px;
   font-weight: 900;
-  color: $black;
+  color: $white;
 }
