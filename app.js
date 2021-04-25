@@ -6,6 +6,8 @@ var crypto = require('crypto');
 var routes = require('./routes');
 const connection = require('./config/database');
 
+var cors = require('cors');
+
 // Package documentation - https://www.npmjs.com/package/connect-mongo
 const MongoStore = require('connect-mongo')(session);
 
@@ -22,22 +24,36 @@ require('dotenv').config();
 // Create the Express application
 var app = express();
 
+app.use(cors());
+
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 
 /**
  * -------------- SESSION SETUP ----------------
  */
 
-// TODO
+const sessionStorage = new MongoStore({
+    mongooseConnection: connection, collection: 'sessions'
+});
+
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStorage,
+    cookie:{
+        maxAge: 1000 * 60 * 60 * 24 // set an expires heaer of one day
+    }
+}))
 
 /**
  * -------------- PASSPORT AUTHENTICATION ----------------
  */
-
-app.use(passport.initialize());
-app.use(passport.session());
+require('./config/passport');   // takes the passport.use line
+app.use(passport.initialize()); // initialize the passport middleware
+app.use(passport.session());    // serrilize and deserialize user
 
 
 /**
@@ -53,4 +69,4 @@ app.use(routes);
  */
 
 // Server listens on http://localhost:3000
-app.listen(3000);
+app.listen(5000,()=>{console.log("server is listening at 5000")});

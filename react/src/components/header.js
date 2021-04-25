@@ -7,7 +7,6 @@ function Header({ setCourseBoolHelper, totalAvg }) {
                 id="header-add-course"
                 onClick={setCourseBoolHelper}
             >
-
                 {totalAvg}
             </button>
 

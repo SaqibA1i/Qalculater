@@ -6,19 +6,19 @@
 @import "./components/adder";
 @import "./components/asessments";
 @import "./components/overview";
+@import "./components/login";
 
 .notification-container {
   margin-top: 60px;
 }
 
 body {
-  box-shadow: $box-inner-shadow;
+  background-image: $back-ground;
 }
 
 input {
   border: 0;
-  width: auto;
-  color: $white;
+  width: fit-content;
   font-size: 15px;
   font-style: italic;
   background-color: transparent;
@@ -26,5 +26,9 @@ input {
   border-radius: 20px;
   padding: 5px 10px;
   margin: 0 5px 5px 5px;
-  box-shadow: inset 2px 2px 3px 0 rgba(0, 0, 0, 0.2), inset -2px -2px 3px 0 rgba(255, 255, 255, 0.068);
+  box-shadow: inset 2px 2px 3px 0 rgba(0, 36, 67, 0.2), inset -2px -2px 3px 0 rgba(0, 166, 255, 0.068);
+  
+}
+::placeholder{
+  color: $white;
 }

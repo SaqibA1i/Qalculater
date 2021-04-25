@@ -10,6 +10,7 @@ function CourseAdder({ courseAddBool, updateJson, data }) {
 
     const update = () => {
         let json = data;
+        console.log(data);
         json[document.getElementById("courseName").value] = [];
         updateJson(json)
         NotificationManager.info(document.getElementById("courseName").value + " course is added ")

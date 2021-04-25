@@ -64,7 +64,6 @@ function Assessments({ data, selected, updateJson }) {
                             <button class="header-add-course" onClick={() => removeAssessment(assessment[0])}><ArchiveFill size={15} /></button>
                         </b>
                     </div>
-                    <div></div>
                 </div>
             )}
         </div>
