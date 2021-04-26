@@ -27,6 +27,9 @@ function Login() {
     }
     return (
         <div className="login-form">
+            <p>
+                Qalculater &trade;
+            </p>
             <h1>
                 Welcome
                 <br />

@@ -1,20 +1,38 @@
 .login-form {
-    width: 100%;
-    height: 100vh;
+    width: auto;
+    max-width: 500px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    
+    background-color: rgb(234, 245, 255);
+    padding: 30px;
+    margin: auto 0;
+    border-radius: 20px;
+    box-shadow: $box-shadow-black;
+    @include phone {
+        padding: 20px;
+        height: 85vh;
+    }
+    p {
+        margin-top:0;
+        color: $second-dark-accent;
+        font-weight: 600;
+    }
     h1 {
-        color: $main-text;
-            font-size: 50px;
-            padding-top: 100px;
-            text-align: left;
+        color: #333;
+        font-size: 50px;
+        padding-top: 100px;
+        text-align: left;
+
+        @include phone {
+            padding-top: 0px;
+            font-size: 30px;
+        }
     }
     input {
         margin-bottom: 30px;
-            width: 90%;
+        width: 90%;
         border: none;
         border-bottom: 1px solid $main-text;
         box-shadow: none;
@@ -28,9 +46,9 @@
     }
     .login-message-failure {
         border: 2px solid $bad;
-        width: 400px;
+        width: 90%;
         margin: 0 auto;
-        padding: 10px;
+        padding: 5px;
         border-radius: 10px;
         background-color: $bare;
         color: $main-text;
@@ -43,9 +61,9 @@
         border: none;
         font-weight: 700;
         padding: 20px 0;
-            font-size: 20px;
-            width: 100%;
-            border-radius: 10px;
+        font-size: 20px;
+        width: 100%;
+        border-radius: 10px;
     }
     .login-register {
         color: $dull-black;
@@ -54,8 +72,8 @@
         font-weight: 700;
         cursor: pointer;
         padding: 20px 0;
-            font-size: 20px;
-            width: 100%;
-            border-radius: 10px;
+        font-size: 20px;
+        width: 100%;
+        border-radius: 10px;
     }
 }

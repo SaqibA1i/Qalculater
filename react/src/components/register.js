@@ -10,7 +10,7 @@ function Register() {
             },
             body: JSON.stringify(
                 {
-                    "uname": document.getElementById("reg-name").value,
+                    "uname": document.getElementById("reg-name").value.toLowerCase(),
                     "pw": document.getElementById("reg-pass").value
                 })
         })
@@ -27,7 +27,10 @@ function Register() {
     }
     return (
         <div className="login-form">
-            <h1>Create an <br/> Account</h1>
+            <p>
+                Qalculater &trade;
+            </p>
+            <h1>Create an <br /> Account</h1>
             <div style={(loginMsg === "") ? ({ "display": "none" }) : ({ "display": "block" })} class="login-message-failure">
                 {loginMsg}
             </div>

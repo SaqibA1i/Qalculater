@@ -4,6 +4,7 @@ import 'react-notifications/lib/notifications.css';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import {
     JournalMinus,
+    ArchiveFill
 } from 'react-bootstrap-icons';
 
 function Overview({ data, selected, getGpa, updateJson }) {
@@ -64,7 +65,7 @@ function Overview({ data, selected, getGpa, updateJson }) {
                             <button
                                 className="header-settings"
                                 onClick={deleteCourse}>
-                                <JournalMinus size={25} color={"#1f52bfc8"} />
+                                <ArchiveFill size={25} color={"#1f52bfc8"} />
                             </button>
                             {selected}
                         </h1>

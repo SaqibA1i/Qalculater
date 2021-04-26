@@ -132,8 +132,7 @@ function App() {
     document.getElementById(course).classList.add("content-dipped");
     setSelected(course);
   }
-
-
+  
   function updateJson(json) {
     NProgress.start();
     document.getElementById("header-add-course").classList.add("hide");
