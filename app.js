@@ -44,7 +44,7 @@ app.use(session({
     saveUninitialized: true,
     store: sessionStorage,
     cookie:{
-        maxAge: 1000 * 60 * 60 * 24 // set an expires heaer of one day
+        maxAge: 1000 * 60 * 60 * 24 * 30 // set an expires header of 1 month
     }
 }))
 

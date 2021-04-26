@@ -11,7 +11,6 @@ function Content({ data, setSelHelper, totalAvg,color,asTotal }) {
             newCourses.push(course);
         }
         setCourses(newCourses);
-        console.log(newCourses)
     }, [data,color])
 
     

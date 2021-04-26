@@ -7,7 +7,13 @@
   border-radius: 15px;
   box-shadow: $box-shadow-black-course;
 
+  @include phone{
+    padding: 0 25px 0 0
+  }
   .overview-header {
+    @include phone{
+      font-size: 30px;
+    }
     font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
     background-image: $second-accent-inner-gradient;
     background-size: 100%;
@@ -26,7 +32,9 @@
     background-repeat: repeat;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-
+    @include phone{
+      font-size: 35px;
+    }
     .overview-gpa {
       color: $second-accent;
       width: auto;
@@ -36,6 +44,10 @@
       border-radius: 20px;
       padding: 5px 10px;
       box-shadow: inset 2px 2px 3px 0 rgba(0, 0, 0, 0.2), inset -2px -2px 3px 0 rgba(255, 255, 255, 0.068);
+      @include phone{
+        font-size: 13px;
+        padding:5px 10px;
+      }
     }
   }
 }

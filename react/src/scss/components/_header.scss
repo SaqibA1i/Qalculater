@@ -9,14 +9,15 @@
   align-items: center;
   height: 60px;
   left: 0;
-  border-bottom: solid 1px $second-accent;
-  .hidden {
-    opacity: 0;
-    position: absolute;
-    transition: opacity 0.5s;
-    visibility: hidden;
-  }
-  .adder-modal {
+  border-bottom: solid 1px $second-accent; 
+}
+.hidden {
+  opacity: 0;
+  position: absolute;
+  transition: opacity 0.5s;
+  visibility: hidden;
+}
+.adder-modal {
     margin: auto;
     position: absolute;
     top: 250px;
@@ -26,7 +27,7 @@
     width: 80%;
     border-radius: 0 20px;
     max-width: 400px;
-    height: 200px;
+    height: 250px;
     background: $back-ground;
     box-shadow: $box-shadow-black;
     opacity: 1;
@@ -36,15 +37,18 @@
         font-size: 15px;
         margin: 0;
         color: $white;
+        .option-icon {
+          margin-right: 20px;
+        }
       }
       border-radius: 0 20px;
       padding: 10px;
       border-bottom: 1px solid $main-text;
-      background-color: #1f52bfc8;
+      background-color: $second-dark-accent;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      button{
+      button {
         background-color: transparent;
         border: none;
         cursor: pointer;
@@ -57,12 +61,9 @@
       align-items: center;
       margin-top: 20px;
       input {
-        width: 30%;
+        width: 40%;
         max-width: 300px;
-        border: 1px solid rgba(128, 128, 128, 0.26);
-      }
-      ::placeholder {
-        color: $main-text;
+        margin-left:10px;
       }
       #assessmentName {
         width: 70%;
@@ -73,39 +74,41 @@
         flex-direction: row;
         justify-content: center;
       }
+      .option-icon {
+        margin-right: 20px;
+        
+      }
       .modal-options {
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: space-around;
+        justify-content: start;
         font-size: 15px;
-        width: 100px;
+        width: 200px;
         cursor: pointer;
       }
-      hr{
+      hr {
         width: 30%;
         margin: 10px 0;
-        border:none;
+        border: none;
         border-top: 1px solid rgba(51, 51, 51, 0.342);
       }
     }
     .footer-modal {
-      margin-top: 25px;
+      margin-top: 28px;
       border-top: 1px solid $main-text;
       display: flex;
       justify-content: flex-end;
       border-radius: 0 0 10px 10px;
-      background-color: #1f52bfc8;
-      button{
+      background-color: $second-dark-accent;
+      button {
         background: none;
         color: #333;
-        background-color: rgb(255, 217, 0);
+        background-color: rgb(255, 255, 255);
         cursor: pointer;
       }
     }
   }
-}
-
 .header-brand {
   font-size: 35px;
   margin: 10px;
@@ -131,6 +134,9 @@
   font-size: 17px;
   font-weight: 900;
   color: $white;
+  @include phone {
+    margin: 5px;
+  }
 }
 .header-settings {
   margin: 10px;

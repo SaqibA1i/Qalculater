@@ -115,7 +115,8 @@ router.get('/userData', isAuth, (req, res, next) => {
                 res.send({
                     "status": 200,
                     "msg": "user data sent successfully",
-                    "data": user.data
+                    "data": user.data,
+                    "username": user.username
                 });
             }
             else {
@@ -138,7 +139,6 @@ router.get('/logout', (req, res, next) => {
 
 router.get('/login-success', (req, res, next) => {
     res.send({ "status": 200, "msg": `Login Successful` })
-    console.log(req);
 });
 
 router.get('/login-failure', (req, res, next) => {

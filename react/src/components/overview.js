@@ -1,11 +1,28 @@
 import React, { useEffect, useState } from 'react';
 
+import 'react-notifications/lib/notifications.css';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+import {
+    JournalMinus,
+} from 'react-bootstrap-icons';
 
-function Overview({ data, selected, getGpa, setColor }) {
+function Overview({ data, selected, getGpa, updateJson }) {
     const [currentMark, setMark] = useState(0);
     const [gpa, setGpa] = useState("0.00");
-// TODO use the assestotal for current mark in
+
+    const deleteCourse = () => {
+        let result = window.confirm("This course will be deleted forever. Sure you want to delete ?");
+        if (result) {
+            let json = data;
+            delete json[selected];
+            updateJson(json)
+            NotificationManager.error(selected + " course is deleted ")
+        }
+    }
+
+    // TODO use the assestotal for current mark in
     useEffect(() => {
+
         let total = 0;
         let courseCompletion = 0;
         let assessments = data[selected] != null ? data[selected] : [];
@@ -18,8 +35,8 @@ function Overview({ data, selected, getGpa, setColor }) {
         setMark((courseCompletion * 100).toPrecision(3));
         let newGpa = getGpa((courseCompletion * 100).toPrecision(3));
         console.log((courseCompletion * 100));
+        
         // set gpa color class
-        let num = parseInt(newGpa);
         let className = "";
         if (newGpa >= 3.90) {
             className = "awesome";
@@ -36,13 +53,21 @@ function Overview({ data, selected, getGpa, setColor }) {
         }
 
         setGpa(newGpa);
+
     }, [data, selected])
     return (
         <div className="overview-container">
             {
                 selected != "" ? (
                     <>
-                        <h1 class="overview-header">{selected}</h1>
+                        <h1 class="overview-header">
+                            <button
+                                className="header-settings"
+                                onClick={deleteCourse}>
+                                <JournalMinus size={25} color={"#1f52bfc8"} />
+                            </button>
+                            {selected}
+                        </h1>
                         <div class="overview-mark">
                             <i>{currentMark}% </i>
                             <br />
@@ -50,7 +75,7 @@ function Overview({ data, selected, getGpa, setColor }) {
                         </div>
                     </>
                 ) :
-                    (<h1 class="overview-header">Please Select a course</h1>)
+                    (<h1 class="overview-header" style={{ "padding": "5px 20px" }}>Please Select a course</h1>)
             }
         </div>
     )

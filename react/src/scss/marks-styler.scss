@@ -21,22 +21,18 @@ body {
 }
 
 input {
-  border: 0;
-  width: fit-content;
-  font-size: 15px;
-  font-style: italic;
-  background-color: transparent;
-  font-weight: 500;
-  border-radius: 20px;
-  padding: 5px 10px;
-  margin: 0 5px 5px 5px;
-  box-shadow: inset 2px 2px 3px 0 rgba(0, 36, 67, 0.2), inset -2px -2px 3px 0 rgba(0, 166, 255, 0.068);
-  border: 1px solid $main-text;
+  background: transparent;
+  margin-bottom: 30px;
+      width: 90%;
+      height: 30px;
+  border: none;
+  border-bottom: 1px solid $main-text;
+  box-shadow: none;
+  border-radius: 0;
 }
-::placeholder {
-  color: $white;
+input::placeholder {
+  color: $dull-black;
+  font-weight: 700;
+  font-style: normal;
   font-size: 15px;
-  @include phone {
-    font-size: 12px;
-  }
 }

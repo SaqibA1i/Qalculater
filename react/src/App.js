@@ -14,10 +14,8 @@ import 'nprogress/nprogress.css';
 
 // components
 import Header from './components/header'
-import CourseAdder from './components/courseAdder'
 import Content from './components/content'
 import Overview from './components/overview'
-import Adder from './components/adder'
 import Assessments from './components/assessments'
 import Login from './components/login'
 import Register from './components/register'
@@ -29,10 +27,12 @@ function App() {
   const [data, setData] = useState({});
   const [totalAvg, setTotalAvg] = useState(0);
   const [selectedCourse, setSelected] = useState("");
-  const [courseAddBool, setCourseBool] = useState(false);
   const [color, setColor] = useState("");
   const [assessTotal, setTotal] = useState({});
   const [authenticated, setAuth] = useState(false);
+
+  const [currUser, setCurr] = useState("");
+
   const gpaScale = [
     { 0: "0.00" },
     { 56: "1.30" },
@@ -48,7 +48,10 @@ function App() {
     { 100: "4.00" },
   ]
   useEffect(async () => {
-
+    if (document.getElementById("header-add-course") != null) {
+      NProgress.start();
+      document.getElementById("header-add-course").classList.add("hide");
+    }
     fetch('/userData', {
       method: "GET",
     })
@@ -62,6 +65,10 @@ function App() {
           }
         }
         else {
+          NProgress.done();
+          setCurr(info.username);
+          document.getElementById("header-add-course").classList.remove("hide");
+          
           setAuth(true);
           let data = JSON.parse(info.data);
           setData(data);
@@ -98,12 +105,11 @@ function App() {
             }
           }
           setTotal(asTotal);
-          console.log(JSON.stringify(asTotal));
           setTotalAvg((totalA / 5.5).toPrecision(4));
         }
       })
 
-  }, [])
+  }, data)
 
   function getGpa(percentage) {
     if (percentage == 100) {
@@ -119,7 +125,6 @@ function App() {
     return gpaScale[percentage];
   }
   function setSelHelper(course) {
-    console.log(course);
     // loop through all courses to remove class
     for (let crse in data) {
       document.getElementById(crse).classList.remove("content-dipped");
@@ -128,14 +133,10 @@ function App() {
     setSelected(course);
   }
 
-  function setCourseBoolHelper() {
-    setCourseBool(!courseAddBool);
-  }
 
   function updateJson(json) {
     NProgress.start();
     document.getElementById("header-add-course").classList.add("hide");
-
 
     fetch('/update', {
       method: "POST",
@@ -153,6 +154,40 @@ function App() {
           NProgress.done();
           document.getElementById("header-add-course").classList.remove("hide");
           setData(json);
+          let asTotal = {};
+          let totalA = 0;
+          for (let selected in data) {
+            let total = 0;
+            let courseCompletion = 0;
+            let assessments = data[selected] != null ? data[selected] : [];
+            assessments.map(assessment => {
+              courseCompletion += assessment[2]
+              total += ((assessment[1] / 100) * assessment[2]);
+            })
+            total /= courseCompletion;
+            total *= 100;
+            // set color
+            let className = ""
+            let newGpa = getGpa(total);
+            if (newGpa >= 3.90) {
+              className = "awesome";
+            } else if (newGpa >= 3.70) {
+              className = "good";
+            } else if (newGpa >= 3.3) {
+              className = "okay";
+            } else {
+              className = "bad";
+            }
+            asTotal[selected] = [total.toPrecision(4), className];
+            if (selected == "ECE 109") {
+              totalA += total * 0.5;
+            }
+            else {
+              totalA += total;
+            }
+          }
+          setTotal(asTotal);
+          setTotalAvg((totalA / 5.5).toPrecision(4));
         }
         else {
           console.log(JSON.stringify(info))
@@ -166,16 +201,11 @@ function App() {
         <Route path="/register" component={Register} />
         <Route path="/user" path="/">
           <Header
-            setCourseBoolHelper={setCourseBoolHelper}
             totalAvg={totalAvg}
             data={data}
             selected={selectedCourse}
             updateJson={updateJson}
-          />
-          <CourseAdder
-            courseAddBool={courseAddBool}
-            updateJson={updateJson}
-            data={data}
+            username={currUser}
           />
           <Content
             data={data}
@@ -188,7 +218,7 @@ function App() {
             data={data}
             selected={selectedCourse}
             getGpa={getGpa}
-            setColor={setColor}
+            updateJson={updateJson}
           />
           <Assessments
             data={data}
