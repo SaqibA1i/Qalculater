@@ -11,9 +11,13 @@
 .notification-container {
   margin-top: 60px;
 }
-
+html {
+  min-height: 100%;
+}
 body {
   background-image: $back-ground;
+  margin: 0 auto;
+  max-width: 600px;
 }
 
 input {
@@ -27,8 +31,12 @@ input {
   padding: 5px 10px;
   margin: 0 5px 5px 5px;
   box-shadow: inset 2px 2px 3px 0 rgba(0, 36, 67, 0.2), inset -2px -2px 3px 0 rgba(0, 166, 255, 0.068);
-  
+  border: 1px solid $main-text;
 }
-::placeholder{
+::placeholder {
   color: $white;
+  font-size: 15px;
+  @include phone {
+    font-size: 12px;
+  }
 }

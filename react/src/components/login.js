@@ -27,20 +27,24 @@ function Login() {
     }
     return (
         <div className="login-form">
-            <h1>Login Page</h1>
+            <h1>
+                Welcome
+                <br />
+                Back
+            </h1>
             <div style={(loginMsg === "") ? ({ "display": "none" }) : ({ "display": "block" })} class="login-message-failure">
                 {loginMsg}
             </div>
             <div id="login-submit">
-                Enter Username:
-                <br />
-                <input type="text" id="uname" />
-                <br />
-                Enter Password:<br />
-                <input id="pw" type="password" />
+                <input type="text" placeholder="Username" id="uname" />
+                <input id="pw" placeholder="password" type="password" />
                 <br />
                 <button class="login-submit" onClick={submit} >
-                    Submit
+                    Login
+                </button>
+                <p>or</p>
+                <button class="login-register" onClick={() => { window.location.href = "/register" }} >
+                    Register
                 </button>
             </div>
         </div >

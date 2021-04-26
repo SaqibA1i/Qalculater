@@ -32,12 +32,20 @@
     color: $main-text;
     margin: 8px 5px;
     box-shadow: $box-shadow-black-course;
+    font-weight: 700;
+    
+    @include phone {
+      font-size: 3vw;
+    }
 
     .course-avg {
       color: $second-accent;
       font-size: 15px;
       font-style: italic;
       margin: 0 10px;
+      @include phone {
+        font-size: 3vw;
+      }
     }
 
     .content-dipped {

@@ -39,10 +39,10 @@ router.post('/register', (req, res, next) => {
                         console.log(user);
                     });
 
-                res.redirect('/login');
+                res.send({ "status": 200, "msg": `The user by the name ${newUser.username} has been created!` })
             }
             else {
-                res.send({ "msg": `The user by the name ${newUser.username} already exists!` })
+                res.send({ "status": 500, "msg": `A user by the name ${newUser.username} already exists!` })
             }
         })
         .catch((err) => {
@@ -133,7 +133,7 @@ router.get('/userData', isAuth, (req, res, next) => {
 // Visiting this route logs the user out
 router.get('/logout', (req, res, next) => {
     req.logout();
-    res.redirect('/protected-route');
+    res.send({ "status": 200, "msg": "You have logged out successfully" });
 });
 
 router.get('/login-success', (req, res, next) => {
@@ -142,7 +142,7 @@ router.get('/login-success', (req, res, next) => {
 });
 
 router.get('/login-failure', (req, res, next) => {
-    res.send({ "msg": `The username or passeord entered are in correct, please try again` })
+    res.send({ "msg": `The username or password entered are in correct, please try again` })
 });
 
 module.exports = router;

@@ -44,7 +44,7 @@ function Overview({ data, selected, getGpa, setColor }) {
                     <>
                         <h1 class="overview-header">{selected}</h1>
                         <div class="overview-mark">
-                            <i>{currentMark}%</i>
+                            <i>{currentMark}% </i>
                             <br />
                             <div id="overview-gpa" class="overview-gpa">{gpa} gpa</div>
                         </div>

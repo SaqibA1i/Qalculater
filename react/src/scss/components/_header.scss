@@ -10,6 +10,100 @@
   height: 60px;
   left: 0;
   border-bottom: solid 1px $second-accent;
+  .hidden {
+    opacity: 0;
+    position: absolute;
+    transition: opacity 0.5s;
+    visibility: hidden;
+  }
+  .adder-modal {
+    margin: auto;
+    position: absolute;
+    top: 250px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 80%;
+    border-radius: 0 20px;
+    max-width: 400px;
+    height: 200px;
+    background: $back-ground;
+    box-shadow: $box-shadow-black;
+    opacity: 1;
+    transition: opacity 0.5s;
+    .header-modal {
+      p {
+        font-size: 15px;
+        margin: 0;
+        color: $white;
+      }
+      border-radius: 0 20px;
+      padding: 10px;
+      border-bottom: 1px solid $main-text;
+      background-color: #1f52bfc8;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      button{
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+      }
+    }
+    .body-modal {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      input {
+        width: 30%;
+        max-width: 300px;
+        border: 1px solid rgba(128, 128, 128, 0.26);
+      }
+      ::placeholder {
+        color: $main-text;
+      }
+      #assessmentName {
+        width: 70%;
+      }
+      .adder-numbers {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+      .modal-options {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        font-size: 15px;
+        width: 100px;
+        cursor: pointer;
+      }
+      hr{
+        width: 30%;
+        margin: 10px 0;
+        border:none;
+        border-top: 1px solid rgba(51, 51, 51, 0.342);
+      }
+    }
+    .footer-modal {
+      margin-top: 25px;
+      border-top: 1px solid $main-text;
+      display: flex;
+      justify-content: flex-end;
+      border-radius: 0 0 10px 10px;
+      background-color: #1f52bfc8;
+      button{
+        background: none;
+        color: #333;
+        background-color: rgb(255, 217, 0);
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 .header-brand {
@@ -32,10 +126,24 @@
   border: 0;
   border-radius: 5px;
   width: auto;
-  height: 30px;
+  height: 25px;
   background-image: $second-accent-inner-gradient;
-  box-shadow: $box-shadow-black-course;
   font-size: 17px;
   font-weight: 900;
   color: $white;
+}
+.header-settings {
+  margin: 10px;
+  border: 0;
+  border-radius: 5px;
+  width: auto;
+  height: 30px;
+  background: transparent;
+  font-size: 17px;
+  font-weight: 900;
+  transition: transform 1s;
+  &:hover {
+    cursor: pointer;
+    transform: rotate(90deg);
+  }
 }

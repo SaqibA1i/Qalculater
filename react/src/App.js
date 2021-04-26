@@ -32,6 +32,7 @@ function App() {
   const [courseAddBool, setCourseBool] = useState(false);
   const [color, setColor] = useState("");
   const [assessTotal, setTotal] = useState({});
+  const [authenticated, setAuth] = useState(false);
   const gpaScale = [
     { 0: "0.00" },
     { 56: "1.30" },
@@ -54,9 +55,14 @@ function App() {
       .then((result) => result.json())
       .then((info) => {
         if (info.status != 200) {
-          NotificationManager.info(info.msg)
+          NotificationManager.info(info.msg);
+          setAuth(false);
+          if (!window.location.href.includes("login") && !window.location.href.includes("register")) {
+            window.location.href = 'login';
+          }
         }
         else {
+          setAuth(true);
           let data = JSON.parse(info.data);
           setData(data);
           let asTotal = {};
@@ -129,7 +135,7 @@ function App() {
   function updateJson(json) {
     NProgress.start();
     document.getElementById("header-add-course").classList.add("hide");
-    
+
 
     fetch('/update', {
       method: "POST",
@@ -147,7 +153,6 @@ function App() {
           NProgress.done();
           document.getElementById("header-add-course").classList.remove("hide");
           setData(json);
-          window.location.href = "/user";
         }
         else {
           console.log(JSON.stringify(info))
@@ -155,14 +160,17 @@ function App() {
       })
   }
   return (
-    <Router className="App">
+    <Router className="App" >
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/user">
+        <Route path="/user" path="/">
           <Header
             setCourseBoolHelper={setCourseBoolHelper}
             totalAvg={totalAvg}
+            data={data}
+            selected={selectedCourse}
+            updateJson={updateJson}
           />
           <CourseAdder
             courseAddBool={courseAddBool}
@@ -182,18 +190,12 @@ function App() {
             getGpa={getGpa}
             setColor={setColor}
           />
-          <Adder
-            data={data}
-            selected={selectedCourse}
-            updateJson={updateJson}
-          />
           <Assessments
             data={data}
             selected={selectedCourse}
             updateJson={updateJson}
           />
         </Route>
-
       </Switch>
     </Router>
   );

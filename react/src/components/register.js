@@ -8,28 +8,38 @@ function Register() {
             headers: {
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify({ "uname": "irs", "pw": "rest" })
+            body: JSON.stringify(
+                {
+                    "uname": document.getElementById("reg-name").value,
+                    "pw": document.getElementById("reg-pass").value
+                })
         })
             .then((result) => result.json())
-            .then((info) => { setMsg(info.msg); })
+            .then((info) => {
+                if (info.status == 200) {
+                    window.location.href = "/login";
+                }
+                else {
+                    setMsg(info.msg);
+                }
+                ;
+            })
     }
     return (
         <div className="login-form">
-            <h1>Register Page</h1>
+            <h1>Create an <br/> Account</h1>
             <div style={(loginMsg === "") ? ({ "display": "none" }) : ({ "display": "block" })} class="login-message-failure">
                 {loginMsg}
             </div>
             <div id="login-submit">
-                Enter Username:
-                <br />
-                <input type="text" id="reg-name" />
-                <br />
-                Enter Password:
-                <br />
-                <input id="reg-pass" type="password" />
-                <br />
+                <input type="text" placeholder="Username" id="reg-name" />
+                <input id="reg-pass" placeholder="Password" type="password" />
                 <button class="login-submit" onClick={submit} >
-                    Submit
+                    Register
+                </button>
+                <p>or</p>
+                <button class="login-register" onClick={() => { window.location.href = "/login" }} >
+                    Login
                 </button>
             </div>
         </div >

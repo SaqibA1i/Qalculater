@@ -2,14 +2,15 @@
 $main-text: #00000094;
 $white: #ffffffce;
 $darkBlack: rgb(31, 30, 30);
-$back-ground:linear-gradient(to bottom right, rgb(199, 210, 217) , rgba(211, 232, 238, 0.662));;
+$back-ground:linear-gradient(to bottom right, rgb(199, 210, 217) , rgb(205, 227, 233));;
 $second-accent: rgb(53, 156, 246);
 $awesome: rgba(0, 241, 0, 0.774);
 $good: rgba(0, 128, 2, 0.628);
 $okay: rgba(255, 255, 0, 0.421);
-$bare: rgba(255, 123, 0, 0.455);
+$bare: rgba(255, 123, 0s, 0.455);
 $bad: #bd3b2fa7;
-
+$transparent-black: rgb(124, 150, 199);
+$dull-black:rgba(85, 85, 85, 0.568);
 // Dark theme
 $dark-text: black;
 $dark-back: white;

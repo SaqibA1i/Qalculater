@@ -1,6 +1,6 @@
 // reponsive and layout
 @mixin desktop {
-  @media (min-width: #{$desktop-width}) {
+  @media (min-width: #{$tablet-width - 149px}) {
     @content;
   }
 }
@@ -12,7 +12,7 @@
 }
 
 @mixin phone {
-  @media (max-width: #{$tablet-width - 1px}) {
+  @media (max-width: #{$tablet-width - 150px}) {
     @content;
   }
 }

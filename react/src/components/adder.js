@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { PlusCircle, Upload } from 'react-bootstrap-icons';
+import { List, Upload } from 'react-bootstrap-icons';
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
-import { isEmptyObject } from 'jquery';
 
 
 function Adder({ data, selected, updateJson }) {
@@ -27,16 +26,20 @@ function Adder({ data, selected, updateJson }) {
             NotificationManager.info(name + " gained " + percentage + "%", selected)
         }
     }
+
+
     return (
-        <div className="adder-container">
+        <div>
+
             {selected != "" && (
-                <>
+                <div className="adder-container">
                     <button
                         className="header-add-course"
-                        style={{"margin":"0","margin-top":"10px"}}
+                        style={{ "margin": "0", "margin-top": "10px" }}
                         onClick={() => setVisible(!visible)}>
                         +
                     </button>
+
                     {visible ?
                         <div class="adder-inputs">
                             <input
@@ -61,11 +64,11 @@ function Adder({ data, selected, updateJson }) {
                                 class="header-add-course"
                                 onClick={add}
                             >
-                                <Upload size={15}/>
+                                <Upload size={15} />
                             </button>
 
                         </div> : ("")}
-                </>
+                </div>
             )}
 
         </div>
