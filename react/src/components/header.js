@@ -23,9 +23,12 @@ function Header({ currTerm, totalAvg, username }) {
     const [optionsBool, setOpt] = useState(false);
     const [courseBool, setCourse] = useState(false);
 
+    let errors = require("./errors.json");
+
     const updateData = useContext(UserDataContext).updateJson;
     let userData = useContext(UserDataContext).data;
     let selected = useContext(UserDataContext).selectedCourse;
+    let term = useContext(UserDataContext).termName;
 
     const logOut = () => {
         let result = window.confirm("Sure you want to logout ?");
@@ -42,36 +45,64 @@ function Header({ currTerm, totalAvg, username }) {
         }
     }
 
+    // Add an assessment
     const add = () => {
         let name = document.getElementById("assessmentName").value;
         let percentage = document.getElementById("assessmentPercentage").value;
         let weightage = document.getElementById("assessmentWeightage").value;
-        if (percentage == "" || weightage == "" || weightage == "") {
-            NotificationManager.info("Fill in the required fields", selected)
-        }
-        else {
-            let updatedAssessments = userData[selected]["data"];
-            updatedAssessments.push([name, parseFloat(percentage), parseFloat(weightage)]);
 
+        try {
+            // Check: Are the fields empty
+            if (percentage == "" || weightage == "" || weightage == "") {
+                throw errors["emptyFields"];
+            }
+            let updatedAssessments = userData[selected]["data"];
+            // Check: Does an entry like this already exist
+            userData[selected]["data"].map(assessment => {
+                if (assessment[0] == name) {
+                    throw errors["repeatedEntry"];
+                }
+            })
+            
+            updatedAssessments.push([name, parseFloat(percentage), parseFloat(weightage)]);
             userData[selected]["data"] = updatedAssessments;
+            viewAssessmentModal();
             setVisible(false);
             updateData(userData);
-            NotificationManager.info(name + " gained " + percentage + "%", selected)
+            NotificationManager.info(name + " gained " + percentage + "%", selected, 900)
         }
+        catch (err) {
+            NotificationManager.warning(err, name, 1000)
+        }
+
     }
 
+    // Add a new course
     const addCourse = () => {
-        if (document.getElementById("courseCred").value != "" && document.getElementById("courseName").value != "") {
-            userData[document.getElementById("courseName").value] = {
+        let name = document.getElementById("courseName").value;
+        try {
+            // Check: Are the fields empty
+            if (document.getElementById("courseCred").value == "" || name == "") {
+                throw errors["emptyFields"];
+            }
+
+            // Check: Is it being renamed to something with the same name
+            Object.entries(userData).forEach((course) => {
+                if (course[0] == name) {
+                    throw errors["repeatedEntry"]
+                };
+            })
+            viewCourseAdderModal();
+            userData[name] = {
                 "credit": parseFloat(document.getElementById("courseCred").value),
                 "data": []
             };
 
             updateData(userData);
-            NotificationManager.info(document.getElementById("courseName").value + " course is added ")
+            NotificationManager.success("Course Added ", name, 1000)
         }
-        else {
-            alert("please enter the required fields");
+        catch (err) {
+            NotificationManager.warning(err, selected, 1000);
         }
 
     }
@@ -101,12 +132,19 @@ function Header({ currTerm, totalAvg, username }) {
             >
                 {totalAvg}
             </button>
-            <div>
-                <button
-                    className="header-settings"
-                    onClick={viewCourseAdderModal}>
-                    <JournalPlus size={25} color={"#1f52bfc8"} />
-                </button>
+            <div style={{ display: "flex", "flexDirection": "row", alignItems: "center" }}>
+                {(term != "") ? (
+                    <button
+                        className={"header-settings"}
+                        onClick={viewCourseAdderModal}>
+                        <JournalPlus size={25} color={"#1f52bfc8"} />
+                    </button>
+                ) : (
+                    <button className={"header-add-course submitBtn2"}>
+                        Add a term
+                    </button>
+                )}
+
                 {selected &&
                     <button
                         className="header-settings"
@@ -151,7 +189,7 @@ function Header({ currTerm, totalAvg, username }) {
                         </div>
                         <button
                             class="header-add-course submitBtn"
-                            onClick={() => { addCourse(); viewCourseAdderModal() }}
+                            onClick={addCourse}
                         >
                             Submit
                         </button>
@@ -193,7 +231,7 @@ function Header({ currTerm, totalAvg, username }) {
                         </div>
                         <button
                             class="header-add-course submitBtn"
-                            onClick={() => { add(); viewAssessmentModal() }}
+                            onClick={add}
                         >
                             Submit
                         </button>

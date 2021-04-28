@@ -67,7 +67,6 @@ function App() {
       let courseCompletion = 0;
       let assessments = [];
       try {
-        totalCredits += newData[selected]["credit"];
         assessments = newData[selected]["data"];
 
         // summing for all the assessments in the course
@@ -79,6 +78,7 @@ function App() {
         // if course completion is zero total is zero so only
         //    proceed if its not
         if (courseCompletion != 0) {
+          totalCredits += newData[selected]["credit"];
           total = 100 * (total / courseCompletion);
           // set color
           let className = "";
@@ -132,23 +132,22 @@ function App() {
           setAuth(true);
           newData = JSON.parse(info.data);
           // checking if there is any content in the data
-          if (newData == {}) {
+          if (Object.entries(newData).length == 0) {
             setTerm("");
-            setUserData()
+            setUserData({});
+          }
+          else if (info.currTerm == null) {
+            console.log(newData);
+            // setting the first course in the list
+            //    if there is not one set already
+            updateTerm(Object.entries(newData)[0][0]);
+            window.location.href = "/";
           }
           else {
-            if (info.currTerm == null) {
-              // setting the first course in the list
-              //    if there is not one set already
-              updateTerm(Object.entries(newData)[0][0]);
-              window.location.href="/"
-            }
-            else {
-              setTerm(info.currTerm);
-              setUserData(newData);
-              newData = newData[info.currTerm];
-              calcAverages(newData);
-            }
+            setTerm(info.currTerm);
+            setUserData(newData);
+            newData = newData[info.currTerm];
+            calcAverages(newData);
           }
           console.log("user data was fetched!");
         }

@@ -18,26 +18,41 @@ function Content({ setSelHelper, asTotal }) {
     const setCurrTerm = useContext(UserDataContext).updateTerm;
     const updateData = useContext(UserDataContext).updateJson;
 
+    let errors = require("./errors.json");
+
     let userData = useContext(UserDataContext).data;
     let allData = useContext(UserDataContext).allUserData;
     let currTerm = useContext(UserDataContext).termName;
     // selected is needed as when a course is deleted it should
     // change to ""
     let selected = useContext(UserDataContext).selectedCourse;
-    console.log("content render")
 
     const termSetter = (term) => {
         setCurrTerm(term);
     }
+    
+    // Add a new term
     const addTerm = () => {
-        if (document.getElementById("termName").value != "") {
-            allData[document.getElementById("termName").value] = {};
-            updateData(allData,true);
-            termSetter(document.getElementById("termName").value);
-            window.location.href="/";
+        try {
+            // Check: Are the fields empty
+            let newTerm = document.getElementById("termName").value;
+            if (newTerm == "") {
+                throw errors["emptyFields"];
+            }
+            // Check: Does an entry like this already exist
+            Object.entries(allData).forEach((term) => {
+                if (term[0] == newTerm) {
+                    throw errors["repeatedEntry"];
+                }
+            })
+            allData[newTerm] = {};
+            setView(false);
+            updateData(allData, true);
+            termSetter(newTerm);
+            window.location.href = "/";
         }
-        else {
-            NotificationManager.error("Error", "Fill in the required fields", 900);
+        catch (err) {
+            NotificationManager.warning("", err, 1000);
         }
     }
 
@@ -56,7 +71,8 @@ function Content({ setSelHelper, asTotal }) {
     }, [userData, selected, currTerm])
     return (
         <>
-            <Carousel class="carousel" width="100%" showThumbs={false} showStatus={false} showIndicators={false} swipeable={true} emulateTouch={true}  >
+            <Carousel class="carousel" width="100%" autoPlay={false} showThumbs={false} showStatus={false} showIndicators={false} swipeable={true} emulateTouch={false} stopOnHover={true}>
+
                 <div className="content-container" >
                     {
                         terms.map(term =>
@@ -105,7 +121,7 @@ function Content({ setSelHelper, asTotal }) {
                             placeholder="Name of term eg. 2A" />
                         <button
                             class="header-add-course submitBtn"
-                            onClick={() => { addTerm(); setView(false) }}
+                            onClick={addTerm}
                         >
                             Submit
                         </button>

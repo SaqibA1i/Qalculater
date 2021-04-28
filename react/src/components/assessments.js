@@ -5,7 +5,8 @@ import {
     Upload,
     PenFill,
     PencilSquare,
-    ArchiveFill
+    ArchiveFill,
+    Wrench
 } from 'react-bootstrap-icons';
 
 import 'react-notifications/lib/notifications.css';
@@ -23,13 +24,44 @@ function Assessments() {
     let selected = useContext(UserDataContext).selectedCourse;
     let currTerm = useContext(UserDataContext).termName;
 
-    const update = () => {
-        userData[selected]["data"][AsSelected][0] = document.getElementById("editAsName").value;
-        userData[selected]["data"][AsSelected][1] = parseFloat(document.getElementById("editAsPercentage").value);
-        userData[selected]["data"][AsSelected][2] = parseFloat(document.getElementById("editAsWeight").value);
+    let errors = require("./errors.json");
 
-        updateData(userData)
-        NotificationManager.info(selected, userData[selected]["data"][AsSelected][0] + " is Updated", 900)
+    // Edit an Assessment
+    const update = () => {
+        let prevName = userData[selected]["data"][AsSelected][0];
+        let name = document.getElementById("editAsName").value;
+        let percentage = parseFloat(document.getElementById("editAsPercentage").value);
+        let weight = parseFloat(document.getElementById("editAsWeight").value);
+        try {
+            // Check: Are the fields empty
+            if (name == "" || percentage == "" || weight == "") {
+                throw errors["emptyFields"];
+            }
+            // Check: Have any edits been made
+            if (
+                name == prevName &&
+                percentage == userData[selected]["data"][AsSelected][1] &&
+                weight == userData[selected]["data"][AsSelected][2]
+            ) {
+                throw errors["makeChanges"];
+            }
+            // Check: Is it being renamed to something with the same name
+            userData[selected]["data"].map((assessment) => {
+                if (assessment[0] == name && assessment[0] != prevName) {
+                    throw errors["repeatedEntry"];
+                }
+            })
+            viewAssessmentEditModal();
+            userData[selected]["data"][AsSelected][0] = name;
+            userData[selected]["data"][AsSelected][1] = percentage;
+            userData[selected]["data"][AsSelected][2] = weight;
+
+            updateData(userData)
+            NotificationManager.info(userData[selected]["data"][AsSelected][0] + " is Updated", selected, 1500)
+        }
+        catch (err) {
+            NotificationManager.warning(err, selected, 1000);
+        }
     }
 
     const viewAssessmentEditModal = () => {
@@ -39,7 +71,7 @@ function Assessments() {
     const removeAssessment = (assessment) => {
         let result = window.confirm("Sure you want to delete ?");
         if (result) {
-            NotificationManager.error(selected, assessment + " is deleted", 900)
+            NotificationManager.error(assessment + " is deleted", selected, 900)
             let updatedAssessments = [];
             assessments.map(a => {
                 if (a[0] != assessment) {
@@ -151,7 +183,7 @@ function Assessments() {
                             </div>
                             <button
                                 class="header-add-course submitBtn"
-                                onClick={() => { update(); viewAssessmentEditModal() }}
+                                onClick={update}
                             >
                                 Submit
                         </button>

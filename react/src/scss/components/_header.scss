@@ -164,11 +164,22 @@
   padding: 10px;
   cursor: pointer;
 }
+.submitBtn2 {
+  font-size: 15px;
+  width: auto;
+  background: none;
+  background-color: $second-dark-accent;
+  height: auto;
+  font-weight: 100;
+  border-radius: 20px;
+  padding: 10px 15px;
+  cursor: default;
+}
 .del {
   background: none;
   background-color: $bad;
   transition: background-color 0.5s;
-  &:hover{
+  &:hover {
     background-color: $bad + 60;
   }
 }

@@ -23,12 +23,29 @@ function Overview({ getGpa }) {
     let selected = useContext(UserDataContext).selectedCourse;
     let currTerm = useContext(UserDataContext).termName;
 
-    const update = () => {
-        let result = window.confirm(`Are you sure you would like to update ${selected}?`);
-        if (result) {
-            let name = document.getElementById("courseNameE").value;
-            if (document.getElementById("courseCredE").value != "" && name != "") {
+    let errors = require("./errors.json");
 
+    // Edit a course name
+    const update = () => {
+        try {
+            let name = document.getElementById("courseNameE").value;
+            let credit = document.getElementById("courseCredE").value;
+            // Check: Are the fields empty
+            if (credit == "" || name == "") {
+                throw errors["emptyFields"];
+            }
+            // Check: Have any edits been made
+            if (name == selected && credit == userData[selected]["credit"]) {
+                throw errors["makeChanges"];
+            }
+            // Check: Is it being renamed to something with the same name
+            Object.entries(userData).forEach((course) => {
+                if (course[0] == name && course[0] != selected) {
+                    throw errors["repeatedEntry"];
+                }
+            })
+            let result = window.confirm(`Are you sure you would like to update ${selected}?`);
+            if (result) {
                 let data = Object.assign({}, userData);
                 delete data[selected];
                 data[name] = {
@@ -40,17 +57,19 @@ function Overview({ getGpa }) {
                 window.location.href = "/"
                 NotificationManager.info(selected + " course is edited")
             }
-            else {
-                alert("please enter the required fields");
-            }
+        }
+        catch (err) {
+            NotificationManager.warning(err, selected, 1000);
         }
     }
 
+    // Delete a course
     const deleteCourse = () => {
         let result = window.confirm("This course will be deleted forever. Sure you want to delete ?");
         if (result) {
             setSel("");
             delete userData[selected];
+            setCourse(false);
             updateData(userData);
             NotificationManager.error(selected + " course is deleted ")
         }
@@ -132,18 +151,17 @@ function Overview({ getGpa }) {
                                             placeholder="Credit eg. 0.5" />
 
                                     </div>
-
-                                    <button
-                                        class="header-add-course submitBtn del"
-                                        onClick={() => { deleteCourse(); setCourse(false) }}
-                                    >
-                                        Delete
-                                    </button>
                                     <button
                                         class="header-add-course submitBtn"
-                                        onClick={() => { update(); setCourse(false) }}
+                                        onClick={update}
                                     >
                                         Submit
+                                    </button>
+                                    <button
+                                        class="header-add-course submitBtn del"
+                                        onClick={deleteCourse}
+                                    >
+                                        Delete
                                     </button>
                                 </div>
 
