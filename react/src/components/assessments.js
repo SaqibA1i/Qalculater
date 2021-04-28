@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import {
     XCircleFill,
@@ -10,22 +10,26 @@ import {
 
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { UserDataContext } from '../App';
 
-
-function Assessments({ data, selected, updateJson }) {
+function Assessments() {
     const [assessments, setAssessments] = useState([]);
     const [courseCompletion, setCompletion] = useState(0);
     const [view, setView] = useState(false);
     const [AsSelected, setSel] = useState(0);
 
-    const update = (assessment) => {
-        let json = data;
-        json[selected][AsSelected][0] = document.getElementById("editAsName").value;
-        json[selected][AsSelected][1] = parseFloat(document.getElementById("editAsPercentage").value);
-        json[selected][AsSelected][2] = parseFloat(document.getElementById("editAsWeight").value);
+    const updateData = useContext(UserDataContext).updateJson;
+    let userData = useContext(UserDataContext).data;
+    let selected = useContext(UserDataContext).selectedCourse;
+    let currTerm = useContext(UserDataContext).termName;
 
-        updateJson(json)
-        NotificationManager.info(json[selected][AsSelected][0] + " is Updated")
+    const update = () => {
+        userData[selected]["data"][AsSelected][0] = document.getElementById("editAsName").value;
+        userData[selected]["data"][AsSelected][1] = parseFloat(document.getElementById("editAsPercentage").value);
+        userData[selected]["data"][AsSelected][2] = parseFloat(document.getElementById("editAsWeight").value);
+
+        updateData(userData)
+        NotificationManager.info(selected, userData[selected]["data"][AsSelected][0] + " is Updated", 900)
     }
 
     const viewAssessmentEditModal = () => {
@@ -35,8 +39,7 @@ function Assessments({ data, selected, updateJson }) {
     const removeAssessment = (assessment) => {
         let result = window.confirm("Sure you want to delete ?");
         if (result) {
-            NotificationManager.error(assessment + " is deleted", selected)
-            let json = data;
+            NotificationManager.error(selected, assessment + " is deleted", 900)
             let updatedAssessments = [];
             assessments.map(a => {
                 if (a[0] != assessment) {
@@ -44,25 +47,39 @@ function Assessments({ data, selected, updateJson }) {
                 }
             }
             )
-            json[selected] = updatedAssessments;
-            updateJson(json);
+            userData[selected]["data"] = updatedAssessments;
+            updateData(userData);
         }
-
     }
 
     useEffect(() => {
-        let newAssessments = data[selected] != null ? data[selected] : [];
-        setAssessments(newAssessments)
+        try {
+            if (selected == "" || currTerm == "") {
+                setCompletion(0);
+                setSel(0);
+                setAssessments([]);
+            }
+            else {
+                let newAssessments = userData[selected]["data"];
 
-        let total = 0;
-        newAssessments.map(assessment => {
-            total += assessment[2];
-        })
-        setCompletion(total);
-        setAssessments(newAssessments);
-        // set width of completion bar
-        document.getElementById("assessment-completion-bar").style.width = total + "%";
-    }, [data, selected])
+                let total = 0;
+                newAssessments.map(assessment => {
+                    total += assessment[2];
+                })
+
+                setCompletion(total);
+                setAssessments(newAssessments);
+
+                // set width of completion bar
+                document.getElementById("assessment-completion-bar").style.width = total + "%";
+
+                console.log("Assessments rendered sucessfully");
+            }
+        }
+        catch (err) {
+            console.log("Error rendering the assessments: " + err);
+        }
+    }, [userData, selected, currTerm])
 
 
     return (
@@ -83,9 +100,9 @@ function Assessments({ data, selected, updateJson }) {
                         <button class="header-add-course" onClick={() => {
                             setSel(index);
                             viewAssessmentEditModal();
-                            document.getElementById("editAsName").value = data[selected][index][0];
-                            document.getElementById("editAsPercentage").value = data[selected][index][1];
-                            document.getElementById("editAsWeight").value = data[selected][index][2];
+                            document.getElementById("editAsName").value = userData[selected]["data"][index][0];
+                            document.getElementById("editAsPercentage").value = userData[selected]["data"][index][1];
+                            document.getElementById("editAsWeight").value = userData[selected]["data"][index][2];
                         }}>
                             <PenFill size={13} />
                         </button>
@@ -94,7 +111,7 @@ function Assessments({ data, selected, updateJson }) {
                 </div>
             )}
             <div class={(view) ? ("adder-modal") : ("hidden")} style={{ "top": "-100px" }}>
-                {data[selected] != undefined && data[selected][0] != undefined &&
+                {userData[selected] != undefined && userData[selected]["data"][0] != undefined &&
                     <div class="modal">
                         <div
                             class="header-modal"
@@ -102,7 +119,7 @@ function Assessments({ data, selected, updateJson }) {
                             <p style={{ "display": "flex", "alignItems": "center" }}>
                                 <PencilSquare class="option-icon" color={"#ffff"} size={25} />
                                 Edit
-                                <b>: {data[selected][AsSelected][0]}</b>
+                                <b>: {userData[selected]["data"][AsSelected][0]}</b>
                             </p>
                             <button
                                 onClick={viewAssessmentEditModal}>
@@ -114,32 +131,30 @@ function Assessments({ data, selected, updateJson }) {
                                 style={{ "width": "80%" }}
                                 type="text"
                                 id="editAsName"
-                                placeholder={data[selected][AsSelected][0]} />
+                                placeholder={userData[selected]["data"][AsSelected][0]} />
                             <div class="adder-numbers">
                                 <input
                                     type="number"
                                     id="editAsPercentage"
                                     max="100"
                                     min="0"
-                                    defaultValue={data[selected][AsSelected][1]}
-                                    placeholder={"My mark: " + data[selected][AsSelected][1] + " %"} /> %
+                                    defaultValue={userData[selected]["data"][AsSelected][1]}
+                                    placeholder={"My mark: " + userData[selected]["data"][AsSelected][1] + " %"} /> %
                                 <input
                                     type="number"
                                     id="editAsWeight"
                                     max="100"
                                     min="0"
-                                    defaultValue={data[selected][AsSelected][2]}
-                                    placeholder={"Weight: " + data[selected][AsSelected][2] + " %"} /> %
+                                    defaultValue={userData[selected]["data"][AsSelected][2]}
+                                    placeholder={"Weight: " + userData[selected]["data"][AsSelected][2] + " %"} /> %
 
                             </div>
-                        </div>
-                        <div class="footer-modal">
                             <button
-                                class="header-add-course"
-                                onClick={() => { update(); viewAssessmentEditModal()}}
+                                class="header-add-course submitBtn"
+                                onClick={() => { update(); viewAssessmentEditModal() }}
                             >
-                                <Upload size={15} />
-                            </button>
+                                Submit
+                        </button>
                         </div>
                     </div>
                 }

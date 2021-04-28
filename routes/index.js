@@ -67,6 +67,22 @@ router.post('/update', isAuth, (req, res, next) => {
         })
         .catch(err => done(err))
 });
+
+router.post('/updateTerm', isAuth, (req, res, next) => {
+    let userId = req.session.passport.user;
+    User.findById(userId)
+        .then((user) => {
+            if (user != null) {
+                user.currTerm = req.body.currTerm;
+                user.save(); // updates the user in the db
+                res.send({ "status": 200, "msg": "Successfully updated" });
+            }
+            else {
+                res.send({ "status": 500, "msg": "The user doesnt exist" });
+            }
+        })
+        .catch(err => done(err))
+});
 /**
 * -------------- GET ROUTES ----------------
 */
@@ -115,6 +131,7 @@ router.get('/userData', isAuth, (req, res, next) => {
                 res.send({
                     "status": 200,
                     "msg": "user data sent successfully",
+                    "currTerm": user.currTerm,
                     "data": user.data,
                     "username": user.username
                 });

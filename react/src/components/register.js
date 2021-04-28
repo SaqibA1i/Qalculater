@@ -21,8 +21,7 @@ function Register() {
                 }
                 else {
                     setMsg(info.msg);
-                }
-                ;
+                };
             })
     }
     return (

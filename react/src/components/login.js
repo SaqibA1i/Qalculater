@@ -10,7 +10,7 @@ function Login() {
             },
             body: JSON.stringify(
                 {
-                    "uname": document.getElementById("uname").value,
+                    "uname": document.getElementById("uname").value.toLowerCase(),
                     "pw": document.getElementById("pw").value
                 })
         })

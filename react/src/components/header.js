@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { UserDataContext } from '../App';
+
 import {
     JournalPlus,
     CalculatorFill,
@@ -8,20 +10,22 @@ import {
     XCircleFill,
     BoxArrowDownLeft,
     InfoCircleFill,
-    X,
     GearFill,
     Upload,
-    plusCircleFill,
-    PlusCircle,
-    PlusCircleFill
+    PlusCircleFill,
+    App
 } from 'react-bootstrap-icons';
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 
-function Header({ totalAvg, data, selected, updateJson, username }) {
+function Header({ currTerm, totalAvg, username }) {
     const [visible, setVisible] = useState(false);
     const [optionsBool, setOpt] = useState(false);
     const [courseBool, setCourse] = useState(false);
+
+    const updateData = useContext(UserDataContext).updateJson;
+    let userData = useContext(UserDataContext).data;
+    let selected = useContext(UserDataContext).selectedCourse;
 
     const logOut = () => {
         let result = window.confirm("Sure you want to logout ?");
@@ -46,26 +50,32 @@ function Header({ totalAvg, data, selected, updateJson, username }) {
             NotificationManager.info("Fill in the required fields", selected)
         }
         else {
-            let json = data;
-            let updatedAssessments = data[selected];
+            let updatedAssessments = userData[selected]["data"];
             updatedAssessments.push([name, parseFloat(percentage), parseFloat(weightage)]);
 
-            json[selected] = updatedAssessments;
+            userData[selected]["data"] = updatedAssessments;
             setVisible(false);
-            updateJson(json);
+            updateData(userData);
             NotificationManager.info(name + " gained " + percentage + "%", selected)
         }
     }
 
-    const update = () => {
-        let json = data;
-        json[document.getElementById("courseName").value] = [];
-        // json[document.getElementById("courseName").value + " credit"] = document.getElementById("courseCred").value;
+    const addCourse = () => {
+        if (document.getElementById("courseCred").value != "" && document.getElementById("courseName").value != "") {
+            userData[document.getElementById("courseName").value] = {
+                "credit": parseFloat(document.getElementById("courseCred").value),
+                "data": []
+            };
 
-        updateJson(json)
-        NotificationManager.info(document.getElementById("courseName").value + " course is added ")
+            updateData(userData);
+            NotificationManager.info(document.getElementById("courseName").value + " course is added ")
+        }
+        else {
+            alert("please enter the required fields");
+        }
+
     }
-    
+
     const viewCourseAdderModal = () => {
         setCourse(!courseBool);
         setVisible(false);
@@ -139,13 +149,11 @@ function Header({ totalAvg, data, selected, updateJson, username }) {
                                 placeholder="Credit eg. 0.5" />
 
                         </div>
-                    </div>
-                    <div class="footer-modal">
                         <button
-                            class="header-add-course"
-                            onClick={() => { update(); viewCourseAdderModal() }}
+                            class="header-add-course submitBtn"
+                            onClick={() => { addCourse(); viewCourseAdderModal() }}
                         >
-                            <Upload size={15} />
+                            Submit
                         </button>
                     </div>
                 </div>
@@ -183,13 +191,11 @@ function Header({ totalAvg, data, selected, updateJson, username }) {
                                 placeholder="Weight" />
 
                         </div>
-                    </div>
-                    <div class="footer-modal">
                         <button
-                            class="header-add-course"
+                            class="header-add-course submitBtn"
                             onClick={() => { add(); viewAssessmentModal() }}
                         >
-                            <Upload size={15} />
+                            Submit
                         </button>
                     </div>
                 </div>
@@ -207,12 +213,8 @@ function Header({ totalAvg, data, selected, updateJson, username }) {
                             <XCircleFill class="option-icon" color={"#ffff"} size={20} />
                         </button>
                     </div>
+
                     <div class="body-modal">
-                        <div class="modal-options" onClick={logOut}>
-                            <BoxArrowDownLeft class="option-icon" color={"#1f52bfc8"} size={20} />
-                            Logout
-                        </div>
-                        <hr />
                         <div class="modal-options">
                             <Book class="option-icon" color={"#1f52bfc8"} size={20} />
                             Choose Gpa Scale
@@ -226,6 +228,11 @@ function Header({ totalAvg, data, selected, updateJson, username }) {
                         <div class="modal-options">
                             <InfoCircleFill class="option-icon" color={"#1f52bfc8"} size={20} />
                             About
+                        </div>
+                        <hr />
+                        <div class="modal-options" onClick={logOut}>
+                            <BoxArrowDownLeft class="option-icon" color={"#1f52bfc8"} size={20} />
+                            Logout
                         </div>
                     </div>
                 </div>
