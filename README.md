@@ -6,7 +6,7 @@ WAITING TO BE DEPLOYED
 ```
 >**Home Screen**
 
-<img src="./react/src/images/img1.jpg"/>
+<img style="margin-left: 50px" src="./react/src/images/img1.jpg" height="600px"/>
 
 >## **Why?**
 Many tools used by the university do not give us an accurate picture of where we stand academically in the term. Many different tools such as crowd mark, learn, etc. are used and there is no central point to have an overview of your marks. Thus, after failing to search for an app that can provide me with the following:
