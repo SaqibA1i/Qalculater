@@ -94,6 +94,13 @@ router.get('/', isAuth, (req, res, next) => {
     });
 });
 
+router.get('/', (req, res, next) => {
+    res.send({
+        "status": 400,
+        "msg": "You are not logged in"
+    });
+});
+
 // getting all the mark data from the user
 router.get('/userData', isAuth, (req, res, next) => {
     console.log("GET userData Success");
