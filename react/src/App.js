@@ -127,7 +127,12 @@ function App() {
           // The userData has been succeffuly fetched
           NProgress.done();
           setCurr(info.username);
-          document.getElementById("header-add-course").classList.remove("hide");
+          try {
+            document.getElementById("header-add-course").classList.remove("hide");
+          }
+          catch(err){
+            console.log("header-add-course doesnt exist")
+          }
 
           setAuth(true);
           newData = JSON.parse(info.data);
