@@ -1,5 +1,5 @@
 .header-container {
-  z-index: 100; 
+  z-index: 100;
   width: 100%;
   position: fixed;
   top: 0;
@@ -179,6 +179,6 @@
   background-color: $bad;
   transition: background-color 0.5s;
   &:hover {
-    background-color: $bad + 60;
+    background-color: lighten($bad, 10%);
   }
 }
