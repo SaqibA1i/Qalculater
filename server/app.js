@@ -5,6 +5,7 @@ var passport = require('passport');
 var crypto = require('crypto');
 var routes = require('./routes');
 const connection = require('./config/database');
+const cookieParser = require("cookie-parser");
 
 var cors = require('cors');
 
@@ -24,7 +25,12 @@ require('dotenv').config();
 // Create the Express application
 var app = express();
 
-app.use(cors());
+app.use(cors(
+    {
+        origin: "http://localhost:3000",
+        credentials: true
+    }
+));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -40,14 +46,15 @@ const sessionStorage = new MongoStore({
 
 app.use(session({
     secret: process.env.SECRET,
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     store: sessionStorage,
-    cookie:{
+    cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 30 // set an expires header of 1 month
     }
 }))
 
+app.use(cookieParser(process.env.SECRET));
 /**
  * -------------- PASSPORT AUTHENTICATION ----------------
  */
@@ -68,4 +75,4 @@ app.use(routes);
  * -------------- SERVER ----------------
  */
 
-app.listen(process.env.PORT,()=>{console.log("server is listening")});
+app.listen(process.env.PORT, () => { console.log("server is listening") });

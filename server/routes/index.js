@@ -13,9 +13,26 @@ const User = connection.models.User;
 //     validate it and return the done function and goes to
 //     the next function
 
-router.post('/login',
-    passport.authenticate('local',
-        { failureRedirect: '/login-failure', successRedirect: '/login-success' }));
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            console.log(err);
+            res.status(401).json({ msg: `username / password in correct` })
+        };
+        if (!user) {
+            console.log("User doesnt exist")
+            res.status(500).json({ msg: `User doesnt exist` })
+        }
+        else {
+            req.logIn(user, err => {
+                if (err) throw err;
+                res.status(200).json({ msg: `Login Successful` })
+                console.log("LOGIN success")
+            });
+        }
+    })
+        (req, res, next);
+})
 
 router.post('/register', (req, res, next) => {
     const saltHash = genPassword(req.body.pw);
@@ -91,7 +108,7 @@ router.post('/updateTerm', isAuth, (req, res, next) => {
 
 
 // getting all the mark data from the data base
-router.get('/userData', isAuth, (req, res, next) => {
+router.get('/data', isAuth, (req, res, next) => {
     console.log("GET userData Success");
     // send users marks data
     let userId = req.session.passport.user;
@@ -123,12 +140,5 @@ router.get('/logout', (req, res, next) => {
     res.status(200).json({ msg: "You have logged out successfully" });
 });
 
-router.get('/login-success', (req, res, next) => {
-    res.status(200).json({ msg: `Login Successful` })
-});
-
-router.get('/login-failure', (req, res, next) => {
-    res.status(401).json({ msg: `username / password in correct` })
-});
 
 module.exports = router;

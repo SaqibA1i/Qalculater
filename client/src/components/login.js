@@ -12,16 +12,14 @@ function Login() {
     const [loginMsg, setMsg] = useState("");
     function submit() {
         let login = {
-            url: '/login',
+            url: 'https://qalculater-backend.herokuapp.com/login',
             method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
             data:
             {
-                "uname": document.getElementById("uname").value.toLowerCase(),
-                "pw": document.getElementById("pw").value
-            }
+                uname: document.getElementById("uname").value.toLowerCase(),
+                pw: document.getElementById("pw").value
+            },
+            withCredentials: true,
         }
         NProgress.start();
         axios(login)
@@ -61,7 +59,5 @@ function Login() {
             </div>
         </div >
     )
-
 }
-
 export default Login;

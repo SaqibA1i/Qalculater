@@ -119,16 +119,22 @@ function App() {
     catch (err) {
       console.log("Cant hide the header icon as it doesnt exsit: " + err);
     }
-    axios.get('/userData')
+    axios({
+      method: "GET",
+      url: 'https://qalculater-backend.herokuapp.com/data',
+      withCredentials: true,
+    })
       .then((info) => {
-        NotificationManager.info(info.msg);
+        info = info.data;
+        console.log(info);
+        NotificationManager.info(info.msg, "Success", 1000);
         setAuth(false);
         // The userData has been succeffuly fetched
         setCurr(info.username);
 
 
         setAuth(true);
-        newData = JSON.parse(info.data);
+        newData = info.data;
 
         // checking if there is any content in the data
         if (Object.entries(newData).length == 0) {
@@ -147,6 +153,13 @@ function App() {
           newData = newData[info.currTerm];
           calcAverages(newData);
         }
+        try {
+          document.getElementById("header-add-course").classList.remove("hide");
+        }
+        catch (error) {
+          console.log("header-add-course doesnt exist")
+        }
+        NProgress.done();
         console.log("user data was fetched!");
       })
       .catch((err) => {
@@ -154,10 +167,10 @@ function App() {
         try {
           document.getElementById("header-add-course").classList.remove("hide");
         }
-        catch (err) {
+        catch (error) {
           console.log("header-add-course doesnt exist")
         }
-        console.log(err);
+        console.log(err.response);
         // The user is not authenticated so return to login window if its not already there
         if (!window.location.href.includes("login") && !window.location.href.includes("register")) {
           //window.location.href = "login";
