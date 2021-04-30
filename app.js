@@ -40,7 +40,7 @@ const sessionStorage = new MongoStore({
 });
 
 app.use(session({
-    secret: process.env.SECRET,
+    secret: secret123,
     resave: false,
     saveUninitialized: true,
     store: sessionStorage,
