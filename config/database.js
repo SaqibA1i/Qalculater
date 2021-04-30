@@ -13,7 +13,7 @@ require('dotenv').config();
  * DB_STRING=mongodb://<user>:<password>@localhost:27017/database_name
  */ 
 
-const conn = process.env.DB_STRING;
+const conn = "mongodb+srv://saq:YdjswdEfn5kN3UKl@cluster0.udjaw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 const connection = mongoose.createConnection(conn, {
     useNewUrlParser: true,
