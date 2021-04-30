@@ -112,7 +112,7 @@ function App() {
 
   const getUserData = async () => {
     let newData = {};
-    await fetch('http://35.192.39.108:5000/userData')
+    await fetch('/userData')
       .then((result) => result.json())
       .then((info) => {
         if (info.status != 200) {

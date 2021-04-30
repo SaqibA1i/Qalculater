@@ -88,35 +88,10 @@ router.post('/updateTerm', isAuth, (req, res, next) => {
 */
 
 router.get('/', isAuth, (req, res, next) => {
-    res.redirect('http://localhost:3000');
-});
-
-// When you visit http://localhost:5000/login, you will see "Login Page"
-router.get('/login', (req, res, next) => {
-
-
-    // const form = '<h1>Login Page</h1><form method="POST" action="/login">\
-    // Enter Username:<br><input type="text" name="uname">\
-    // <br>Enter Password:<br><input type="password" name="pw">\
-    // <br><br><input type="submit" value="Submit"></form>';
-
-    // res.send(form);
-    res.redirect('http://localhost:3000/login');
-
-});
-
-// When you visit http://localhost:3000/register, you will see "Register Page"
-router.get('/register', (req, res, next) => {
-    res.redirect('http://localhost:3000/register');
-});
-/**
- * Lookup how to authenticate users on routes with Local Strategy
- * Google Search: "How to use Express Passport Local Strategy"
- * 
- * Also, look up what behaviour express session has without a maxage set
- */
-router.get('/protected-route', isAuth, (req, res, next) => {
-    res.send('You made it');
+    res.send({
+        "status": 200,
+        "msg": "You have successfully logged in"
+    });
 });
 
 // getting all the mark data from the user
