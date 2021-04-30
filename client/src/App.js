@@ -112,7 +112,7 @@ function App() {
 
   const getUserData = async () => {
     let newData = {};
-    await fetch('https://qalculater-backend.herokuapp.com/userData')
+    await fetch('/userData')
       .then((result) => result.json())
       .then((info) => {
         if (info.status != 200) {
@@ -201,7 +201,7 @@ function App() {
     NProgress.start();
     document.getElementById("header-add-course").classList.add("hide");
     let newData = allUserData;
-    fetch('https://qalculater-backend.herokuapp.com/updateTerm', {
+    fetch('/updateTerm', {
       method: "POST",
       headers: {
         'Content-type': 'application/json'
@@ -239,7 +239,7 @@ function App() {
       newData[termName] = json;
     }
 
-    fetch('https://qalculater-backend.herokuapp.com//update', {
+    fetch('/update', {
       method: "POST",
       headers: {
         'Content-type': 'application/json'

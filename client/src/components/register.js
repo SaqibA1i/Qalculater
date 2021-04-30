@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 function Register() {
     const [loginMsg, setMsg] = useState("");
     function submit() {
-        fetch('https://qalculater-backend.herokuapp.com/register', {
+        fetch('/register', {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'

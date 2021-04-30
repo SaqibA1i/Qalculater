@@ -19,7 +19,6 @@ require('./config/passport');
  */
 
 // Gives us access to variables set in the .env file via `process.env.VARIABLE_NAME` syntax
-// heroku automatically makes the env file
 require('dotenv').config();
 
 // Create the Express application
@@ -44,7 +43,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     store: sessionStorage,
-    cookie: {
+    cookie:{
         maxAge: 1000 * 60 * 60 * 24 * 30 // set an expires header of 1 month
     }
 }))
@@ -70,4 +69,4 @@ app.use(routes);
  */
 
 // Server listens on http://localhost:3000
-app.listen(process.env.PORT, () => { console.log("server is listening") });
+app.listen(process.env.PORT,()=>{console.log("server is listening")});
