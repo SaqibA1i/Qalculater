@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from 'react';
-
+import axios from 'axios';
 function Register() {
     const [loginMsg, setMsg] = useState("");
     function submit() {
-        fetch('/register', {
+
+        let login = {
+            url: 'https://qalculater-backend.herokuapp.com/register',
             method: "POST",
             headers: {
-                'Content-type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
             },
-            body: JSON.stringify(
-                {
-                    "uname": document.getElementById("reg-name").value.toLowerCase(),
-                    "pw": document.getElementById("reg-pass").value
-                })
-        })
-            .then((result) => result.json())
+            data:
+            {
+                "uname": document.getElementById("reg-name").value.toLowerCase(),
+                "pw": document.getElementById("reg-pass").value
+            }
+        }
+        axios(login)
             .then((info) => {
-                if (info.status == 200) {
-                    window.location.href = "/login";
-                }
-                else {
-                    setMsg(info.msg);
-                };
+                console.log(info)
             })
+
     }
     return (
         <div className="login-form">

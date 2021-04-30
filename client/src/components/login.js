@@ -1,28 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Login() {
     const [loginMsg, setMsg] = useState("");
     function submit() {
-        fetch('/login', {
+        let login = {
+            url: 'https://qalculater-backend.herokuapp.com/login',
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify(
-                {
-                    "uname": document.getElementById("uname").value.toLowerCase(),
-                    "pw": document.getElementById("pw").value
-                })
-        })
-            .then((result) => result.json())
+            data:
+            {
+                "uname": document.getElementById("uname").value.toLowerCase(),
+                "pw": document.getElementById("pw").value
+            }
+        }
+        axios(login)
             .then((info) => {
-                if (info.status == 200) {
-                    window.location.href = "/user"
-                }
-                else {
-
-                    setMsg(info.msg);
-                }
+                console.log(info)
             })
     }
     return (
