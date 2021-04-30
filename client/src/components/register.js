@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { NotificationManager } from 'react-notifications';
+import NotificationContainer from 'react-notifications/lib/NotificationContainer';
+
+// Nprogress
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
 function Register() {
     const [loginMsg, setMsg] = useState("");
     function submit() {
@@ -19,12 +26,17 @@ function Register() {
         }
         axios(login)
             .then((info) => {
-                console.log(info)
+                window.location.href = "/login";
+            })
+            .catch((err) => {
+                NProgress.done();
+                NotificationManager.warning("user already exists", "Error", 1000);
             })
 
     }
     return (
         <div className="login-form">
+            <NotificationContainer />
             <p>
                 Qalculater &trade;
             </p>

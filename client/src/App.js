@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import $ from "jquery"
-
+import axios from 'axios';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import './scss/marks-styler.scss';
 
@@ -112,51 +112,55 @@ function App() {
 
   const getUserData = async () => {
     let newData = {};
-    await fetch('/userData', {
-      method: "GET",
-    })
-      .then((result) => result.json())
+    NProgress.start();
+    try {
+      document.getElementById("header-add-course").classList.add("hide");
+    }
+    catch (err) {
+      console.log("Cant hide the header icon as it doesnt exsit: " + err);
+    }
+    axios.get('/userData')
       .then((info) => {
-        if (info.status != 200) {
-          NotificationManager.info(info.msg);
-          setAuth(false);
-          // The user is not authenticated so return to login window if its not already there
-          if (!window.location.href.includes("login") && !window.location.href.includes("register")) {
-            window.location.href = 'login';
-          }
+        NotificationManager.info(info.msg);
+        setAuth(false);
+        // The userData has been succeffuly fetched
+        setCurr(info.username);
+
+
+        setAuth(true);
+        newData = JSON.parse(info.data);
+
+        // checking if there is any content in the data
+        if (Object.entries(newData).length == 0) {
+          setTerm("");
+          setUserData({});
+        }
+        else if (info.currTerm == null) {
+          // setting the first course in the list
+          //    if there is not one set already
+          updateTerm(Object.entries(newData)[0][0]);
+          window.location.href = "/";
         }
         else {
-          // The userData has been succeffuly fetched
-          NProgress.done();
-          setCurr(info.username);
-          try {
-            document.getElementById("header-add-course").classList.remove("hide");
-          }
-          catch (err) {
-            console.log("header-add-course doesnt exist")
-          }
-
-          setAuth(true);
-          newData = JSON.parse(info.data);
-          // checking if there is any content in the data
-          if (Object.entries(newData).length == 0) {
-            setTerm("");
-            setUserData({});
-          }
-          else if (info.currTerm == null) {
-            console.log(newData);
-            // setting the first course in the list
-            //    if there is not one set already
-            updateTerm(Object.entries(newData)[0][0]);
-            window.location.href = "/";
-          }
-          else {
-            setTerm(info.currTerm);
-            setUserData(newData);
-            newData = newData[info.currTerm];
-            calcAverages(newData);
-          }
-          console.log("user data was fetched!");
+          setTerm(info.currTerm);
+          setUserData(newData);
+          newData = newData[info.currTerm];
+          calcAverages(newData);
+        }
+        console.log("user data was fetched!");
+      })
+      .catch((err) => {
+        NProgress.done();
+        try {
+          document.getElementById("header-add-course").classList.remove("hide");
+        }
+        catch (err) {
+          console.log("header-add-course doesnt exist")
+        }
+        console.log(err);
+        // The user is not authenticated so return to login window if its not already there
+        if (!window.location.href.includes("login") && !window.location.href.includes("register")) {
+          //window.location.href = "login";
         }
       })
     return newData;
@@ -170,13 +174,6 @@ function App() {
   }, [data])
 
   useEffect(() => {
-    try {
-      document.getElementById("header-add-course").classList.add("hide");
-      NProgress.start();
-    }
-    catch (err) {
-      console.log("Cant hide the header icon as it doesnt exsit: " + err);
-    }
     setDataHelper();
   }, [])
 

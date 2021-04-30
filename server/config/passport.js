@@ -1,16 +1,17 @@
+
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const connection = require('./database');
-const validPassword = require('../lib/passwordUtils').validPassword;
 const User = connection.models.User;
+const validPassword = require('../lib/passwordUtils').validPassword;
 
 const customFields = {
     usernameField: 'uname',
     passwordField: 'pw'
 };
-// done is the fuction you will eventually pass 
-//  the results of your authentication to
+
 const verifyCallback = (username, password, done) => {
+
     User.findOne({ username: username })
         .then((user) => {
 
@@ -27,11 +28,11 @@ const verifyCallback = (username, password, done) => {
         .catch((err) => {
             done(err);
         });
+
 }
 
 const strategy = new LocalStrategy(customFields, verifyCallback);
 
-// pass in strategy and verify callback
 passport.use(strategy);
 
 passport.serializeUser((user, done) => {

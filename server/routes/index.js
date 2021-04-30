@@ -9,9 +9,10 @@ const User = connection.models.User;
  */
 
 // make a post request to login with username and password
-//     and the gets intercepted b the passport middleware!
+//     and the gets intercepted by the passport middleware!
 //     validate it and return the done function and goes to
 //     the next function
+
 router.post('/login',
     passport.authenticate('local',
         { failureRedirect: '/login-failure', successRedirect: '/login-success' }));
@@ -39,10 +40,10 @@ router.post('/register', (req, res, next) => {
                         console.log(user);
                     });
 
-                res.send({ "status": 200, "msg": `The user by the name ${newUser.username} has been created!` })
+                res.status(200).json({ msg: `The user by the name ${newUser.username} has been created!` })
             }
             else {
-                res.send({ "status": 500, "msg": `A user by the name ${newUser.username} already exists!` })
+                res.status(500).json({ msg: `A user by the name ${newUser.username} already exists!` })
             }
         })
         .catch((err) => {
@@ -59,10 +60,10 @@ router.post('/update', isAuth, (req, res, next) => {
             if (user != null) {
                 user.data = req.body.data;
                 user.save(); // updates the user in the db
-                res.send({ "status": 200, "msg": "Successfully updated" });
+                res.status(200).json({ msg: "Successfully updated" });
             }
             else {
-                res.send({ "status": 500, "msg": "The user doesnt exist" });
+                res.status(500).json({ msg: "The user doesnt exist" });
             }
         })
         .catch(err => done(err))
@@ -75,10 +76,11 @@ router.post('/updateTerm', isAuth, (req, res, next) => {
             if (user != null) {
                 user.currTerm = req.body.currTerm;
                 user.save(); // updates the user in the db
-                res.send({ "status": 200, "msg": "Successfully updated" });
+                res.status(200).json({ msg: "Successfully updated" });
             }
             else {
-                res.send({ "status": 500, "msg": "The user doesnt exist" });
+
+                res.status(500).json({ msg: "User doesnt exist" });
             }
         })
         .catch(err => done(err))
@@ -87,39 +89,8 @@ router.post('/updateTerm', isAuth, (req, res, next) => {
 * -------------- GET ROUTES ----------------
 */
 
-router.get('/', isAuth, (req, res, next) => {
-    res.redirect('http://localhost:3000');
-});
 
-// When you visit http://localhost:5000/login, you will see "Login Page"
-router.get('/login', (req, res, next) => {
-
-
-    // const form = '<h1>Login Page</h1><form method="POST" action="/login">\
-    // Enter Username:<br><input type="text" name="uname">\
-    // <br>Enter Password:<br><input type="password" name="pw">\
-    // <br><br><input type="submit" value="Submit"></form>';
-
-    // res.send(form);
-    res.redirect('http://localhost:3000/login');
-
-});
-
-// When you visit http://localhost:3000/register, you will see "Register Page"
-router.get('/register', (req, res, next) => {
-    res.redirect('http://localhost:3000/register');
-});
-/**
- * Lookup how to authenticate users on routes with Local Strategy
- * Google Search: "How to use Express Passport Local Strategy"
- * 
- * Also, look up what behaviour express session has without a maxage set
- */
-router.get('/protected-route', isAuth, (req, res, next) => {
-    res.send('You made it');
-});
-
-// getting all the mark data from the user
+// getting all the mark data from the data base
 router.get('/userData', isAuth, (req, res, next) => {
     console.log("GET userData Success");
     // send users marks data
@@ -128,37 +99,36 @@ router.get('/userData', isAuth, (req, res, next) => {
         .then((user) => {
             if (user != null) {
                 console.log("SUCCESS: user data sent successfully");
-                res.send({
-                    "status": 200,
-                    "msg": "user data sent successfully",
-                    "currTerm": user.currTerm,
-                    "data": user.data,
-                    "username": user.username
+
+                res.status(200).json({
+                    msg: "user data sent successfully",
+                    currTerm: user.currTerm,
+                    data: user.data,
+                    username: user.username
                 });
             }
-            else {
-                console.log("ERROR: user data not sent successfully");
-                res.send({
-                    "status": 500,
-                    "msg": "user data not sent successfully",
-                    "data": "{}"
-                });
-            }
+        })
+        .catch((err) => {
+            console.log("ERROR: user data not sent successfully");
+            res.status(500).json({
+                msg: "user data not sent successfully",
+                data: "{}"
+            });
         })
 })
 
 // Visiting this route logs the user out
 router.get('/logout', (req, res, next) => {
     req.logout();
-    res.send({ "status": 200, "msg": "You have logged out successfully" });
+    res.status(200).json({ msg: "You have logged out successfully" });
 });
 
 router.get('/login-success', (req, res, next) => {
-    res.send({ "status": 200, "msg": `Login Successful` })
+    res.status(200).json({ msg: `Login Successful` })
 });
 
 router.get('/login-failure', (req, res, next) => {
-    res.send({ "msg": `The username or password entered are in correct, please try again` })
+    res.status(401).json({ msg: `username / password in correct` })
 });
 
 module.exports = router;

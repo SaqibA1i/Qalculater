@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { NotificationManager } from 'react-notifications';
+import NotificationContainer from 'react-notifications/lib/NotificationContainer';
+
+
+// Nprogress
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 function Login() {
     const [loginMsg, setMsg] = useState("");
     function submit() {
         let login = {
-            url: 'https://qalculater-backend.herokuapp.com/login',
+            url: '/login',
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
@@ -16,13 +23,19 @@ function Login() {
                 "pw": document.getElementById("pw").value
             }
         }
+        NProgress.start();
         axios(login)
             .then((info) => {
-                console.log(info)
+                window.location.href = "/user"
+            })
+            .catch((err) => {
+                NProgress.done();
+                NotificationManager.warning("Incorrect username or password", "Try Again", 1000);
             })
     }
     return (
         <div className="login-form">
+            <NotificationContainer />
             <p>
                 Qalculater &trade;
             </p>
