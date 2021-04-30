@@ -36,7 +36,7 @@ The MERN stack was used, due to the following reasons
     - It uses JavaScript which eases up developement a bit more as I am using the same language in the front-end
 
 >## Community packages used
-Another benefit of using a javascript library such as react is having access to a massive library of community provided npm packges, such as npm modules the following npm modules that I have used to provide for a better user experience:
+Another benefit of using a javascript library such as react is having access to a massive library of community provided npm packges that I have used to provide for a better user experience:
 - <a href="https://www.npmjs.com/package/react-notifications" target="_top">React Notifications</a> for provding responses from the backend and general updates to the entries
 - <a href="https://www.npmjs.com/package/react-responsive-carousel" target="_top">React Responsive Carousel</a> used to switch between the course and term components
 - <a href="https://www.npmjs.com/package/react-bootstrap-icons" target="_top">React Bootstrap icons</a>
