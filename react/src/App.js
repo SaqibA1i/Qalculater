@@ -265,7 +265,7 @@ function App() {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/user" path="/">
+        <Route path="/">
           <UserDataContext.Provider value={{ data, updateJson, selectedCourse, setSelected, assessTotal, allUserData, termName, updateTerm }}>
             <Header
               currTerm={termName}
