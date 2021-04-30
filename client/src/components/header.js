@@ -33,7 +33,7 @@ function Header({ currTerm, totalAvg, username }) {
     const logOut = () => {
         let result = window.confirm("Sure you want to logout ?");
         if (result) {
-            fetch('https://qalculater-backend.herokuapp.com/logout', {
+            fetch('/logout', {
                 method: "GET",
             })
                 .then((result) => result.json())

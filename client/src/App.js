@@ -112,7 +112,9 @@ function App() {
 
   const getUserData = async () => {
     let newData = {};
-    await fetch('/userData')
+    await fetch('/userData', {
+      method: "GET",
+    })
       .then((result) => result.json())
       .then((info) => {
         if (info.status != 200) {
@@ -130,7 +132,7 @@ function App() {
           try {
             document.getElementById("header-add-course").classList.remove("hide");
           }
-          catch(err){
+          catch (err) {
             console.log("header-add-course doesnt exist")
           }
 

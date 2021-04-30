@@ -68,5 +68,4 @@ app.use(routes);
  * -------------- SERVER ----------------
  */
 
-// Server listens on http://localhost:3000
 app.listen(process.env.PORT,()=>{console.log("server is listening")});
