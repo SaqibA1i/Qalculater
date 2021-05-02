@@ -54,7 +54,6 @@ app.use(session({
     }
 }))
 
-app.use(cookieParser(process.env.SECRET));
 /**
  * -------------- PASSPORT AUTHENTICATION ----------------
  */

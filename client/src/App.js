@@ -27,8 +27,8 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 
 // context for the userData
 const UserDataContext = React.createContext();
-
 function App() {
+
   const [data, setData] = useState({});
   const [totalAvg, setTotalAvg] = useState(0);
   const [selectedCourse, setSelected] = useState("");
@@ -121,7 +121,7 @@ function App() {
     }
     axios({
       method: "GET",
-      url: 'https://qalculater-backend.herokuapp.com/data',
+      url: `${process.env.REACT_APP_SERVER}/data`,
       withCredentials: true,
     })
       .then((info) => {
@@ -187,6 +187,7 @@ function App() {
   }, [data])
 
   useEffect(() => {
+    console.log(process.env)
     setDataHelper();
   }, [])
 

@@ -12,9 +12,10 @@ function Register() {
     function submit() {
 
         let login = {
-            url: 'https://qalculater-backend.herokuapp.com/register',
+            url: `${process.env.REACT_APP_SERVER}/register`,
             method: "POST",
-            headers: {
+            headers:
+            {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json;charset=UTF-8'
             },

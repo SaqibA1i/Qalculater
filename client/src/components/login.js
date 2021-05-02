@@ -12,7 +12,7 @@ function Login() {
     const [loginMsg, setMsg] = useState("");
     function submit() {
         let login = {
-            url: 'https://qalculater-backend.herokuapp.com/login',
+            url: `${process.env.REACT_APP_SERVER}/login`,
             method: "POST",
             data:
             {
