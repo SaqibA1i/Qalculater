@@ -1,0 +1,186 @@
+.header-container {
+  z-index: 100;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  left: 0;
+  border-bottom: solid 1px $second-accent;
+}
+
+.hidden {
+  opacity: 0;
+  position: absolute;
+  transition: opacity 0.5s;
+  visibility: hidden;
+}
+.adder-modal {
+  margin: auto;
+  position: absolute;
+  top: 250px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 80%;
+  border-radius: 0 20px;
+  max-width: 400px;
+  height: fit-content;
+  background: $back-ground;
+  box-shadow: $box-shadow-black;
+  opacity: 1;
+  transition: opacity 0.5s;
+  padding-bottom: 30px;
+  z-index: 1000;
+  .header-modal {
+    p {
+      font-size: 15px;
+      margin: 0;
+      color: $white;
+      .option-icon {
+        margin-right: 20px;
+      }
+    }
+    border-radius: 0 20px;
+    padding: 10px;
+    border-bottom: 1px solid $main-text;
+    background-color: $second-dark-accent;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+  }
+  .body-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    input {
+      width: 40%;
+      max-width: 300px;
+      margin-left: 10px;
+    }
+    #assessmentName {
+      width: 70%;
+    }
+    .adder-numbers {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    .option-icon {
+      margin-right: 20px;
+    }
+    .modal-options {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: start;
+      font-size: 15px;
+      width: 200px;
+      cursor: pointer;
+      text-decoration: none;
+      color: rgba(51, 51, 51, 0.863);
+    }
+    hr {
+      width: 30%;
+      margin: 10px 0;
+      border: none;
+      border-top: 1px solid rgba(51, 51, 51, 0.342);
+    }
+  }
+  .footer-modal {
+    margin-top: 28px;
+    border-top: 1px solid $main-text;
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 0 0 10px 10px;
+    background-color: $second-dark-accent;
+    button {
+      background: none;
+      color: #333;
+      background-color: rgb(255, 255, 255);
+      cursor: pointer;
+    }
+  }
+}
+.header-brand {
+  font-size: 35px;
+  margin: 10px;
+  color: $main-text;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header-create {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: $second-accent;
+  margin: 10px;
+}
+
+.header-add-course {
+  margin: 10px;
+  border: 0;
+  border-radius: 5px;
+  width: auto;
+  height: 25px;
+  background-image: $second-accent-inner-gradient;
+  font-size: 17px;
+  font-weight: 900;
+  color: $white;
+  @include phone {
+    margin: 5px;
+  }
+}
+.header-settings {
+  margin: 10px;
+  border: 0;
+  border-radius: 5px;
+  width: auto;
+  height: 30px;
+  background: transparent;
+  font-size: 17px;
+  font-weight: 900;
+  transition: transform 1s;
+  &:hover {
+    cursor: pointer;
+    transform: rotate(90deg);
+  }
+}
+.submitBtn {
+  width: 150px;
+  height: auto;
+  font-weight: 100;
+  border-radius: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+.submitBtn2 {
+  font-size: 15px;
+  width: auto;
+  background: none;
+  background-color: $second-dark-accent;
+  height: auto;
+  font-weight: 100;
+  border-radius: 20px;
+  padding: 10px 15px;
+  cursor: default;
+}
+.del {
+  background: none;
+  background-color: $bad;
+  transition: background-color 0.5s;
+  &:hover {
+    background-color: lighten($bad, 10%);
+  }
+}

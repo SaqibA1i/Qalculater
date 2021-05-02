@@ -1,0 +1,37 @@
+// Colors
+$main-text: #00000094;
+$white: #ffffffce;
+$darkBlack: rgb(31, 30, 30);
+$back-ground:linear-gradient(to bottom right, rgb(255, 255, 255) , rgb(255, 255, 255));;
+$second-accent: rgb(53, 156, 246);
+$second-dark-accent: #1f52bf;
+$awesome: rgba(0, 241, 0, 0.774);
+$good: rgba(0, 128, 2, 0.628);
+$okay: rgba(255, 255, 0, 0.421);
+$bare: rgba(255, 123, 0s, 0.455);
+$bad: #bd3b2fa7;
+$transparent-black: rgb(124, 150, 199);
+$dull-black:rgba(85, 85, 85, 0.568);
+// Dark theme
+$dark-text: black;
+$dark-back: white;
+$dark-accent: blue;
+
+// White theme
+$light-text: black;
+$light-accent: blue;
+
+// layout
+$desktop-width: 1200px;
+$tablet-width: 768px;
+$phone-width: 413px;
+
+// styling
+$theme-bg-white: linear-gradient(to bottom right, #4f72a056, white);
+$theme-bg-black: linear-gradient(to bottom right, #4f72a056, $back-ground);
+$second-accent-inner-gradient: linear-gradient(95deg, $second-dark-accent, $second-accent);
+$box-shadow-white: 12px 12px 16px 0 rgba(0, 0, 0, 0.11), -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+$box-shadow-black: 12px 12px 16px 0 rgba(0, 0, 0, 0.11), -8px -8px 12px 0 rgba(0, 0, 0, 0.3);
+$box-shadow-black-course: -4px -4px 6px 0 rgba(0, 102, 255, 0.069), 6px 6px 8px 0 rgba(100, 100, 100, 0.29);
+$box-inner-shadow: inset 2px 2px 3px 0 rgba(0, 0, 0, 0.2), inset -2px -2px 3px 0 hsla(0, 0%, 100%, 0.068);
+$box-small-inner-shadow: inset 2px 2px 3px 0 rgba(0, 0, 0, 0.2), inset -2px -2px 3px 0 rgba(255, 255, 255, 0.068);
