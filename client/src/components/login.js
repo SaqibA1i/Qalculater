@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { NotificationManager } from 'react-notifications';
 import NotificationContainer from 'react-notifications/lib/NotificationContainer';
 
-
+import { endLoadingAnim, startLoadingAnim } from '../App';
 // Nprogress
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -24,16 +24,19 @@ function Login() {
             },
             withCredentials: true,
         }
-        NProgress.start();
+        startLoadingAnim();
         axios(login)
             .then((info) => {
-                history.push("/user");
+                // history.push("/user");
+                window.location.href = "/user"
+                //NotificationManager.success("Successfully logged in", "", 1000);
+
             })
             .catch((err) => {
                 console.log(err);
-                NProgress.done();
                 NotificationManager.warning("Incorrect username or password", "Try Again", 1000);
             })
+        endLoadingAnim();
     }
     return (
         <div className="login-form">

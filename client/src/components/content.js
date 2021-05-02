@@ -30,7 +30,7 @@ function Content({ setSelHelper, asTotal }) {
     const termSetter = (term) => {
         setCurrTerm(term);
     }
-    
+
     // Add a new term
     const addTerm = () => {
         try {
@@ -68,6 +68,7 @@ function Content({ setSelHelper, asTotal }) {
         }
         setTerms(newCourses);
         console.log("useEffect at Content")
+        console.log(allData);
     }, [userData, selected, currTerm])
     return (
         <>
@@ -75,8 +76,8 @@ function Content({ setSelHelper, asTotal }) {
 
                 <div className="content-container" >
                     {
-                        terms.map(term =>
-                            <div className={"content-course "} onClick={() => { termSetter(term) }}>
+                        terms.map((term, index) =>
+                            <div key={index} className={"content-course "} onClick={() => { termSetter(term) }}>
                                 <CircleFill class={(currTerm == term) ? ("awesomeC") : ("badC")} style={{ marginRight: "10px" }} size={10} />
                                 {term}
                             </div>
@@ -89,8 +90,8 @@ function Content({ setSelHelper, asTotal }) {
                 </div>
                 <div className="content-container">
                     {
-                        courses.map(course =>
-                            <div className={"content-course "} id={course} onClick={() => setSelHelper(course)}>
+                        courses.map((course, index) =>
+                            <div key={index} className={"content-course "} id={course} onClick={() => setSelHelper(course)}>
                                 <CircleFill class={asTotal[course][1] + 'C'} style={{ marginRight: "10px" }} size={10} />
                                 {course}
                                 <span class="course-avg">{asTotal[course][0]} %</span>

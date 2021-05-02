@@ -8,6 +8,7 @@ import {
   Switch,
   BrowserRouter as Router,
   Route,
+  useHistory
 } from "react-router-dom";
 
 // Nprogress
@@ -25,6 +26,15 @@ import Register from './components/register'
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 
+export const startLoadingAnim = () => {
+  NProgress.start();
+  document.getElementById("header-add-course") && document.getElementById("header-add-course").classList.add("hide");
+}
+export const endLoadingAnim = () => {
+  NProgress.done();
+  document.getElementById("header-add-course") && document.getElementById("header-add-course").classList.remove("hide");
+}
+
 // context for the userData
 const UserDataContext = React.createContext();
 function App() {
@@ -32,13 +42,10 @@ function App() {
   const [data, setData] = useState({});
   const [totalAvg, setTotalAvg] = useState(0);
   const [selectedCourse, setSelected] = useState("");
-  const [color, setColor] = useState("");
   const [assessTotal, setTotal] = useState({});
-  const [authenticated, setAuth] = useState(false);
   const [termName, setTerm] = useState("");
   const [allUserData, setUserData] = useState({});
   const [currUser, setCurr] = useState("");
-
   const gpaScale = [
     { 0: "0.00" },
     { 56: "1.30" },
@@ -53,6 +60,7 @@ function App() {
     { 90: "4.00" },
     { 100: "4.00" },
   ]
+
 
   const calcAverages = (newData) => {
     // Following just calculates users class Average
@@ -105,6 +113,7 @@ function App() {
         console.log(`JSON STRUCTURE ERROR OR MISSING INFORMATION ${selected}: ` + err);
       }
     }
+    totalCredits = totalCredits == 0 ? 1 : totalCredits;
     setTotal(asTotal);
     setTotalAvg((totalA / totalCredits).toPrecision(4));
     console.log("Averags were succesfully calculated");
@@ -112,13 +121,7 @@ function App() {
 
   const getUserData = async () => {
     let newData = {};
-    NProgress.start();
-    try {
-      document.getElementById("header-add-course").classList.add("hide");
-    }
-    catch (err) {
-      console.log("Cant hide the header icon as it doesnt exsit: " + err);
-    }
+    startLoadingAnim();
     axios({
       method: "GET",
       url: `${process.env.REACT_APP_SERVER}/data`,
@@ -127,14 +130,10 @@ function App() {
       .then((info) => {
         info = info.data;
         console.log(info);
-        NotificationManager.info(info.msg, "Success", 1000);
-        setAuth(false);
         // The userData has been succeffuly fetched
         setCurr(info.username);
-
-        setAuth(true);
-        newData = info.data;
-
+        console.log(info.data);
+        newData = JSON.parse(info.data);
         // checking if there is any content in the data
         if (Object.entries(newData).length == 0) {
           setTerm("");
@@ -152,41 +151,30 @@ function App() {
           newData = newData[info.currTerm];
           calcAverages(newData);
         }
-        try {
-          document.getElementById("header-add-course").classList.remove("hide");
-        }
-        catch (error) {
-          console.log("header-add-course doesnt exist")
-        }
-        NProgress.done();
+        console.log("header-add-course doesnt exist")
         console.log("user data was fetched!");
+
+        setData(newData);
       })
       .catch((err) => {
-        NProgress.done();
-        try {
-          document.getElementById("header-add-course").classList.remove("hide");
-        }
-        catch (error) {
-          console.log("header-add-course doesnt exist")
-        }
-        console.log(err.response);
+        console.log("ERROR" + err);
         // The user is not authenticated so return to login window if its not already there
         if (!window.location.href.includes("login") && !window.location.href.includes("register")) {
-          //window.location.href = "login";
+          window.location.href = "login";
         }
       })
+    endLoadingAnim();
     return newData;
   }
 
   const setDataHelper = async () => {
-    setData(await getUserData());
+    await getUserData();
   }
   useEffect(() => {
     calcAverages(data);
   }, [data])
 
   useEffect(() => {
-    console.log(process.env)
     setDataHelper();
   }, [])
 
@@ -209,72 +197,70 @@ function App() {
   }
 
   function updateTerm(term) {
-    setSelected("");
-    NProgress.start();
-    document.getElementById("header-add-course").classList.add("hide");
-    let newData = allUserData;
-    fetch('/updateTerm', {
-      method: "POST",
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(
+    if (term == termName) {
+      NotificationManager.info("Select a different term", "", 1000);
+    }
+    else {
+      setSelected("");
+      let update = {
+        url: `${process.env.REACT_APP_SERVER}/updateTerm`,
+        method: "POST",
+        data:
         {
-          "currTerm": term,
-        })
-    })
-      .then((result) => result.json())
-      .then((info) => {
-        if (info.status == 200) {
-          NProgress.done();
-          document.getElementById("header-add-course").classList.remove("hide");
-
+          currTerm: term,
+        },
+        withCredentials: true,
+      }
+      startLoadingAnim();
+      axios(update)
+        .then((info) => {
           calcAverages(data);
           setTerm(term);
           setData(allUserData[term]);
-        }
-        else {
-          console.log(JSON.stringify(info))
-        }
-      })
-    console.log("The Term was updated");
+          NotificationManager.info(info.data.msg, "", 1000);
+        })
+        .catch(err => {
+          console.log("ERROR Updating term", err.response);
+          NotificationManager.error("error updating the term", "Error", 1000);
+        })
+      endLoadingAnim();
+    }
+
   }
 
-  function updateJson(json, bool = false) {
-    NProgress.start();
-    document.getElementById("header-add-course").classList.add("hide");
+  function updateJson(json, isAllDataUpdated = false) {
+
     let newData = allUserData;
-    if (bool) {
+    if (isAllDataUpdated) {
       newData = json;
     }
     else {
       newData[termName] = json;
     }
 
-    fetch('/update', {
+    let update = {
+      url: `${process.env.REACT_APP_SERVER}/update`,
       method: "POST",
-      headers: {
-        'Content-type': 'application/json'
+      data:
+      {
+        data: JSON.stringify(newData),
       },
-      body: JSON.stringify(
-        {
-          "data": JSON.stringify(newData),
-        })
-    })
-      .then((result) => result.json())
+      withCredentials: true,
+    }
+    startLoadingAnim();
+    axios(update)
       .then((info) => {
-        if (info.status == 200) {
-          NProgress.done();
-          document.getElementById("header-add-course").classList.remove("hide");
-
-          calcAverages(data);
-          setData({ ...json });
-          setUserData({ ...newData });
-        }
-        else {
-          console.log(JSON.stringify(info))
-        }
+        calcAverages(data);
+        setData({ ...json });
+        setUserData({ ...newData });
+        NotificationManager.success(info.data.msg, "", 1000);
+        console.log("SUCCESS in updating user data");
       })
+      .catch(err => {
+        NotificationManager.error("Error in updating", 1000);
+        console.log("ERROR in updating user data: ", err);
+      })
+    endLoadingAnim();
     console.log("The user data was updated");
   }
   return (
@@ -283,7 +269,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/">
-          <UserDataContext.Provider value={{ data, updateJson, selectedCourse, setSelected, assessTotal, allUserData, termName, updateTerm }}>
+          <UserDataContext.Provider value={{ data, updateJson, selectedCourse, setSelected, assessTotal, allUserData, termName, updateTerm, totalAvg }}>
             <Header
               currTerm={termName}
               totalAvg={totalAvg}

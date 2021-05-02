@@ -122,7 +122,7 @@ function Assessments() {
             <div id="assessment-completion-bar" class="assessment-completion-bar">
             </div>
             {assessments.map((assessment, index) =>
-                <div class="assessment-single assessment-data">
+                <div key={index} class="assessment-single assessment-data">
                     <b class="assessment-header">
                         {assessment[0]}
                         <br />

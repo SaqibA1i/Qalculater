@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { UserDataContext } from '../App';
-
+import { useHistory } from 'react-router-dom'
 import {
     JournalPlus,
     CalculatorFill,
@@ -17,12 +17,15 @@ import {
 } from 'react-bootstrap-icons';
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
+import axios from 'axios';
+import { endLoadingAnim, startLoadingAnim } from '../App';
+
 
 function Header({ currTerm, totalAvg, username }) {
     const [visible, setVisible] = useState(false);
     const [optionsBool, setOpt] = useState(false);
     const [courseBool, setCourse] = useState(false);
-
+    const history = useHistory();
     let errors = require("./errors.json");
 
     const updateData = useContext(UserDataContext).updateJson;
@@ -33,15 +36,23 @@ function Header({ currTerm, totalAvg, username }) {
     const logOut = () => {
         let result = window.confirm("Sure you want to logout ?");
         if (result) {
-            fetch('/logout', {
+            let logOutReq = {
                 method: "GET",
-            })
-                .then((result) => result.json())
+                url: `${process.env.REACT_APP_SERVER}/logout`,
+                withCredentials: true,
+            }
+
+            startLoadingAnim();
+            axios(logOutReq)
                 .then((info) => {
-                    if (info.status == 200) {
-                        window.location.href = "/login";
-                    }
+                    history.push("/login")
+                    NotificationManager.success("Logged out successfully", "", 1000);
                 })
+                .catch(err => {
+                    NotificationManager.error("Error loggin out", "", 1000);
+                })
+
+            endLoadingAnim();
         }
     }
 
@@ -53,7 +64,7 @@ function Header({ currTerm, totalAvg, username }) {
 
         try {
             // Check: Are the fields empty
-            if (percentage == "" || weightage == "" || weightage == "") {
+            if (percentage == "" || weightage == "" || name == "") {
                 throw errors["emptyFields"];
             }
             let updatedAssessments = userData[selected]["data"];
@@ -63,7 +74,7 @@ function Header({ currTerm, totalAvg, username }) {
                     throw errors["repeatedEntry"];
                 }
             })
-            
+
             updatedAssessments.push([name, parseFloat(percentage), parseFloat(weightage)]);
             userData[selected]["data"] = updatedAssessments;
             viewAssessmentModal();
@@ -253,15 +264,16 @@ function Header({ currTerm, totalAvg, username }) {
                     </div>
 
                     <div class="body-modal">
-                        <div class="modal-options">
+                        {/* <div class="modal-options">
                             <Book class="option-icon" color={"#1f52bfc8"} size={20} />
                             Choose Gpa Scale
                         </div>
-                        <hr />
-                        <div class="modal-options">
+                        <hr /> */}
+                        <a class="modal-options"
+                            href="mailto: Qalculater@gmail.com">
                             <EnvelopeFill class="option-icon" color={"#1f52bfc8"} size={20} />
                             Contact dev
-                        </div>
+                        </a>
                         <hr />
                         <div class="modal-options">
                             <InfoCircleFill class="option-icon" color={"#1f52bfc8"} size={20} />

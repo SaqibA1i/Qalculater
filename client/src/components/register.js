@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { NotificationManager } from 'react-notifications';
 import NotificationContainer from 'react-notifications/lib/NotificationContainer';
+import { endLoadingAnim, startLoadingAnim } from '../App';
 
+import { useHistory } from 'react-router-dom'
 // Nprogress
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 
 function Register() {
     const [loginMsg, setMsg] = useState("");
+    const history = useHistory();
     function submit() {
 
-        let login = {
+        let register = {
             url: `${process.env.REACT_APP_SERVER}/register`,
             method: "POST",
             headers:
@@ -25,19 +28,23 @@ function Register() {
                 "pw": document.getElementById("reg-pass").value
             }
         }
-        axios(login)
+        startLoadingAnim();
+        axios(register)
             .then((info) => {
-                window.location.href = "/login";
+                history.push("/login");
+                NotificationManager.success("Successfully registered, now login", "", 1000);
             })
             .catch((err) => {
                 NProgress.done();
-                NotificationManager.warning("user already exists", "Error", 1000);
+                NotificationManager.error("user already exists", "Error", 1000);
             })
+
+        endLoadingAnim();
 
     }
     return (
         <div className="login-form">
-            <NotificationContainer />
+            <NotificationContainer/>
             <p>
                 Qalculater &trade;
             </p>
