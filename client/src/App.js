@@ -229,7 +229,6 @@ function App() {
   }
 
   function updateJson(json, isAllDataUpdated = false) {
-    alert("here");
     let newData = allUserData;
     if (isAllDataUpdated) {
       newData = json;
@@ -262,6 +261,8 @@ function App() {
       })
     endLoadingAnim();
     console.log("The user data was updated");
+    alert(isAllDataUpdated)
+    alert(newData);
   }
   return (
     <Router className="App" >
