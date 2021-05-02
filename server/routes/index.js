@@ -85,8 +85,11 @@ router.post('/update', isAuth, (req, res, next) => {
                 user.data = req.body.data;
                 user.save(); // updates the user in the db
                 res.status(200).json({ msg: "Successfully updated" });
+                console.log("UPDATE: ");
+                console.log(user);
             }
             else {
+                console.log("UPDATE: user does not exist");
                 res.status(500).json({ msg: "The user doesnt exist" });
             }
         })

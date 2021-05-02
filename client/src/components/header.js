@@ -106,7 +106,7 @@ function Header({ currTerm, totalAvg, username }) {
             viewCourseAdderModal();
             userData[name] = {
                 "credit": parseFloat(document.getElementById("courseCred").value),
-                "data": []
+                "data": {}
             };
 
             updateData(userData);

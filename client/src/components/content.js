@@ -32,7 +32,7 @@ function Content({ setSelHelper, asTotal }) {
     }
 
     // Add a new term
-    const addTerm = () => {
+    const addTerm = async () => {
         try {
             // Check: Are the fields empty
             let newTerm = document.getElementById("termName").value;
@@ -47,7 +47,7 @@ function Content({ setSelHelper, asTotal }) {
             })
             allData[newTerm] = {};
             setView(false);
-            updateData({ ...allData }, true);
+            await updateData(allData, true);
             termSetter(newTerm);
             window.location.href = "/";
         }
@@ -98,7 +98,7 @@ function Content({ setSelHelper, asTotal }) {
                             </div>
 
                         )
-                        
+
                     }
                     {courses.length == 0 && <p>Add a course</p>}
                 </div>
