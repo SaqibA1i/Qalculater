@@ -13,38 +13,47 @@ function Register() {
     const [loginMsg, setMsg] = useState("");
     const history = useHistory();
     function submit() {
-
-        let register = {
-            url: `${process.env.REACT_APP_SERVER}/register`,
-            method: "POST",
-            headers:
-            {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json;charset=UTF-8'
-            },
-            data:
-            {
-                "uname": document.getElementById("reg-name").value.toLowerCase(),
-                "pw": document.getElementById("reg-pass").value
-            }
+        let username = document.getElementById("reg-name").value.toLowerCase();
+        let password = document.getElementById("reg-pass").value;
+        if (username == "" || password == "") {
+            NotificationManager.error("Empty Fields", "Error", 1000);
         }
-        startLoadingAnim();
-        axios(register)
-            .then((info) => {
-                history.push("/login");
-                NotificationManager.success("Successfully registered, now login", "", 1000);
-            })
-            .catch((err) => {
-                NProgress.done();
-                NotificationManager.error("user already exists", "Error", 1000);
-            })
+        else if (password.length < 6) {
+            NotificationManager.error("Password length must be 6 characters", "Too small", 2000);
+        }
+        else {
+            let register = {
+                url: `${process.env.REACT_APP_SERVER}/register`,
+                method: "POST",
+                headers:
+                {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                data:
+                {
+                    "uname": document.getElementById("reg-name").value.toLowerCase(),
+                    "pw": document.getElementById("reg-pass").value
+                }
+            }
+            startLoadingAnim();
+            axios(register)
+                .then((info) => {
+                    history.push("/login");
+                    NotificationManager.success("Successfully registered, now login", "", 1000);
+                })
+                .catch((err) => {
+                    NProgress.done();
+                    NotificationManager.error("user already exists", "Error", 1000);
+                })
 
-        endLoadingAnim();
+            endLoadingAnim();
+        }
 
     }
     return (
         <div className="login-form">
-            <NotificationContainer/>
+            <NotificationContainer />
             <p>
                 Qalculater &trade;
             </p>

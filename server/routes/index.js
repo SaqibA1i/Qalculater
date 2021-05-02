@@ -27,6 +27,8 @@ router.post('/login', (req, res, next) => {
         else {
             req.logIn(user, async (err) => {
                 if (err) throw err;
+                req.session.save();
+                await req.session.save();
                 res.status(200).json({ msg: `Login Successful` })
                 console.log("LOGIN success")
             });
@@ -55,11 +57,11 @@ router.post('/register', (req, res, next) => {
             console.log("Register success");
             if (!user) {
                 newUser.data = "{}";
-                newUser.currTerm = "",
-                    newUser.save()
-                        .then((user) => {
-                            console.log(user);
-                        });
+                newUser.currTerm = "";
+                newUser.save()
+                    .then((user) => {
+                        console.log(user);
+                    });
 
                 res.status(200).json({ msg: `The user by the name ${newUser.username} has been created!` })
             }
@@ -101,6 +103,7 @@ router.post('/updateTerm', isAuth, (req, res, next) => {
                 res.status(200).json({ msg: "Successfully updated" });
             }
             else {
+
                 res.status(500).json({ msg: "User doesnt exist" });
             }
         })
@@ -112,31 +115,40 @@ router.post('/updateTerm', isAuth, (req, res, next) => {
 
 
 // getting all the mark data from the data base
-router.get('/data', isAuth, (req, res, next) => {
-    console.log("GET userData Success");
-    // send users marks data
-    let userId = req.session.passport.user;
-    User.findById(userId)
-        .then((user) => {
-            if (user != null) {
-                console.log("SUCCESS: user data sent successfully");
+router.get('/data', async (req, res, next) => {
+    console.log(req.session);
+    if (await req.isAuthenticated()) {
+        next();
+    } else {
+        res.status(401).json({ msg: 'You are not logged in' });
+        console.log('You are not logged in');
+    }
+}
+    , (req, res, next) => {
+        console.log("GET userData Success");
+        // send users marks data
+        let userId = req.session.passport.user;
+        User.findById(userId)
+            .then((user) => {
+                if (user != null) {
+                    console.log("SUCCESS: user data sent successfully");
 
-                res.status(200).json({
-                    msg: "user data sent successfully",
-                    currTerm: user.currTerm,
-                    data: user.data,
-                    username: user.username
+                    res.status(200).json({
+                        msg: "user data sent successfully",
+                        currTerm: user.currTerm,
+                        data: user.data,
+                        username: user.username
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log("ERROR: user data not sent successfully");
+                res.status(500).json({
+                    msg: "user data not sent successfully",
+                    data: "{}"
                 });
-            }
-        })
-        .catch((err) => {
-            console.log("ERROR: user data not sent successfully");
-            res.status(500).json({
-                msg: "user data not sent successfully",
-                data: "{}"
-            });
-        })
-})
+            })
+    })
 
 // Visiting this route logs the user out
 router.get('/logout', (req, res, next) => {

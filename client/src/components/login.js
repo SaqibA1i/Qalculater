@@ -12,7 +12,6 @@ import 'nprogress/nprogress.css';
 function Login() {
     const [loginMsg, setMsg] = useState("");
     const history = useHistory();
-
     function submit() {
         let login = {
             url: `${process.env.REACT_APP_SERVER}/login`,

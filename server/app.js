@@ -1,11 +1,8 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const session = require('express-session');
 var passport = require('passport');
-var crypto = require('crypto');
 var routes = require('./routes');
 const connection = require('./config/database');
-const cookieParser = require("cookie-parser");
 
 var cors = require('cors');
 
@@ -21,7 +18,7 @@ require('dotenv').config();
 
 // Create the Express application
 var app = express();
-
+app.enable('trust proxy')
 app.use(cors(
     {
         origin: `${process.env.CLIENT}`,
@@ -60,6 +57,12 @@ app.use(session({
 require('./config/passport');   // takes the passport.use line
 app.use(passport.initialize()); // initialize the passport middleware
 app.use(passport.session());    // serrilize and deserialize user
+
+app.use((req, res, next) => {
+    console.log(req.session);
+    console.log(req.user);
+    next();
+});
 
 /**
  * -------------- ROUTES ----------------
