@@ -249,19 +249,19 @@ function App() {
     startLoadingAnim();
     axios(update)
       .then((info) => {
+        alert(JSON.stringify(info))
         calcAverages(data);
         setData({ ...json });
         setUserData({ ...newData });
         NotificationManager.success(info.data.msg, "", 1000);
-        console.log("SUCCESS in updating user data");
+        alert("SUCCESS in updating user data");
       })
       .catch(err => {
         NotificationManager.error("Error in updating", 1000);
-        console.log("ERROR in updating user data: ", err);
+        alert("ERROR in updating user data: ", JSON.stringify(err));
       })
     endLoadingAnim();
     console.log("The user data was updated");
-    alert(isAllDataUpdated)
     alert(JSON.stringify(newData));
   }
   return (
