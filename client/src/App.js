@@ -132,7 +132,6 @@ function App() {
         // The userData has been succeffuly fetched
         setCurr(info.username);
 
-
         setAuth(true);
         newData = info.data;
 
