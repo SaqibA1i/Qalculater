@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom'
 import { NotificationManager } from 'react-notifications';
 import NotificationContainer from 'react-notifications/lib/NotificationContainer';
 
@@ -10,6 +11,8 @@ import 'nprogress/nprogress.css';
 
 function Login() {
     const [loginMsg, setMsg] = useState("");
+    const history = useHistory();
+
     function submit() {
         let login = {
             url: `${process.env.REACT_APP_SERVER}/login`,
@@ -24,7 +27,7 @@ function Login() {
         NProgress.start();
         axios(login)
             .then((info) => {
-                window.location.href = "/user"
+                history.push("/user");
             })
             .catch((err) => {
                 console.log(err);
