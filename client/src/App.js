@@ -262,7 +262,7 @@ function App() {
     endLoadingAnim();
     console.log("The user data was updated");
     alert(isAllDataUpdated)
-    alert(newData);
+    alert(JSON.stringify(newData));
   }
   return (
     <Router className="App" >
