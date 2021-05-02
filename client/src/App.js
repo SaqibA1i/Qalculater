@@ -228,8 +228,8 @@ function App() {
 
   }
 
-  async function updateJson(json, isAllDataUpdated = false) {
-
+  function updateJson(json, isAllDataUpdated = false) {
+    alert("here");
     let newData = allUserData;
     if (isAllDataUpdated) {
       newData = json;
