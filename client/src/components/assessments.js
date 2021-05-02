@@ -143,7 +143,7 @@ function Assessments() {
                 </div>
             )}
             <div class={(view) ? ("adder-modal") : ("hidden")} style={{ "top": "-100px" }}>
-                {userData[selected] != undefined && userData[selected]["data"][0] != undefined &&
+                {userData[selected] && userData[selected]["data"][0] &&
                     <div class="modal">
                         <div
                             class="header-modal"

@@ -160,7 +160,7 @@ function App() {
         console.log("ERROR" + err);
         // The user is not authenticated so return to login window if its not already there
         if (!window.location.href.includes("login") && !window.location.href.includes("register")) {
-          window.location.href = "login";
+          //window.location.href = "login";
         }
       })
     endLoadingAnim();

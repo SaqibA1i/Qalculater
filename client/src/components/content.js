@@ -47,7 +47,7 @@ function Content({ setSelHelper, asTotal }) {
             })
             allData[newTerm] = {};
             setView(false);
-            updateData(allData, true);
+            updateData({ ...allData }, true);
             termSetter(newTerm);
             window.location.href = "/";
         }
@@ -69,7 +69,7 @@ function Content({ setSelHelper, asTotal }) {
         setTerms(newCourses);
         console.log("useEffect at Content")
         console.log(allData);
-    }, [userData, selected, currTerm])
+    }, [userData, selected, allData, currTerm])
     return (
         <>
             <Carousel class="carousel" width="100%" autoPlay={false} showThumbs={false} showStatus={false} showIndicators={false} swipeable={true} emulateTouch={false} stopOnHover={true}>
@@ -98,7 +98,9 @@ function Content({ setSelHelper, asTotal }) {
                             </div>
 
                         )
+                        
                     }
+                    {courses.length == 0 && <p>Add a course</p>}
                 </div>
 
             </Carousel >

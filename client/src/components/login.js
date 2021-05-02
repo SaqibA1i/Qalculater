@@ -33,7 +33,7 @@ function Login() {
             })
             .catch((err) => {
                 console.log(err);
-                NotificationManager.warning("Incorrect username or password", "Try Again", 1000);
+                NotificationManager.warning("Incorrect username or password", "Err", 2000);
             })
         endLoadingAnim();
     }
