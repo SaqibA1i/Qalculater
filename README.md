@@ -36,10 +36,10 @@ The MERN stack was used, due to the following reasons
     - To handle http GET/POST requests from the front-end
     - Interact with the MongoDB database to obtain user data
     - Handle user authentication and registration (which was taken care of by using the passportJS middle ware)
-    - It uses JavaScript which eases up developement a bit more as I am using the same language in the front-end
+    - It uses JavaScript which eases up development a bit more as I am using the same language in the front-end
 
 >## Community packages used
-Another benefit of using a javascript library such as react is having access to a massive library of community provided npm packges that I have used to provide for a better user experience:
+Another benefit of using a javascript library such as react is having access to a massive library of community provided npm packages that I have used to provide for a better user experience:
 - <a href="https://www.npmjs.com/package/react-notifications" target="_top">React Notifications</a> for provding responses from the backend and general updates to the entries
 - <a href="https://www.npmjs.com/package/react-responsive-carousel" target="_top">React Responsive Carousel</a> used to switch between the course and term components
 - <a href="https://www.npmjs.com/package/react-bootstrap-icons" target="_top">React Bootstrap icons</a>
@@ -66,4 +66,4 @@ The marks are stored as a JSON object in the following structure:
 Having unfamiliarity with passportJS the following resources were used to help me with user Authentication:
 
 -   <a href="https://youtu.be/F-sFp_AvHc8" >User Authentication in Web Apps (Passport.js, Node, Express)</a> a 6 hr course provided by freeCodeCamp.org which details different authentication methods and how to incorporate passportJS with Express.
--   <a href = "http://www.passportjs.org/" >Pssportjs</a> The official Passport JS documentation site
+-   <a href = "http://www.passportjs.org/" >Passportjs</a> The official Passport JS documentation site
