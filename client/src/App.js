@@ -260,7 +260,7 @@ function App() {
         NotificationManager.success(info.data.msg, "", 1000);
         console.log("SUCCESS in updating user data");
       })
-      .catch(err => {
+      .catch((err) => {
         NotificationManager.error("Error in updating", 1000);
         console.log("ERROR in updating user data: ", err);
       })

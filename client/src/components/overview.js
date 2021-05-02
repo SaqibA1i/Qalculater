@@ -54,7 +54,6 @@ function Overview({ getGpa }) {
                 };
                 setSel("");
                 updateData(data);
-                window.location.href = "/"
                 NotificationManager.info(selected + " course is edited")
             }
         }
