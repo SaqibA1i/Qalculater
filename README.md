@@ -62,6 +62,14 @@ The marks are stored as a JSON object in the following structure:
     }
 }
 ```
+
+>## Deployemnt
+The app consists of two parts i.e. the client and the server. Both were deployed individually as I could not come accross a convinient and secure way of deploying them both at the same address at minimal costs (which in my case = $0):
+
+-   **React client:** The react front end was deployed at https://qalculater.netlify.app using Netlify as a
+hosting service. It provides basic CICD which is hooked to this github repo.
+
+-   **Express Server:** The express server along with all the authentication logic was deployed separately using Heroku, the url for the api end point is https://qalculater-backend.herokuapp.com/
 # Resources Used
 Having unfamiliarity with passportJS the following resources were used to help me with user Authentication:
 
