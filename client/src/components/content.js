@@ -32,10 +32,11 @@ function Content({ setSelHelper, asTotal }) {
     }
 
     // Add a new term
-    const addTerm = async () => {
+    const addTerm = () => {
+        
+        let newTerm = document.getElementById("termName").value;
         try {
             // Check: Are the fields empty
-            let newTerm = document.getElementById("termName").value;
             if (newTerm == "") {
                 throw errors["emptyFields"];
             }
@@ -46,10 +47,9 @@ function Content({ setSelHelper, asTotal }) {
                 }
             })
             allData[newTerm] = {};
-            setView(false);
-            await updateData(allData, true);
+            updateData(allData, true);
             termSetter(newTerm);
-            window.location.href = "/";
+            // window.location.href = "/";
         }
         catch (err) {
             NotificationManager.warning("", err, 1000);

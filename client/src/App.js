@@ -250,7 +250,12 @@ function App() {
     axios(update)
       .then((info) => {
         calcAverages(data);
-        setData({ ...json });
+        if (isAllDataUpdated) {
+          setData(newData[termName]);
+        }
+        else {
+          setData({ ...json });
+        }
         setUserData({ ...newData });
         NotificationManager.success(info.data.msg, "", 1000);
         console.log("SUCCESS in updating user data");
