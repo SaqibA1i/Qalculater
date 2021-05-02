@@ -24,7 +24,7 @@ require('dotenv').config();
 
 // Create the Express application
 var app = express();
-
+ 
 app.use(cors(
     {
         origin: `${process.env.CLIENT}`,
