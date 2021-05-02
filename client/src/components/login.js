@@ -27,6 +27,7 @@ function Login() {
                 window.location.href = "/user"
             })
             .catch((err) => {
+                console.log(err);
                 NProgress.done();
                 NotificationManager.warning("Incorrect username or password", "Try Again", 1000);
             })
