@@ -2,11 +2,11 @@
 @import "base";
 @import "./dist/mixins.scss";
 @import "./components/header";
-@import "./components/content";
 @import "./components/adder";
 @import "./components/asessments";
 @import "./components/overview";
 @import "./components/login";
+@import "./components/content";
 
 .notification-container {
   margin-top: 60px;

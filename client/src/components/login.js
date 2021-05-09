@@ -32,10 +32,10 @@ function Login() {
 
             })
             .catch((err) => {
+                endLoadingAnim();
                 console.log(err);
                 NotificationManager.warning("Incorrect username or password", "Err", 2000);
             })
-        endLoadingAnim();
     }
     return (
         <div className="login-form">

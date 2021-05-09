@@ -33,7 +33,6 @@ function Content({ setSelHelper, asTotal }) {
 
     // Add a new term
     const addTerm = () => {
-        
         let newTerm = document.getElementById("termName").value;
         try {
             // Check: Are the fields empty
@@ -84,7 +83,7 @@ function Content({ setSelHelper, asTotal }) {
 
                         )
                     }
-                    <button className="content-add-term" onClick={(() => { setView(!view) })}>
+                    <button className="content-add-term hide" id="content-add-course"  onClick={(() => { setView(!view) })}>
                         <PlusCircleFill color={"#1f52bfc8"} size={25} />
                     </button>
                 </div>

@@ -28,11 +28,14 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 
 export const startLoadingAnim = () => {
   NProgress.start();
-  document.getElementById("header-add-course") && document.getElementById("header-add-course").classList.add("hide");
+
+  document.getElementById("header-add-course") && (document.getElementById("header-add-course").style.display = "none");
+  document.getElementById("content-add-course") && (document.getElementById("content-add-course").style.display = "none");
 }
 export const endLoadingAnim = () => {
   NProgress.done();
-  document.getElementById("header-add-course") && document.getElementById("header-add-course").classList.remove("hide");
+  document.getElementById("header-add-course") && (document.getElementById("header-add-course").style.display = "block");
+  document.getElementById("content-add-course") && (document.getElementById("content-add-course").style.display = "block");
 }
 
 // context for the userData
@@ -153,17 +156,18 @@ function App() {
         }
         console.log("header-add-course doesnt exist")
         console.log("user data was fetched!");
-
+        endLoadingAnim();
         setData(newData);
       })
       .catch((err) => {
+        endLoadingAnim();
         console.log("ERROR" + err);
         // The user is not authenticated so return to login window if its not already there
         if (!window.location.href.includes("login") && !window.location.href.includes("register")) {
           window.location.href = "login";
         }
+        endLoadingAnim();
       })
-    endLoadingAnim();
     return newData;
   }
 
@@ -217,13 +221,14 @@ function App() {
           calcAverages(data);
           setTerm(term);
           setData(allUserData[term]);
+          endLoadingAnim();
           NotificationManager.info(info.data.msg, "", 1000);
         })
         .catch(err => {
+          endLoadingAnim();
           console.log("ERROR Updating term", err.response);
           NotificationManager.error("error updating the term", "Error", 1000);
         })
-      endLoadingAnim();
     }
 
   }
