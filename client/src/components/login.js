@@ -61,7 +61,7 @@ function Login() {
       </div>
       <div id="login-submit">
         <input type="text" placeholder="Username" id="uname" />
-        <input id="pw" placeholder="password" type="password" />
+        <input id="pw" placeholder="Password" type="password" />
         <br />
         <button class="login-submit" onClick={submit}>
           Login
