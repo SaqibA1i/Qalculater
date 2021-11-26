@@ -124,7 +124,8 @@ function Assessments() {
   return (
     <div className="assessment-container">
       <div class="assessment-completion">
-        Course Completion <b>{courseCompletion}</b> %
+        Course Completion{" "}
+        <b>{(Math.round(courseCompletion * 100) / 100).toFixed(2)}</b> %
       </div>
       <div
         id="assessment-completion-bar"
