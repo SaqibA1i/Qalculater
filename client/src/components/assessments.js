@@ -23,7 +23,8 @@ function Assessments() {
   const [courseCompletion, setCompletion] = useState(0);
   const [view, setView] = useState(false);
   const [AsSelected, setSel] = useState(0);
-  const [sortBy, setSortBy] = useState("percentage");
+  const [sortByName, setSortByName] = useState(false);
+  const [sortByPercentage, setSortByPercentage] = useState(true);
 
   const updateData = useContext(UserDataContext).updateJson;
   let userData = useContext(UserDataContext).data;
@@ -33,26 +34,37 @@ function Assessments() {
   let errors = require("./errors.json");
 
   const sortAssessments = (howToSort) => {
-    let newAssessments = assessments;
+    let newAssessments = [
+      ["A01", 83.333, 7.857],
+      ["A02", 95.71, 7.857],
+      ["A03", 75.61, 7.857],
+      ["A04", 79.33, 7.857],
+      ["A05", 52.59, 7.857],
+      ["A06", 91.25, 7.857],
+      ["Final assessment", 96, 45],
+      ["A07", 98.78, 7.857],
+    ];
+    if (howToSort == "name") {
+      setSortByName(!sortByName);
+    } else if (howToSort == "percentage") {
+      setSortByPercentage(!sortByPercentage);
+    }
     newAssessments.sort((a1, a2) => {
-      if (sortBy == howToSort) {
-        if (sortBy == "name") {
-          // sort by the opposite alphabetical order
-          return a1[0] - a2[0];
+      if (howToSort == "name") {
+        if (sortByName) {
+          return a2[0].localeCompare(a1[0]);
         } else {
-          // sort by lowest to highest percentage
-          return a1[2] - a2[2];
+          return -a2[0].localeCompare(a1[0]);
         }
-      } else if (howToSort == "name") {
-        return a2[0] - a1[0];
       } else {
-        return a2[2] - a1[2];
+        if (sortByPercentage) {
+          return a2[2] - a1[2];
+        } else {
+          return -(a2[2] - a1[2]);
+        }
       }
     });
-
-    setSortBy(howToSort);
     setAssessments([...newAssessments]);
-    console.log(howToSort);
   };
 
   // Edit an Assessment
