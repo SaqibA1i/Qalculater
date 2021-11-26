@@ -43,7 +43,7 @@ function Assessments() {
           // sort by lowest to highest percentage
           return a1[2] - a2[2];
         }
-      } else if (sortBy == "name") {
+      } else if (howToSort == "name") {
         return a2[0] - a1[0];
       } else {
         return a2[2] - a1[2];
