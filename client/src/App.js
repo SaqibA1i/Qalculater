@@ -1,47 +1,53 @@
-import React, { useEffect, useState, useContext } from 'react';
-import $ from "jquery"
-import axios from 'axios';
+import React, { useEffect, useState, useContext } from "react";
+import $ from "jquery";
+import axios from "axios";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import './scss/marks-styler.scss';
+import "./scss/marks-styler.scss";
 
 import {
   Switch,
   BrowserRouter as Router,
   Route,
-  useHistory
+  useHistory,
 } from "react-router-dom";
 
 // Nprogress
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 
 // components
-import Header from './components/header'
-import Content from './components/content'
-import Overview from './components/overview'
-import Assessments from './components/assessments'
-import Login from './components/login'
-import Register from './components/register'
+import Header from "./components/header";
+import Content from "./components/content";
+import Overview from "./components/overview";
+import Assessments from "./components/assessments";
+import Login from "./components/login";
+import Register from "./components/register";
 
-import 'react-notifications/lib/notifications.css';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import "react-notifications/lib/notifications.css";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
 
 export const startLoadingAnim = () => {
   NProgress.start();
 
-  document.getElementById("header-add-course") && (document.getElementById("header-add-course").style.display = "none");
-  document.getElementById("content-add-course") && (document.getElementById("content-add-course").style.display = "none");
-}
+  document.getElementById("header-add-course") &&
+    (document.getElementById("header-add-course").style.display = "none");
+  document.getElementById("content-add-course") &&
+    (document.getElementById("content-add-course").style.display = "none");
+};
 export const endLoadingAnim = () => {
   NProgress.done();
-  document.getElementById("header-add-course") && (document.getElementById("header-add-course").style.display = "block");
-  document.getElementById("content-add-course") && (document.getElementById("content-add-course").style.display = "block");
-}
+  document.getElementById("header-add-course") &&
+    (document.getElementById("header-add-course").style.display = "block");
+  document.getElementById("content-add-course") &&
+    (document.getElementById("content-add-course").style.display = "block");
+};
 
 // context for the userData
 const UserDataContext = React.createContext();
 function App() {
-
   const [data, setData] = useState({});
   const [totalAvg, setTotalAvg] = useState(0);
   const [selectedCourse, setSelected] = useState("");
@@ -62,8 +68,7 @@ function App() {
     { 85: "3.90" },
     { 90: "4.00" },
     { 100: "4.00" },
-  ]
-
+  ];
 
   const calcAverages = (newData) => {
     // Following just calculates users class Average
@@ -81,10 +86,10 @@ function App() {
         assessments = newData[selected]["data"];
 
         // summing for all the assessments in the course
-        assessments.map(assessment => {
-          courseCompletion += assessment[2]
-          total += ((assessment[1] / 100) * assessment[2]);
-        })
+        assessments.map((assessment) => {
+          courseCompletion += assessment[2];
+          total += (assessment[1] / 100) * assessment[2];
+        });
 
         // if course completion is zero total is zero so only
         //    proceed if its not
@@ -94,11 +99,11 @@ function App() {
           // set color
           let className = "";
           let newGpa = getGpa(total);
-          // sets the colors according to 
+          // sets the colors according to
           //    the course GPA
-          if (newGpa >= 3.90) {
+          if (newGpa >= 3.9) {
             className = "awesome";
-          } else if (newGpa >= 3.70) {
+          } else if (newGpa >= 3.7) {
             className = "good";
           } else if (newGpa >= 3.3) {
             className = "okay";
@@ -107,20 +112,20 @@ function App() {
           }
           asTotal[selected] = [total.toPrecision(4), className];
           totalA += total * newData[selected]["credit"];
-        }
-        else {
+        } else {
           asTotal[selected] = 0;
         }
-      }
-      catch (err) {
-        console.log(`JSON STRUCTURE ERROR OR MISSING INFORMATION ${selected}: ` + err);
+      } catch (err) {
+        console.log(
+          `JSON STRUCTURE ERROR OR MISSING INFORMATION ${selected}: ` + err
+        );
       }
     }
     totalCredits = totalCredits == 0 ? 1 : totalCredits;
     setTotal(asTotal);
     setTotalAvg((totalA / totalCredits).toPrecision(4));
     console.log("Averags were succesfully calculated");
-  }
+  };
 
   const getUserData = async () => {
     let newData = {};
@@ -141,20 +146,18 @@ function App() {
         if (Object.entries(newData).length == 0) {
           setTerm("");
           setUserData({});
-        }
-        else if (info.currTerm == null) {
+        } else if (info.currTerm == null) {
           // setting the first course in the list
           //    if there is not one set already
           updateTerm(Object.entries(newData)[0][0]);
           window.location.href = "/";
-        }
-        else {
+        } else {
           setTerm(info.currTerm);
           setUserData(newData);
           newData = newData[info.currTerm];
           calcAverages(newData);
         }
-        console.log("header-add-course doesnt exist")
+        console.log("header-add-course doesnt exist");
         console.log("user data was fetched!");
         endLoadingAnim();
         setData(newData);
@@ -163,24 +166,27 @@ function App() {
         endLoadingAnim();
         console.log("ERROR" + err);
         // The user is not authenticated so return to login window if its not already there
-        if (!window.location.href.includes("login") && !window.location.href.includes("register")) {
+        if (
+          !window.location.href.includes("login") &&
+          !window.location.href.includes("register")
+        ) {
           window.location.href = "login";
         }
         endLoadingAnim();
-      })
+      });
     return newData;
-  }
+  };
 
   const setDataHelper = async () => {
     await getUserData();
-  }
+  };
   useEffect(() => {
     calcAverages(data);
-  }, [data])
+  }, [data]);
 
   useEffect(() => {
     setDataHelper();
-  }, [])
+  }, []);
 
   function getGpa(percentage) {
     if (percentage == 100) {
@@ -188,7 +194,7 @@ function App() {
     }
     for (let i = 0; i < gpaScale.length - 1; i++) {
       let firstKey = parseInt(Object.keys(gpaScale[i])); //56
-      let secondKey = parseInt(Object.keys(gpaScale[i + 1]));//60
+      let secondKey = parseInt(Object.keys(gpaScale[i + 1])); //60
       if (percentage >= firstKey && percentage < secondKey) {
         return gpaScale[i][firstKey];
       }
@@ -203,18 +209,16 @@ function App() {
   function updateTerm(term) {
     if (term == termName) {
       NotificationManager.info("Select a different term", "", 1000);
-    }
-    else {
+    } else {
       setSelected("");
       let update = {
         url: `${process.env.REACT_APP_SERVER}/updateTerm`,
         method: "POST",
-        data:
-        {
+        data: {
           currTerm: term,
         },
         withCredentials: true,
-      }
+      };
       startLoadingAnim();
       axios(update)
         .then((info) => {
@@ -224,41 +228,37 @@ function App() {
           endLoadingAnim();
           NotificationManager.info(info.data.msg, "", 1000);
         })
-        .catch(err => {
+        .catch((err) => {
           endLoadingAnim();
           console.log("ERROR Updating term", err.response);
           NotificationManager.error("error updating the term", "Error", 1000);
-        })
+        });
     }
-
   }
 
   function updateJson(json, isAllDataUpdated = false) {
     let newData = allUserData;
     if (isAllDataUpdated) {
       newData = json;
-    }
-    else {
+    } else {
       newData[termName] = json;
     }
 
     let update = {
       url: `${process.env.REACT_APP_SERVER}/update`,
       method: "POST",
-      data:
-      {
+      data: {
         data: JSON.stringify(newData),
       },
       withCredentials: true,
-    }
+    };
     startLoadingAnim();
     axios(update)
       .then((info) => {
         calcAverages(data);
         if (isAllDataUpdated) {
           setData(newData[termName]);
-        }
-        else {
+        } else {
           setData({ ...json });
         }
         setUserData({ ...newData });
@@ -268,29 +268,36 @@ function App() {
       .catch((err) => {
         NotificationManager.error("Error in updating", 1000);
         console.log("ERROR in updating user data: ", err);
-      })
+      });
     endLoadingAnim();
     console.log("The user data was updated");
   }
   return (
-    <Router className="App" >
+    <Router className="App">
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/">
-          <UserDataContext.Provider value={{ data, updateJson, selectedCourse, setSelected, assessTotal, allUserData, termName, updateTerm, totalAvg }}>
+          <UserDataContext.Provider
+            value={{
+              data,
+              updateJson,
+              selectedCourse,
+              setSelected,
+              assessTotal,
+              allUserData,
+              termName,
+              updateTerm,
+              totalAvg,
+            }}
+          >
             <Header
               currTerm={termName}
               totalAvg={totalAvg}
               username={currUser}
             />
-            <Content
-              setSelHelper={setSelHelper}
-              asTotal={assessTotal}
-            />
-            <Overview
-              getGpa={getGpa}
-            />
+            <Content setSelHelper={setSelHelper} asTotal={assessTotal} />
+            <Overview getGpa={getGpa} />
             <Assessments />
           </UserDataContext.Provider>
           <NotificationContainer />
