@@ -34,16 +34,7 @@ function Assessments() {
   let errors = require("./errors.json");
 
   const sortAssessments = (howToSort) => {
-    let newAssessments = [
-      ["A01", 83.333, 7.857],
-      ["A02", 95.71, 7.857],
-      ["A03", 75.61, 7.857],
-      ["A04", 79.33, 7.857],
-      ["A05", 52.59, 7.857],
-      ["A06", 91.25, 7.857],
-      ["Final assessment", 96, 45],
-      ["A07", 98.78, 7.857],
-    ];
+    let newAssessments = assessments;
     if (howToSort == "name") {
       setSortByName(!sortByName);
     } else if (howToSort == "percentage") {
