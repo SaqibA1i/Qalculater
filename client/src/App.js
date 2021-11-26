@@ -170,7 +170,7 @@ function App() {
           !window.location.href.includes("login") &&
           !window.location.href.includes("register")
         ) {
-          window.location.href = "login";
+          // window.location.href = "login";
         }
         endLoadingAnim();
       });

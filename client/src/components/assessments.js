@@ -7,6 +7,8 @@ import {
   PencilSquare,
   ArchiveFill,
   Wrench,
+  SortAlphaDown,
+  SortNumericDown,
 } from "react-bootstrap-icons";
 
 import "react-notifications/lib/notifications.css";
@@ -21,6 +23,7 @@ function Assessments() {
   const [courseCompletion, setCompletion] = useState(0);
   const [view, setView] = useState(false);
   const [AsSelected, setSel] = useState(0);
+  const [sortBy, setSortBy] = useState("percentage");
 
   const updateData = useContext(UserDataContext).updateJson;
   let userData = useContext(UserDataContext).data;
@@ -28,6 +31,29 @@ function Assessments() {
   let currTerm = useContext(UserDataContext).termName;
 
   let errors = require("./errors.json");
+
+  const sortAssessments = (howToSort) => {
+    let newAssessments = assessments;
+    newAssessments.sort((a1, a2) => {
+      if (sortBy == howToSort) {
+        if (sortBy == "name") {
+          // sort by the opposite alphabetical order
+          return a1[0] - a2[0];
+        } else {
+          // sort by lowest to highest percentage
+          return a1[2] - a2[2];
+        }
+      } else if (sortBy == "name") {
+        return a2[0] - a1[0];
+      } else {
+        return a2[2] - a1[2];
+      }
+    });
+
+    setSortBy(howToSort);
+    setAssessments([...newAssessments]);
+    console.log(howToSort);
+  };
 
   // Edit an Assessment
   const update = () => {
@@ -124,8 +150,26 @@ function Assessments() {
   return (
     <div className="assessment-container">
       <div class="assessment-completion">
-        Course Completion{" "}
-        <b>{(Math.round(courseCompletion * 100) / 100).toFixed(2)}</b> %
+        <div>
+          Course Completion{" "}
+          <b>{(Math.round(courseCompletion * 100) / 100).toFixed(2)}</b> %
+        </div>
+        <button
+          onClick={() => {
+            sortAssessments("name");
+          }}
+          class="sort"
+        >
+          <SortAlphaDown color={"#1f52bf"} size={17} />
+        </button>
+        <button
+          onClick={() => {
+            sortAssessments("percentage");
+          }}
+          class="sort"
+        >
+          <SortNumericDown color={"#1f52bf"} size={17} />
+        </button>
       </div>
       <div
         id="assessment-completion-bar"

@@ -11,11 +11,20 @@
   .assessment-completion {
     margin-top: 10px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
   }
-
+  .sort {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+  }
   .assessment-completion-bar {
     border-bottom: 3px solid $second-accent;
     margin-top: 10px;
+
     width: 100%;
   }
 
