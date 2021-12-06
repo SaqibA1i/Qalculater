@@ -30,7 +30,7 @@ function Assessments() {
   let userData = useContext(UserDataContext).data;
   let selected = useContext(UserDataContext).selectedCourse;
   let currTerm = useContext(UserDataContext).termName;
-
+  let updateDataNoPost = useContext(UserDataContext).updateDataNoPost;
   let errors = require("./errors.json");
 
   const sortAssessments = (howToSort) => {
@@ -55,7 +55,10 @@ function Assessments() {
         }
       }
     });
-    setAssessments([...newAssessments]);
+    // setAssessments([...newAssessments]);
+    userData[selected]["data"] = newAssessments;
+
+    updateDataNoPost(userData);
   };
 
   // Edit an Assessment
@@ -194,12 +197,10 @@ function Assessments() {
               onClick={() => {
                 setSel(index);
                 viewAssessmentEditModal();
-                document.getElementById("editAsName").value =
-                  userData[selected]["data"][index][0];
+                document.getElementById("editAsName").value = assessment[0];
                 document.getElementById("editAsPercentage").value =
-                  userData[selected]["data"][index][1];
-                document.getElementById("editAsWeight").value =
-                  userData[selected]["data"][index][2];
+                  assessment[1];
+                document.getElementById("editAsWeight").value = assessment[2];
               }}
             >
               <PenFill size={13} />

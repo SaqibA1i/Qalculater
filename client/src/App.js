@@ -235,6 +235,20 @@ function App() {
         });
     }
   }
+  const updateJsonNoPost = (json, isAllDataUpdated = false) => {
+    let newData = allUserData;
+    if (isAllDataUpdated) {
+      newData = json;
+    } else {
+      newData[termName] = json;
+    }
+    if (isAllDataUpdated) {
+      setData(newData[termName]);
+    } else {
+      setData({ ...json });
+    }
+    setUserData({ ...newData });
+  };
 
   function updateJson(json, isAllDataUpdated = false) {
     let newData = allUserData;
@@ -281,6 +295,7 @@ function App() {
           <UserDataContext.Provider
             value={{
               data,
+              updateJsonNoPost,
               updateJson,
               selectedCourse,
               setSelected,
