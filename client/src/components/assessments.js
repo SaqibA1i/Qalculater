@@ -140,8 +140,6 @@ function Assessments() {
         });
 
         setCompletion(total);
-        setAssessments(newAssessments);
-
         // set width of completion bar
         document.getElementById("assessment-completion-bar").style.width =
           total + "%";
