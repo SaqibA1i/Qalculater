@@ -1,0 +1,58 @@
+.account-screen {
+  width: 100%;
+  height: calc(100vh - 70);
+  background-color: $theme-blue-main;
+  padding: 0 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  .hr {
+    width: 100%;
+    height: 3px;
+    margin: 10px 0;
+    background-color: $theme-grey-main;
+    border-radius: 10px;
+  }
+  .profile {
+    img {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+
+.account-settings {
+  @include flexCenter(row);
+  justify-content: flex-start;
+  border-radius: 10px;
+  cursor: pointer;
+  h6 {
+    color: #333;
+    font-size: 20px;
+    margin: 0 20px;
+  }
+}
+
+.accordian {
+  justify-content: space-between;
+  .info {
+    @include flexCenter(row);
+    padding: 0;
+    h6 {
+    }
+  }
+  p {
+    @include flexCenter(row);
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.logout-account-settings {
+  @extend .account-settings;
+  background-color: #c50000ad;
+  h6 {
+    color: $theme-blue-main;
+  }
+}

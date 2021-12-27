@@ -1,0 +1,118 @@
+@keyframes wave {
+  from {
+    left: -100%;
+  }
+  to {
+    left: 0;
+  }
+}
+
+@keyframes move {
+  100% {
+    width: -20px;
+    height: -20px;
+  }
+  50% {
+    width: 20px;
+    height: 20px;
+
+    transform: translate3d(0, 0, 50px);
+  }
+}
+.bubble-container {
+  z-index: 0;
+  position: absolute;
+  min-width: 100vw;
+  min-height: calc(100vh - 300px);
+  max-height: calc(100vh - 300px);
+  transform-style: preserve-3d;
+  overflow: hidden;
+}
+.bubble-wrap {
+  margin: 0 auto;
+  width: 100%;
+  height: 200px;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  perspective: 600px;
+}
+.bubble {
+  position: absolute;
+  background: rgba(77, 160, 255, 0.459);
+  opacity: 0.7;
+  border-radius: 50%;
+  animation: move 3s infinite;
+}
+
+@for $i from 1 through 100 {
+  .bubble:nth-child(#{$i}) {
+    $size: random(30) + px;
+    height: $size;
+    opacity: random(7) * 0.1;
+    width: $size;
+    animation-delay: -$i * 0.2s;
+    animation: move random(20s) infinite alternate-reverse ease-in-out;
+    left: random(100) * 1%;
+    top: random(500) * 1px;
+  }
+}
+.login {
+  padding: 0;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .top-section {
+    h1 {
+      z-index: 10;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      color: white;
+      background-color: $purple;
+      padding: 20px;
+      font-family: Nunito;
+      font-size: 30px;
+      min-height: calc(100vh - 300px);
+      max-height: calc(100vh - 300px);
+    }
+    svg {
+      width: 200%;
+      position: relative;
+      animation: 5s wave infinite alternate-reverse ease-in-out;
+    }
+  }
+  .bottom-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    button {
+      img {
+        width: 30px;
+        padding: 10px;
+        border-radius: 50%;
+        background-color: white;
+        margin-right: 20px;
+      }
+      border: 0;
+      box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.13);
+      padding: 20px;
+      font-size: 20px;
+      background-color: $theme-blue-main;
+      margin: 20px 30px;
+      border-radius: 40px;
+      width: 100%;
+      @include flexCenter(row);
+      color: #333;
+      font-weight: 700;
+      justify-content: start;
+
+      padding: 10px 20px 10px 10px;
+    }
+  }
+}

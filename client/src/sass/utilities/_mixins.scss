@@ -1,0 +1,7 @@
+@mixin flexCenter($flex-dir) {
+  display: flex;
+  flex-direction: $flex-dir;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}

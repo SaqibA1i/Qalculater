@@ -1,0 +1,33 @@
+.bottom-navbar-container {
+  width: 100%;
+  position: fixed;
+
+  bottom: 0;
+  .bottom-navbar {
+    @include flexCenter(row);
+    padding: 10px;
+    background-color: aliceblue;
+    .bottom-navbar-chosen {
+      border-bottom-color: #333;
+      color: #122838;
+      border-radius: 2px;
+      transition: 0.3s border-bottom-color ease-in-out;
+    }
+    & > * {
+      cursor: pointer;
+      padding: 5px;
+      border-bottom: 3px solid transparent;
+      transition: 0.3s border-bottom-color ease-in-out;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      p {
+        font-size: 12px;
+        font-weight: 600;
+        margin: 0;
+        margin-top: 10px;
+        color: #406882;
+      }
+    }
+  }
+}

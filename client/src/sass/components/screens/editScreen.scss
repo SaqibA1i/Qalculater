@@ -1,0 +1,213 @@
+.edit-screen {
+  width: 100%;
+  padding: 0 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  .edit-container {
+    h2 {
+      text-align: left;
+      margin: 0;
+    }
+
+    .edit-slider {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 120px;
+      overflow-x: scroll;
+      width: 100%;
+      padding: 10px;
+      .edit-slider-term {
+        z-index: 0;
+        display: inline-block;
+        margin: 0 15px 0 0;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.13);
+        @include flexCenter(row);
+        padding: 0px;
+        cursor: pointer;
+        font-size: 20px;
+        .container {
+          @include flexCenter(column);
+          align-items: flex-start;
+          width: fit-content;
+          background-color: $theme-blue-main;
+          padding: 10px;
+          border-radius: 15px;
+          .left-section {
+            @include flexCenter(row);
+            padding: 0;
+            width: 100%;
+            justify-content: space-between;
+            h5 {
+              margin: 0 0 10px 0;
+              text-align: left;
+              font-size: 17px;
+            }
+            p {
+              margin: 0;
+              top: -5px;
+              position: relative;
+              font-size: 20px;
+              font-weight: 700;
+              font-style: italic;
+              padding: 0 10px;
+            }
+          }
+          p {
+            margin: 0 0 10px 0;
+            padding: 0;
+            font-size: 15px;
+            text-overflow: ellipsis;
+            text-align: left;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+        }
+      }
+      .edit-slider-entry {
+        display: inline-block;
+        margin: 0 0 10px 10px;
+        height: 70px;
+        min-width: 70px;
+        border-radius: 50%;
+        background-color: rgba(0, 132, 255, 0.459);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 20px;
+      }
+      .edit-add {
+        @extend .edit-slider-entry;
+
+        background-color: $theme-grey-main;
+      }
+    }
+
+    .selected {
+      transition: 0.5s background-color ease-in-out;
+      background-color: $theme-blue-main-sel;
+    }
+    .edit-slider-vertical {
+      flex-direction: column;
+      padding: 10px;
+      width: 100%;
+      max-height: calc(100vh - 500px);
+      overflow-y: scroll;
+      .edit-slider-edit-del {
+        cursor: pointer;
+        @extend .edit-slider-term;
+        width: 100%;
+        background-color: $del-red;
+        box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.13);
+        margin: 10px 0 0 0;
+        border-radius: 25px;
+        padding: 0;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        svg {
+          margin: 0 20px;
+        }
+        .edit-slider-term-vertical {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          width: inherit;
+          border-radius: 25px;
+          background-color: $theme-blue-main;
+          padding: 10px 20px;
+          left: 0;
+          align-items: center;
+
+          p {
+            margin: 0;
+            color: $purple;
+            font-size: 20px;
+            font-weight: 700;
+            max-width: 105px;
+            min-width: 105px;
+            text-align: right;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-style: italic;
+          }
+          .bottom {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            justify-content: space-between;
+            align-items: flex-start;
+            h5 {
+              margin: 0;
+              font-size: 15px;
+              color: $purple;
+              max-width: 140px;
+              min-width: 120px;
+              text-align: left;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            }
+            h6 {
+              margin: 0;
+              max-width: 100px;
+              min-width: 100px;
+              text-align: left;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              font-size: 15px;
+              color: #333;
+            }
+          }
+
+          transition: 0.1s width linear;
+          &:hover {
+            width: 85%;
+            transition: 0.1s width linear;
+          }
+        }
+      }
+
+      .edit-add {
+        margin: 20px 0 0 0;
+        background-color: $theme-grey-main;
+        border-radius: 40px;
+      }
+    }
+  }
+}
+.cover {
+  @include flexCenter(row);
+  padding: 0;
+  border-radius: 15px;
+  background-color: $del-red;
+  .bottom-section {
+    padding: 0 10px;
+    width: fit-content;
+    opacity: 0;
+    transition: 0.5s opacity ease-in-out;
+  }
+  .expanded {
+    opacity: 1;
+    transition: 0.5s opacity ease-in-out;
+  }
+}
+.completion-bar {
+  width: 100%;
+  border-radius: 9px;
+  height: 6px;
+  background-color: rgba(70, 70, 70, 0.151);
+  .completion-bar-bar {
+    height: 6px;
+    border-radius: 9px;
+  }
+}

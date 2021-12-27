@@ -1,0 +1,11 @@
+.homeScreen {
+  width: 100%;
+  padding: 0 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  h2 {
+    text-align: left;
+    margin: 0;
+  }
+}

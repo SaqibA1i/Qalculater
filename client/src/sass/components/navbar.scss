@@ -1,0 +1,24 @@
+.navbar {
+  @include flexCenter(row);
+  padding: 10px 20px;
+  background-color: $theme-blue-main;
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  box-shadow: -2px 10px 90px -28px rgba(0, 0, 0, 0.29);
+  .welcome {
+    font-family: Nunito;
+    font-weight: 900;
+    font-size: 22px;
+    margin: 0;
+    h6 {
+      margin: 0;
+      font-style: 400;
+    }
+  }
+  .nav-profile-img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+  }
+}

@@ -1,0 +1,91 @@
+.popup-model {
+  font-family: Nunito;
+  position: absolute;
+  left: 10px;
+  top: calc(100vh / 4 - 100px);
+  width: calc(100% - 20px);
+  border-radius: 20px;
+  background-color: #c3d7d882;
+  backdrop-filter: blur(10px);
+  transition: 20s opacity ease-in-out;
+  @include flexCenter(column);
+  animation: fadeIn 0.5s linear;
+  z-index: 100;
+  .popup-header {
+    width: 100%;
+    @include flexCenter(row);
+    padding: 0 0 20px 0;
+    h3 {
+      overflow: hidden;
+      white-space: nowrap;
+      border-bottom: 3px solid #333;
+    }
+    svg {
+      margin-bottom: 10px;
+      border-radius: 50%;
+      background-color: $theme-blue-main;
+    }
+  }
+  .popup-header-input {
+    h5 {
+      margin: 5px 0;
+      text-align: left;
+    }
+    input {
+      padding: 0 10px;
+      height: 29px;
+      border-radius: 10px;
+      border: none;
+      background-color: $theme-blue-main;
+      margin: 0 0 10px 0;
+      -webkit-box-shadow: inset 1px 3px 4px -2px rgba(0, 0, 0, 0.37);
+      box-shadow: inset 5px 3px 12px -2px rgba(0, 0, 0, 0.37);
+    }
+  }
+
+  h3 {
+    margin: 0;
+  }
+  .button-container {
+    @include flexCenter(row);
+    .popup-header-button {
+      border-radius: 20px;
+      font-size: 20px;
+      padding: 10px 40px;
+      border: 0;
+      background-color: $theme-yellow-main;
+      margin: 20px;
+      color: white;
+    }
+    .popup-header-edit {
+      @extend .popup-header-button;
+      background-color: $purple;
+      width: 150px;
+    }
+    .popup-header-delete {
+      @extend .popup-header-button;
+      background-color: $red;
+      width: 150px;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.popup-view-anim {
+  @extend .popup-model;
+  display: flex;
+  animation: fadeIn 0.5s linear;
+}
+
+.edit-slider-entry-hidden {
+  @extend .edit-slider-entry;
+  background-color: white;
+}

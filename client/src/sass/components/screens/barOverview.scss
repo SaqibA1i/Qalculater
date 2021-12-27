@@ -1,0 +1,26 @@
+.bar-overview {
+  @include flexCenter(row);
+  padding: 0;
+  .bar-container {
+    @include flexCenter(column);
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0;
+    height: 280px;
+    p {
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .bar {
+      cursor: pointer;
+      p {
+        position: relative;
+        top: -40px;
+        font-size: 15px;
+        font-weight: 500;
+      }
+      width: 30px;
+      border-radius: 10px 10px 5px 5px;
+    }
+  }
+}
