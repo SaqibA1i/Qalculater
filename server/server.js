@@ -15,8 +15,9 @@ server.use(cookieParser());
 server.use(express.urlencoded({ extended: true }));
 server.use(
   cors({
-    origin: process.env.client,
-    credentials: true
+    origin: [process.env.client, "http://localhost:3000"],
+    credentials: true,
+    exposedHeaders: ["set-cookie"]
   })
 );
 

@@ -32,7 +32,7 @@ router.post("/login", (req, res) => {
             displayName: response["name"],
             firstName: response["given_name"],
             lastName: response["family_name"],
-            imgURL: response["picture"],
+            imgURL: response["picture"]
           });
           user.save((err) => {
             if (err) {
@@ -49,23 +49,25 @@ router.post("/login", (req, res) => {
           firstName: user.firstName,
           lastName: user.lastName,
           imgURL: user.imgURL,
-          data: JSON.parse(user.data),
+          data: JSON.parse(user.data)
         };
         res
           .status(200)
           .cookie("jwt_token", req.body.id_token, {
             maxAge: 86_400_000,
             httpOnly: true,
-            //secure:true
+            sameSite: "none",
+            secure: true
           })
           .cookie("access_token", req.body.access_token, {
             maxAge: 86_400_000,
             httpOnly: true,
-            //secure:true
+            sameSite: "none",
+            secure: true
           })
           .json({
             msg: "Login was Successfull",
-            data: userData,
+            data: userData
           });
       });
     })
@@ -74,7 +76,7 @@ router.post("/login", (req, res) => {
       let errorData = err.toString().split(",")[0];
       res.status(401).json({
         msg: "Error with logging in and / or retreiving data",
-        data: errorData,
+        data: errorData
       });
     });
 });

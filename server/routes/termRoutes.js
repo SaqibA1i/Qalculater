@@ -37,7 +37,7 @@ termRoutes.get("/get", (req, res) => {
             displayName: response["name"],
             firstName: response["given_name"],
             lastName: response["family_name"],
-            imgURL: response["picture"],
+            imgURL: response["picture"]
           });
           user.save((err) => {
             if (err) {
@@ -54,11 +54,11 @@ termRoutes.get("/get", (req, res) => {
           firstName: user.firstName,
           lastName: user.lastName,
           imgURL: user.imgURL,
-          data: JSON.parse(user.data),
+          data: JSON.parse(user.data)
         };
         res.status(200).json({
           msg: "Data successfully fetched",
-          data: JSON.parse(userInfo),
+          data: JSON.parse(userInfo)
         });
       });
     })
@@ -92,7 +92,7 @@ termRoutes.post("/update", (req, res) => {
         { googleId: response["sub"] },
         { data: JSON.stringify(req.body.data) },
         {
-          new: true, // returns the updated USer
+          new: true // returns the updated USer
         }
       )
         .then((response) => {
@@ -101,11 +101,11 @@ termRoutes.post("/update", (req, res) => {
             firstName: response["firstName"],
             lastName: response["lastName"],
             imgURL: response["imgURL"],
-            data: JSON.parse(response["data"]),
+            data: []
           };
           res.status(200).json({
             msg: "Data Updated",
-            data: userInfo,
+            data: userInfo
           });
         })
         .catch((err) => {

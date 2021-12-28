@@ -10,7 +10,7 @@ import {
   Navigate,
   Routes,
   Route,
-  Link,
+  Link
 } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
@@ -24,13 +24,13 @@ function App() {
     firstName: "NULL",
     lastName: "NULL",
     imgURL: "NULL",
-    data: [],
+    data: []
   });
 
   const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
   const [selection, setSelection] = useState<currSelection>({
     currTerm: "undefined",
-    currCourse: "undefined",
+    currCourse: "undefined"
   });
   const [swipeSlide, setSwipeSlide] = useState<number>(0);
   const [carouselSwipable, setCarouselSwipable] = useState<boolean>(true);
@@ -69,19 +69,17 @@ function App() {
         setUserInfo: setUserInfoHelper,
         setAuthenticated: setAuthenticatedHelper,
         carouselSwipable: carouselSwipable,
-        setCarouselSwipable: setCarouselSwipableHelper,
+        setCarouselSwipable: setCarouselSwipableHelper
       }}
     >
       <ReactNotification />
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         {!isAuthenticated ? (
           <Routes>
-            <Route path="*" element={<Navigate to="/sign-in" />} />
-            <Route path="/sign-in" element={<UserLogin />} />
+            <Route path="/" element={<UserLogin />} />
           </Routes>
         ) : (
           <Routes>
-            <Route path="*" element={<Navigate to="/" />} />
             <Route
               path="/"
               element={

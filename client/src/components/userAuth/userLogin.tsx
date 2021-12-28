@@ -8,7 +8,6 @@ import { SpinnerInfinity } from "spinners-react";
 import { store } from "react-notifications-component";
 import "animate.css";
 import "react-notifications-component/dist/theme.css";
-
 function UserLogin() {
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -28,28 +27,30 @@ function UserLogin() {
       withCredentials: true,
       data: {
         id_token: res.tokenObj.id_token,
-        access_token: res.tokenObj.access_token,
-      },
+        access_token: res.tokenObj.access_token
+      }
     })
       .then((responseJson) => {
-        console.log(responseJson.data.data);
-        setUserInfo!(responseJson.data.data);
+        let response: User = responseJson.data.data;
+        // console.log(response);
 
         setAuthenticated(true);
+
+        setUserInfo(response);
         // Deal with the Current Term and Course
         let currTerm: string | null = localStorage.getItem("currentTerm");
         let currCourse: string | null = localStorage.getItem("currentCourse");
 
         let tempSel: currSelection = {
-          currTerm: currTerm != undefined ? currTerm : "undefined",
-          currCourse: currCourse != undefined ? currCourse : "undefined",
+          currTerm: currTerm !== null ? currTerm : "undefined",
+          currCourse: currCourse !== null ? currCourse : "undefined"
         };
 
-        if (currTerm == null && responseJson.data.data.length != 0) {
+        if (currTerm === null && response.data.length !== 0) {
           // getting the first term in the data array
-          tempSel.currTerm = Object.keys(responseJson.data.data[0])[0];
+          tempSel.currTerm = Object.keys(response.data[0])[0];
           tempSel.currCourse = "undefined";
-        } else if (responseJson.data.data.length == 0) {
+        } else if (response.data.length === 0) {
           tempSel.currTerm = "undefined";
           tempSel.currCourse = "undefined";
         }
@@ -67,8 +68,8 @@ function UserLogin() {
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
             duration: 3000,
-            onScreen: true,
-          },
+            onScreen: true
+          }
         });
       })
       .catch((err) => {
@@ -77,7 +78,7 @@ function UserLogin() {
         setAuthenticated(false);
         store.addNotification({
           title: "Login",
-          message: err.toString(),
+          message: JSON.stringify(err),
           type: "danger",
           insert: "top",
           container: "top-center",
@@ -85,8 +86,8 @@ function UserLogin() {
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
             duration: 3000,
-            onScreen: true,
-          },
+            onScreen: true
+          }
         });
       });
   };
@@ -103,8 +104,8 @@ function UserLogin() {
       animationOut: ["animate__animated", "animate__fadeOut"],
       dismiss: {
         duration: 3000,
-        onScreen: true,
-      },
+        onScreen: true
+      }
     });
   };
   return (
@@ -167,7 +168,7 @@ function UserLogin() {
           </div>
         )}
         style={{ marginTop: "100px" }}
-        isSignedIn={false}
+        isSignedIn={true}
       />
     </div>
   );
