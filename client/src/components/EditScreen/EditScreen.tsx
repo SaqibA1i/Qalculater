@@ -13,7 +13,9 @@ import {
   ArchiveFill,
   PenFill,
   DashCircle,
-  PlusCircle
+  PlusCircle,
+  Grid,
+  GridFill
 } from "react-bootstrap-icons";
 import {
   getCoursePercentageMapFromTerm,
@@ -36,6 +38,7 @@ function EditScreen() {
   const [terms, setTermsAvg] = useState<CoursePercentageMap>([]);
   const [edit, setEdit] = useState<AssessmentData | boolean>(false);
   const [termHidden, hideTerm] = useState<boolean>(false);
+  const [minimizeCourse, setMinCourse] = useState<boolean>(false);
 
   useEffect(() => {
     setTermsAvg(getTermPercentageMapForAll(userInfo.data));
@@ -54,11 +57,16 @@ function EditScreen() {
 
   useEffect(() => {
     let hiden = localStorage.getItem("termHidden");
-    console.log(hiden == "true");
     if (hiden == "true") {
       hideTerm(true);
     } else {
       hideTerm(false);
+    }
+    let minCourseStorage = localStorage.getItem("minCourse");
+    if (minCourseStorage == "true") {
+      setMinCourse(true);
+    } else {
+      setMinCourse(false);
     }
   }, []);
 
@@ -116,6 +124,15 @@ function EditScreen() {
       localStorage.setItem("termHidden", "true");
     } else {
       localStorage.setItem("termHidden", "false");
+    }
+  };
+
+  const minimizeCourseToggle = () => {
+    setMinCourse(!minimizeCourse);
+    if (!minimizeCourse) {
+      localStorage.setItem("minCourse", "true");
+    } else {
+      localStorage.setItem("minCourse", "false");
     }
   };
 
@@ -204,13 +221,30 @@ function EditScreen() {
       </div>
       {selection.currTerm != "undefined" && (
         <div className="edit-container">
-          <h2>Courses</h2>
-          <div className="edit-slider">
+          <h2>
+            Courses
+            {minimizeCourse ? (
+              <GridFill
+                size={15}
+                color={"#333"}
+                onClick={minimizeCourseToggle}
+              />
+            ) : (
+              <Grid size={15} color={"#333"} onClick={minimizeCourseToggle} />
+            )}
+          </h2>
+          <div
+            className={minimizeCourse ? "edit-slider min-term" : "edit-slider"}
+          >
             {courses.map((course, idx) => {
               return (
                 <div
                   key={idx}
-                  className="edit-slider-term"
+                  className={
+                    minimizeCourse
+                      ? "edit-slider-term minimize"
+                      : "edit-slider-term"
+                  }
                   onClick={() => {
                     selection.currCourse = course[0];
                     setSelection({ ...selection });
@@ -230,12 +264,17 @@ function EditScreen() {
                           {course[1] ? course[1].toFixed(2) : " - "}%
                         </p>
                       </div>
-                      <p>Completed: {course[2].toFixed()}%</p>
-                      <CompletionBar
-                        data-aos="fade-right"
-                        completion={course[2] ? course[2] : 0}
-                        color={getColor(course[1] / 100)}
-                      />
+                      {!minimizeCourse && (
+                        <>
+                          <p>Completed: {course[2].toFixed()}%</p>
+
+                          <CompletionBar
+                            data-aos="fade-right"
+                            completion={course[2] ? course[2] : 0}
+                            color={getColor(course[1] / 100)}
+                          />
+                        </>
+                      )}
                     </div>
 
                     <div
@@ -250,7 +289,10 @@ function EditScreen() {
                       data-aos="zoom-in"
                     >
                       {selection.currCourse == course[0] && (
-                        <PenFill size={20} color={"aliceblue"} />
+                        <PenFill
+                          size={minimizeCourse ? 10 : 20}
+                          color={"aliceblue"}
+                        />
                       )}
                     </div>
                   </div>

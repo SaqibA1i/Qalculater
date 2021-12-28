@@ -24,6 +24,7 @@
       width: 100%;
       padding: 10px;
       margin-bottom: 20px;
+
       .edit-slider-term {
         z-index: 0;
         display: inline-block;
@@ -73,6 +74,30 @@
           }
         }
       }
+      .minimize {
+        margin: 5px 5px;
+        .cover {
+          align-items: baseline;
+          .container {
+            padding: 5px;
+
+            .left-section {
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+              h5 {
+                font-size: 12px;
+                margin: 0;
+              }
+              p {
+                font-size: 12px;
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
       .edit-slider-entry {
         display: inline-block;
         margin: 0 0 10px 10px;
@@ -91,6 +116,10 @@
 
         background-color: $theme-grey-main;
       }
+    }
+
+    .min-term {
+      flex-wrap: wrap;
     }
 
     .selected {

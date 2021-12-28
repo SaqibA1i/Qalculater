@@ -96,7 +96,7 @@ function UserLogin() {
     setLoading(false);
     store.addNotification({
       title: "Login",
-      message: res.toString(),
+      message: JSON.stringify(res),
       type: "danger",
       insert: "top",
       container: "top-center",

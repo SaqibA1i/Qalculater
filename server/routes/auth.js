@@ -16,6 +16,7 @@ const router = express();
   }
 */
 router.post("/login", (req, res) => {
+  console.log("jwt_token exists: ", req.cookies["jwt_token"] != undefined);
   verify(req)
     .then((response) => {
       console.log("[Authentication Success]: ", response["sub"]);
@@ -51,24 +52,31 @@ router.post("/login", (req, res) => {
           imgURL: user.imgURL,
           data: JSON.parse(user.data)
         };
-        res
-          .status(200)
-          .cookie("jwt_token", req.body.id_token, {
-            maxAge: 86_400_000,
-            httpOnly: true,
-            sameSite: "none",
-            secure: true
-          })
-          .cookie("access_token", req.body.access_token, {
-            maxAge: 86_400_000,
-            httpOnly: true,
-            sameSite: "none",
-            secure: true
-          })
-          .json({
+        if (req.body.id_token != undefined) {
+          res
+            .status(200)
+            .cookie("jwt_token", req.body.id_token, {
+              maxAge: 86_400_000,
+              httpOnly: true,
+              sameSite: "none",
+              secure: true
+            })
+            .cookie("access_token", req.body.access_token, {
+              maxAge: 86_400_000,
+              httpOnly: true,
+              sameSite: "none",
+              secure: true
+            })
+            .json({
+              msg: "Login was Successfull",
+              data: userData
+            });
+        } else {
+          res.status(200).json({
             msg: "Login was Successfull",
             data: userData
           });
+        }
       });
     })
     .catch((err) => {

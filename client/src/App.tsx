@@ -4,19 +4,14 @@ import UserLogin from "./components/userAuth/userLogin";
 import Navbar from "./components/navbar/navbar";
 import { currSelection, User } from "./TS types/Types";
 import { Context, useQalcContext } from "./context/qalculaterContext";
-import ReactNotification from "react-notifications-component";
-import {
-  BrowserRouter as Router,
-  Navigate,
-  Routes,
-  Route,
-  Link
-} from "react-router-dom";
+import ReactNotification, { store } from "react-notifications-component";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import "./sass/styles.scss";
 
 import ScreenNavigator from "./components/ScreenNavigator";
+import axios from "axios";
 
 function App() {
   /** STATE **/
@@ -56,7 +51,74 @@ function App() {
     setCarouselSwipable(slideBool);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    let cookieArr = document.cookie.split("=");
+    if (cookieArr[cookieArr.indexOf("G_AUTHUSER_H") + 1] == "1") {
+      setAuthenticated(true);
+      axios({
+        method: "post",
+        url: process.env.REACT_APP_SERVER_PROXY + "auth/login",
+        timeout: 10000, // 10 seconds timeout
+        withCredentials: true
+      })
+        .then((responseJson) => {
+          let response: User = responseJson.data.data;
+          // console.log(response);
+
+          setUserInfo(response);
+          // Deal with the Current Term and Course
+          let currTerm: string | null = localStorage.getItem("currentTerm");
+          let currCourse: string | null = localStorage.getItem("currentCourse");
+
+          let tempSel: currSelection = {
+            currTerm: currTerm !== null ? currTerm : "undefined",
+            currCourse: currCourse !== null ? currCourse : "undefined"
+          };
+
+          if (currTerm === null && response.data.length !== 0) {
+            // getting the first term in the data array
+            tempSel.currTerm = Object.keys(response.data[0])[0];
+            tempSel.currCourse = "undefined";
+          } else if (response.data.length === 0) {
+            tempSel.currTerm = "undefined";
+            tempSel.currCourse = "undefined";
+          }
+
+          // local storage is either a term or its an undefined string
+          setSelection(tempSel);
+          store.addNotification({
+            title: "Login",
+            message: "Success!",
+            type: "success",
+            insert: "top",
+            container: "top-center",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 3000,
+              onScreen: true
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err.toString());
+          setAuthenticated(false);
+          store.addNotification({
+            title: "Login",
+            message: JSON.stringify(err),
+            type: "danger",
+            insert: "top",
+            container: "top-center",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 3000,
+              onScreen: true
+            }
+          });
+        });
+    }
+  }, []);
   return (
     <Context.Provider
       value={{
@@ -73,24 +135,7 @@ function App() {
       }}
     >
       <ReactNotification />
-      <Router basename={process.env.PUBLIC_URL}>
-        {!isAuthenticated ? (
-          <Routes>
-            <Route path="/" element={<UserLogin />} />
-          </Routes>
-        ) : (
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <ScreenNavigator />
-                </>
-              }
-            />
-          </Routes>
-        )}
-      </Router>
+      {!isAuthenticated ? <UserLogin /> : <ScreenNavigator />}
     </Context.Provider>
   );
 }
