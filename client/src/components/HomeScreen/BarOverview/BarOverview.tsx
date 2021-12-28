@@ -38,7 +38,6 @@ function BarOverview() {
         return 1;
       });
       setCoursePercentageMap([...courses]);
-      console.log(courses);
     }
   }, [userInfo, selection]);
 

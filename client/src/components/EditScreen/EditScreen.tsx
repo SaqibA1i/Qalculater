@@ -9,7 +9,12 @@ import {
   CoursePercentageMap
 } from "../../TS types/Types";
 import { colors } from "../../helperFunctions/colors";
-import { ArchiveFill, PenFill } from "react-bootstrap-icons";
+import {
+  ArchiveFill,
+  PenFill,
+  DashCircle,
+  PlusCircle
+} from "react-bootstrap-icons";
 import {
   getCoursePercentageMapFromTerm,
   getAssessmentsFromTermCourse,
@@ -30,6 +35,7 @@ function EditScreen() {
   const [assessments, setAssessments] = useState<AssessmentData[]>([]);
   const [terms, setTermsAvg] = useState<CoursePercentageMap>([]);
   const [edit, setEdit] = useState<AssessmentData | boolean>(false);
+  const [termHidden, hideTerm] = useState<boolean>(false);
 
   useEffect(() => {
     setTermsAvg(getTermPercentageMapForAll(userInfo.data));
@@ -45,6 +51,16 @@ function EditScreen() {
     }
     setAssessments(newAssessments);
   }, [selection, userInfo]);
+
+  useEffect(() => {
+    let hiden = localStorage.getItem("termHidden");
+    console.log(hiden == "true");
+    if (hiden == "true") {
+      hideTerm(true);
+    } else {
+      hideTerm(false);
+    }
+  }, []);
 
   const getColor = (value: number) => {
     if (value < 0.5) {
@@ -94,6 +110,14 @@ function EditScreen() {
   const setPopUpHelper = (p: boolean): void => {
     setPopUp(p);
   };
+  const hideTermHelperToggle = () => {
+    hideTerm(!termHidden);
+    if (!termHidden) {
+      localStorage.setItem("termHidden", "true");
+    } else {
+      localStorage.setItem("termHidden", "false");
+    }
+  };
 
   return (
     <div className="edit-screen">
@@ -106,60 +130,77 @@ function EditScreen() {
         />
       )}
       <div className="edit-container">
-        <h2>Terms</h2>
-        <div className="edit-slider">
-          {terms.map((term, idx) => {
-            return (
-              <div
-                key={idx}
-                className={
-                  selection.currTerm == term[0]
-                    ? "edit-slider-term selected"
-                    : "edit-slider-term"
-                }
-                onClick={() => {
-                  let tempSel = selection;
-                  tempSel.currTerm = term[0];
-                  tempSel.currCourse = "undefined";
-                  setSelection({ ...tempSel! });
-                }}
-              >
-                <div className="cover">
-                  <div className="container">
-                    <div className="left-section">
-                      <h5 style={{ color: "#333" }}>{term[0]}</h5>
-                      <p style={{ color: colors[idx % colors.length] }}>
-                        {term[1] ? term[1].toFixed(2) : " - "}%
-                      </p>
+        <h2>
+          Terms
+          {termHidden ? (
+            <PlusCircle
+              size={15}
+              color={"#333"}
+              onClick={hideTermHelperToggle}
+            />
+          ) : (
+            <DashCircle
+              size={15}
+              color={"#333"}
+              onClick={hideTermHelperToggle}
+            />
+          )}
+        </h2>
+        {!termHidden && (
+          <div className="edit-slider">
+            {terms.map((term, idx) => {
+              return (
+                <div
+                  key={idx}
+                  className={
+                    selection.currTerm == term[0]
+                      ? "edit-slider-term selected"
+                      : "edit-slider-term"
+                  }
+                  onClick={() => {
+                    let tempSel = selection;
+                    tempSel.currTerm = term[0];
+                    tempSel.currCourse = "undefined";
+                    setSelection({ ...tempSel! });
+                  }}
+                >
+                  <div className="cover">
+                    <div className="container">
+                      <div className="left-section">
+                        <h5 style={{ color: "#333" }}>{term[0]}</h5>
+                        <p style={{ color: colors[idx % colors.length] }}>
+                          {term[1] ? term[1].toFixed(2) : " - "}%
+                        </p>
+                      </div>
+                      <p>Completed: {term[2] ? term[2].toFixed(2) : 0}%</p>
+                      <CompletionBar
+                        completion={term[2] ? term[2] : 0}
+                        color={colors[idx % colors.length]}
+                      />
                     </div>
-                    <p>Completed: {term[2] ? term[2].toFixed(2) : 0}%</p>
-                    <CompletionBar
-                      completion={term[2] ? term[2] : 0}
-                      color={colors[idx % colors.length]}
-                    />
-                  </div>
-                  <div
-                    className={
-                      selection.currTerm == term[0]
-                        ? "bottom-section expanded"
-                        : "bottom-section"
-                    }
-                    onClick={() => {
-                      editTerm(term[0]);
-                    }}
-                  >
-                    {selection.currTerm == term[0] && (
-                      <PenFill size={20} color={"aliceblue"} />
-                    )}
+                    <div
+                      className={
+                        selection.currTerm == term[0]
+                          ? "bottom-section expanded"
+                          : "bottom-section"
+                      }
+                      onClick={() => {
+                        editTerm(term[0]);
+                      }}
+                    >
+                      {selection.currTerm == term[0] && (
+                        <PenFill size={20} color={"aliceblue"} />
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-          <div className="edit-add" data-aos="zoom-in" onClick={addTerm}>
-            <Plus size={iconSize} color={"#333"} />
+              );
+            })}
+            <div className="edit-add" data-aos="zoom-in" onClick={addTerm}>
+              <Plus size={iconSize} color={"#333"} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
       {selection.currTerm != "undefined" && (
         <div className="edit-container">
@@ -225,7 +266,14 @@ function EditScreen() {
       {selection!.currCourse != "undefined" && (
         <div className="edit-container">
           <h2>Assessments</h2>
-          <div className="edit-slider-vertical">
+          <div
+            className={
+              termHidden
+                ? "edit-slider-vertical edit-slider-vertical-long"
+                : "edit-slider-vertical"
+            }
+            id="assessments"
+          >
             {assessments.map((assessment, idx) => {
               return (
                 <div
