@@ -22,7 +22,7 @@ function App() {
     data: []
   });
 
-  const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
+  const [isAuthenticated, setAuthenticated] = useState<boolean>(true);
   const [selection, setSelection] = useState<currSelection>({
     currTerm: "undefined",
     currCourse: "undefined"
@@ -54,8 +54,8 @@ function App() {
   useEffect(() => {
     let cookieArr = document.cookie.split("=");
     if (cookieArr[cookieArr.indexOf("G_AUTHUSER_H") + 1] == "1") {
-      console.log("here");
       setAuthenticated(true);
+      console.log("here");
       axios({
         method: "post",
         url: process.env.REACT_APP_SERVER_PROXY + "auth/login",
@@ -118,6 +118,8 @@ function App() {
             }
           });
         });
+    } else {
+      setAuthenticated(false);
     }
   }, []);
   return (
