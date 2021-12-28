@@ -101,7 +101,7 @@ termRoutes.post("/update", (req, res) => {
             firstName: response["firstName"],
             lastName: response["lastName"],
             imgURL: response["imgURL"],
-            data: []
+            data: JSON.parse(response["data"])
           };
           res.status(200).json({
             msg: "Data Updated",

@@ -6,7 +6,7 @@ import {
   AcademicData,
   AssessmentData,
   PopTypes,
-  User,
+  User
 } from "../../TS types/Types";
 import {
   // Term
@@ -20,7 +20,7 @@ import {
   // Assessment
   addAssessmentPushHelper,
   editAssessmentPushHelper,
-  deleteAssessmentPushHelper,
+  deleteAssessmentPushHelper
 } from "../../helperFunctions/helpers";
 import { useQalcContext } from "../../context/qalculaterContext";
 import { store } from "react-notifications-component";
@@ -77,9 +77,9 @@ function PopUp(Props: PopUpProps) {
             if (typeof res === "string") {
               throw res;
             }
-            updatedUser.data = res!;
+            updatedUser.data = [...res];
             //update react context with updated data
-            setUserInfo!({ ...updatedUser });
+            setUserInfo({ ...updatedUser });
             store.addNotification({
               title: "Add",
               message: "" + name + " added!",
@@ -90,8 +90,8 @@ function PopUp(Props: PopUpProps) {
               animationOut: ["animate__animated", "animate__fadeOut"],
               dismiss: {
                 duration: 3000,
-                onScreen: true,
-              },
+                onScreen: true
+              }
             });
             // Close the popup
             Props.setPopUp(false);
@@ -108,8 +108,8 @@ function PopUp(Props: PopUpProps) {
               animationOut: ["animate__animated", "animate__fadeOut"],
               dismiss: {
                 duration: 3000,
-                onScreen: true,
-              },
+                onScreen: true
+              }
             });
             setLoading(false);
           });
@@ -145,10 +145,10 @@ function PopUp(Props: PopUpProps) {
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
                   duration: 3000,
-                  onScreen: true,
-                },
+                  onScreen: true
+                }
               });
-              setUserInfo!({ ...updatedUser });
+              setUserInfo({ ...updatedUser });
               console.log(userInfo);
               // Close the popup
               Props.setPopUp(false);
@@ -165,8 +165,8 @@ function PopUp(Props: PopUpProps) {
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
                   duration: 3000,
-                  onScreen: true,
-                },
+                  onScreen: true
+                }
               });
               setLoading(false);
             });
@@ -207,10 +207,11 @@ function PopUp(Props: PopUpProps) {
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
                   duration: 3000,
-                  onScreen: true,
-                },
+                  onScreen: true
+                }
               });
               setLoading(false);
+              setUserInfo({ ...updatedUser });
               // Close the popup
               Props.setPopUp(false);
             })
@@ -225,8 +226,8 @@ function PopUp(Props: PopUpProps) {
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
                   duration: 3000,
-                  onScreen: true,
-                },
+                  onScreen: true
+                }
               });
               setLoading(false);
             });
@@ -245,8 +246,8 @@ function PopUp(Props: PopUpProps) {
         animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
           duration: 3000,
-          onScreen: true,
-        },
+          onScreen: true
+        }
       });
       setLoading(false);
     }
@@ -281,8 +282,8 @@ function PopUp(Props: PopUpProps) {
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
                   duration: 3000,
-                  onScreen: true,
-                },
+                  onScreen: true
+                }
               });
               setLoading(false);
               // Close the popup
@@ -300,8 +301,8 @@ function PopUp(Props: PopUpProps) {
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
                   duration: 3000,
-                  onScreen: true,
-                },
+                  onScreen: true
+                }
               });
             });
         }
@@ -332,8 +333,8 @@ function PopUp(Props: PopUpProps) {
                   animationOut: ["animate__animated", "animate__fadeOut"],
                   dismiss: {
                     duration: 3000,
-                    onScreen: true,
-                  },
+                    onScreen: true
+                  }
                 });
                 setLoading(false);
                 // Close the popup
@@ -353,8 +354,8 @@ function PopUp(Props: PopUpProps) {
                   animationOut: ["animate__animated", "animate__fadeOut"],
                   dismiss: {
                     duration: 3000,
-                    onScreen: true,
-                  },
+                    onScreen: true
+                  }
                 });
                 setLoading(false);
               });
@@ -391,8 +392,8 @@ function PopUp(Props: PopUpProps) {
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
                   duration: 3000,
-                  onScreen: true,
-                },
+                  onScreen: true
+                }
               });
               setLoading(false);
               // Close the popup
@@ -410,8 +411,8 @@ function PopUp(Props: PopUpProps) {
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
                   duration: 3000,
-                  onScreen: true,
-                },
+                  onScreen: true
+                }
               });
             });
         }
@@ -427,8 +428,8 @@ function PopUp(Props: PopUpProps) {
         animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
           duration: 3000,
-          onScreen: true,
-        },
+          onScreen: true
+        }
       });
       setLoading(false);
     }
@@ -467,8 +468,8 @@ function PopUp(Props: PopUpProps) {
               animationOut: ["animate__animated", "animate__fadeOut"],
               dismiss: {
                 duration: 3000,
-                onScreen: true,
-              },
+                onScreen: true
+              }
             });
             // Close the popup
             Props.setPopUp(false);
@@ -520,8 +521,8 @@ function PopUp(Props: PopUpProps) {
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
                   duration: 3000,
-                  onScreen: true,
-                },
+                  onScreen: true
+                }
               });
               Props.setPopUp(false);
             })
@@ -584,8 +585,8 @@ function PopUp(Props: PopUpProps) {
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
                   duration: 3000,
-                  onScreen: true,
-                },
+                  onScreen: true
+                }
               });
               // Close the popup
               Props.setPopUp(false);
@@ -608,8 +609,8 @@ function PopUp(Props: PopUpProps) {
         animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
           duration: 3000,
-          onScreen: true,
-        },
+          onScreen: true
+        }
       });
     }
   };

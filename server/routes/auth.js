@@ -18,7 +18,7 @@ const router = express();
 router.post("/login", (req, res) => {
   verify(req)
     .then((response) => {
-      console.log("[Authentication Success] : ", response["sub"]);
+      console.log("[Authentication Success]: ", response["sub"]);
       // Checking if user exists
       User.findOne({ googleId: response["sub"] }, function (err, user) {
         if (err) {

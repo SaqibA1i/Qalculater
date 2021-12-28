@@ -6,14 +6,14 @@ import {
   PopTypes,
   Course,
   AssessmentData,
-  CoursePercentageMap,
+  CoursePercentageMap
 } from "../../TS types/Types";
 import { colors } from "../../helperFunctions/colors";
 import { ArchiveFill, PenFill } from "react-bootstrap-icons";
 import {
   getCoursePercentageMapFromTerm,
   getAssessmentsFromTermCourse,
-  getTermPercentageMapForAll,
+  getTermPercentageMapForAll
 } from "../../helperFunctions/helpers";
 
 import CompletionBar from "./CompletionBar";
@@ -44,7 +44,7 @@ function EditScreen() {
       setCourses(newCourses);
     }
     setAssessments(newAssessments);
-  }, [selection, userInfo.data]);
+  }, [selection, userInfo]);
 
   const getColor = (value: number) => {
     if (value < 0.5) {
