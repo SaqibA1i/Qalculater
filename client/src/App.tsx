@@ -52,8 +52,7 @@ function App() {
   };
 
   useEffect(() => {
-    let cookieArr = document.cookie.split("=");
-    if (cookieArr.indexOf("G_AUTHUSER_H") != -1) {
+    if (document.cookie.includes("G_AUTHUSER_H")) {
       setAuthenticated(true);
       console.log("here");
       axios({

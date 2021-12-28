@@ -158,7 +158,7 @@ function UserLogin() {
                 {!loading ? (
                   <>
                     <img src={googleIcon} />
-                    Sign in {document.cookie}
+                    Sign in
                   </>
                 ) : (
                   <SpinnerInfinity style={{ margin: "0 auto" }} size={100} />
