@@ -27,7 +27,7 @@ function App() {
     currTerm: "undefined",
     currCourse: "undefined"
   });
-  const [swipeSlide, setSwipeSlide] = useState<number>(0);
+  const [swipeSlide, setSwipeSlide] = useState<number>(1);
   const [carouselSwipable, setCarouselSwipable] = useState<boolean>(true);
 
   /** Helper Functions to modify state **/
