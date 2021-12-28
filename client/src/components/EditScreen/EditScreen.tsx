@@ -189,7 +189,7 @@ function EditScreen() {
                           {course[1] ? course[1].toFixed(2) : " - "}%
                         </p>
                       </div>
-                      <p>Completed: {course[2]}%</p>
+                      <p>Completed: {course[2].toFixed()}%</p>
                       <CompletionBar
                         data-aos="fade-right"
                         completion={course[2] ? course[2] : 0}

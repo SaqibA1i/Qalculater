@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useQalcContext } from "../../../context/qalculaterContext";
 import {
   getCoursePercentageMapFromTerm,
-  getTermPercentageMapFrom,
+  getTermPercentageMapFrom
 } from "../../../helperFunctions/helpers";
-import { CoursePercentageMap, Course } from "../../../TS types/Types";
+import {
+  CoursePercentageMap,
+  Course,
+  coursePercentageSingle
+} from "../../../TS types/Types";
 
 function BarOverview() {
   const [coursePercentageMap, setCoursePercentageMap] =
@@ -27,11 +31,24 @@ function BarOverview() {
     );
     getTermPercentageMapFrom(userInfo.data, selection.currTerm);
     if (courses) {
-      setCoursePercentageMap(courses);
+      courses.sort((a: coursePercentageSingle, b: coursePercentageSingle) => {
+        if (a[1] > b[1]) {
+          return -1;
+        }
+        return 1;
+      });
+      setCoursePercentageMap([...courses]);
+      console.log(courses);
     }
   }, [userInfo, selection]);
+
+  const getWidth = () => {
+    let courses = coursePercentageMap.length;
+    let containerWidth = document.getElementById("bar-overview")!.clientWidth;
+    return (containerWidth - 150) / courses + 10 + "px"; // 5 margin each side
+  };
   return (
-    <div className="bar-overview">
+    <div className="bar-overview" id="bar-overview">
       {coursePercentageMap.map((singleMap, idx) => {
         return (
           <div className="bar-container" key={idx}>
@@ -44,12 +61,13 @@ function BarOverview() {
               }}
               style={{
                 height: singleMap[1] * 2 + "px",
+                width: getWidth(),
                 background:
                   "linear-gradient(" +
                   getColor((singleMap[1] + 3) / 100) +
                   ", " +
                   getColor((singleMap[1] - 10) / 100) +
-                  ")",
+                  ")"
               }}
             >
               <p>{singleMap[1].toFixed(2)}%</p>

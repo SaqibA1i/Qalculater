@@ -19,12 +19,13 @@
       overflow-x: scroll;
       width: 100%;
       padding: 10px;
+      margin-bottom: 20px;
       .edit-slider-term {
         z-index: 0;
         display: inline-block;
         margin: 0 15px 0 0;
         height: auto;
-        border-radius: 10px;
+        border-radius: 20px 16px 16px 20px;
         box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.13);
         @include flexCenter(row);
         padding: 0px;
@@ -33,7 +34,7 @@
         .container {
           @include flexCenter(column);
           align-items: flex-start;
-          width: fit-content;
+          width: max-content;
           background-color: $theme-blue-main;
           padding: 10px;
           border-radius: 15px;
@@ -45,13 +46,13 @@
             h5 {
               margin: 0 0 10px 0;
               text-align: left;
-              font-size: 17px;
+              font-size: 13px;
             }
             p {
               margin: 0;
               top: -5px;
               position: relative;
-              font-size: 20px;
+              font-size: 17px;
               font-weight: 700;
               font-style: italic;
               padding: 0 10px;
@@ -60,7 +61,7 @@
           p {
             margin: 0 0 10px 0;
             padding: 0;
-            font-size: 15px;
+            font-size: 10px;
             text-overflow: ellipsis;
             text-align: left;
             overflow: hidden;
@@ -147,7 +148,7 @@
             align-items: flex-start;
             h5 {
               margin: 0;
-              font-size: 15px;
+              font-size: 13px;
               color: $purple;
               max-width: 140px;
               min-width: 120px;
@@ -164,15 +165,9 @@
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: nowrap;
-              font-size: 15px;
+              font-size: 12px;
               color: #333;
             }
-          }
-
-          transition: 0.1s width linear;
-          &:hover {
-            width: 85%;
-            transition: 0.1s width linear;
           }
         }
       }

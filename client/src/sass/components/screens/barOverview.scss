@@ -7,19 +7,21 @@
     justify-content: flex-end;
     padding: 0;
     height: 280px;
+    width: auto;
     p {
-      font-size: 15px;
+      font-size: 10px;
       font-weight: 500;
     }
     .bar {
       cursor: pointer;
+      margin: 0 5px;
       p {
         position: relative;
         top: -40px;
-        font-size: 15px;
+        font-size: 10px;
         font-weight: 500;
       }
-      width: 30px;
+      width: auto;
       border-radius: 10px 10px 5px 5px;
     }
   }
