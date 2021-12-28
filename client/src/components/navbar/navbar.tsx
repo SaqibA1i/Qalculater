@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
+import { SpinnerInfinity } from "spinners-react";
 import { useQalcContext } from "../../context/qalculaterContext";
 import LoadingGif from "../../images/loading.gif";
+
 function Navbar() {
   const { userInfo, selection } = useQalcContext()!;
   return (
@@ -14,10 +16,11 @@ function Navbar() {
             : "Term: " + selection?.currTerm + ", " + selection?.currCourse}
         </h6>
       </div>
-      <img
-        className="nav-profile-img"
-        src={userInfo?.imgURL != "NULL" ? userInfo!.imgURL : LoadingGif}
-      />
+      {userInfo?.imgURL != "NULL" ? (
+        <img className="nav-profile-img" src={userInfo!.imgURL} />
+      ) : (
+        <SpinnerInfinity size={50} color={"red"} />
+      )}
     </div>
   );
 }

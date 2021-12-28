@@ -22,7 +22,7 @@ function App() {
     data: []
   });
 
-  const [isAuthenticated, setAuthenticated] = useState<boolean>(true);
+  const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
   const [selection, setSelection] = useState<currSelection>({
     currTerm: "undefined",
     currCourse: "undefined"
@@ -53,7 +53,7 @@ function App() {
 
   useEffect(() => {
     let cookieArr = document.cookie.split("=");
-    if (cookieArr[cookieArr.indexOf("G_AUTHUSER_H") + 1] == "1") {
+    if (cookieArr.indexOf("G_AUTHUSER_H") != -1) {
       setAuthenticated(true);
       console.log("here");
       axios({
@@ -119,6 +119,7 @@ function App() {
           });
         });
     } else {
+      console.log("not authenticated");
       setAuthenticated(false);
     }
   }, []);
@@ -138,7 +139,7 @@ function App() {
       }}
     >
       <ReactNotification />
-      {!isAuthenticated ? <UserLogin /> : <ScreenNavigator />}
+      {isAuthenticated ? <ScreenNavigator /> : <UserLogin />}
     </Context.Provider>
   );
 }
