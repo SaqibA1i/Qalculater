@@ -9,6 +9,11 @@
     h2 {
       text-align: left;
       margin: 0;
+      b {
+        font-weight: 600;
+        font-size: 20px;
+        color: $purple;
+      }
       svg {
         margin-left: 10px;
         cursor: pointer;
@@ -41,7 +46,6 @@
           align-items: flex-start;
           width: max-content;
           background-color: $theme-blue-main;
-          padding: 10px;
           border-radius: 15px;
           .left-section {
             @include flexCenter(row);
@@ -77,10 +81,9 @@
       .minimize {
         margin: 5px 5px;
         .cover {
-          align-items: baseline;
+          align-items: center;
           .container {
-            padding: 5px;
-
+            padding: 5px 10px;
             .left-section {
               display: flex;
               flex-direction: row;
@@ -93,6 +96,7 @@
               p {
                 font-size: 12px;
                 margin: 0;
+                position: static;
               }
             }
           }
@@ -116,6 +120,13 @@
 
         background-color: $theme-grey-main;
       }
+      .pill {
+        padding: 15px 20px;
+        width: 130px;
+        margin: 10px 5px;
+        height: 10px;
+        border-radius: 20px;
+      }
     }
 
     .min-term {
@@ -133,6 +144,9 @@
       width: 100%;
       max-height: calc(100vh - 520px);
       overflow-y: scroll;
+      p {
+        margin: 0 0 5px 0;
+      }
       .edit-slider-edit-del {
         cursor: pointer;
         @extend .edit-slider-term;
@@ -147,6 +161,7 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+
         svg {
           margin: 0 20px;
         }
@@ -226,6 +241,8 @@
   .bottom-section {
     padding: 0 10px;
     width: fit-content;
+    display: flex;
+    flex-direction: row;
     opacity: 0;
     transition: 0.5s opacity ease-in-out;
   }

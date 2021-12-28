@@ -6,7 +6,8 @@ import {
   PopTypes,
   Course,
   AssessmentData,
-  CoursePercentageMap
+  CoursePercentageMap,
+  coursePercentageSingle
 } from "../../TS types/Types";
 import { colors } from "../../helperFunctions/colors";
 import {
@@ -70,6 +71,14 @@ function EditScreen() {
     }
   }, []);
 
+  const getCoruseData = () => {
+    for (let i = 0; i < courses.length; i++) {
+      if (courses[i][0] == selection.currCourse) {
+        return courses[i];
+      }
+    }
+    return [];
+  };
   const getColor = (value: number) => {
     if (value < 0.5) {
       value = 1;
@@ -222,7 +231,7 @@ function EditScreen() {
       {selection.currTerm != "undefined" && (
         <div className="edit-container">
           <h2>
-            Courses
+            Courses: <b>{selection.currTerm}</b>
             {minimizeCourse ? (
               <GridFill
                 size={15}
@@ -299,15 +308,23 @@ function EditScreen() {
                 </div>
               );
             })}
-            <div className="edit-add" onClick={addCourse}>
-              <Plus size={iconSize} color={"#333"} />
+            <div
+              className={minimizeCourse ? "edit-add pill" : "edit-add"}
+              onClick={addCourse}
+            >
+              <Plus
+                size={minimizeCourse ? iconSize - 20 : iconSize}
+                color={"#333"}
+              />
             </div>
           </div>
         </div>
       )}
       {selection!.currCourse != "undefined" && (
         <div className="edit-container">
-          <h2>Assessments</h2>
+          <h2>
+            Assessments: <b>{selection.currCourse}</b>
+          </h2>
           <div
             className={
               termHidden
@@ -316,6 +333,15 @@ function EditScreen() {
             }
             id="assessments"
           >
+            <p>
+              Completed: <i>{getCoruseData()[1]}%</i>
+            </p>
+
+            <CompletionBar
+              data-aos="fade-right"
+              completion={getCoruseData()[2]}
+              color={getColor(getCoruseData()[1] / 100)}
+            />
             {assessments.map((assessment, idx) => {
               return (
                 <div

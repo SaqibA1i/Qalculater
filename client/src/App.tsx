@@ -54,6 +54,7 @@ function App() {
   useEffect(() => {
     let cookieArr = document.cookie.split("=");
     if (cookieArr[cookieArr.indexOf("G_AUTHUSER_H") + 1] == "1") {
+      console.log("here");
       setAuthenticated(true);
       axios({
         method: "post",
