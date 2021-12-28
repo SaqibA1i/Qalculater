@@ -25,12 +25,11 @@ function ScreenNavigator() {
     swipeable: false,
     emulateTouch: false,
     thumbWidth: 200,
-    selectedItem: 0,
     interval: 10,
     transitionTime: 300,
     swipeScrollTolerance: 50,
 
-    preventMovementUntilSwipeScrollTolerance: true,
+    preventMovementUntilSwipeScrollTolerance: true
   });
 
   return (
@@ -38,6 +37,7 @@ function ScreenNavigator() {
       <Navbar />
       <Carousel
         {...getConfigurableProps()}
+        selectedItem={swipeSlide}
         onSwipeEnd={() => {
           setTimeout(() => {
             let statusElement = document.getElementsByClassName(
