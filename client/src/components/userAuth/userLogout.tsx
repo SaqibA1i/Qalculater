@@ -6,7 +6,7 @@ import "react-notifications-component/dist/theme.css";
 import { useQalcContext } from "../../context/qalculaterContext";
 import { Lock } from "react-bootstrap-icons";
 import axios from "axios";
-import { useGoogleLogout } from "react-google-login";
+import { useGoogleLogout, GoogleLogout } from "react-google-login";
 function UserLogout() {
   const [loading, setLoading] = useState<boolean>(false);
   const { signOut, loaded } = useGoogleLogout({
@@ -44,30 +44,39 @@ function UserLogout() {
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        window.location.href = "/";
-        // store.addNotification({
-        //   title: "Logout",
-        //   message: err.message,
-        //   type: "danger",
-        //   insert: "top",
-        //   container: "top-center",
-        //   animationIn: ["animate__animated", "animate__fadeIn"],
-        //   animationOut: ["animate__animated", "animate__fadeOut"],
-        //   dismiss: {
-        //     duration: 9000,
-        //     onScreen: true
-        //   }
-        // });
+        store.addNotification({
+          title: "Logout",
+          message: err.message,
+          type: "danger",
+          insert: "top",
+          container: "top-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 9000,
+            onScreen: true
+          }
+        });
       });
   };
 
   return (
     <div>
       {!loading ? (
-        <div className="logout-account-settings" onClick={logout}>
-          <Lock size={30} color={"#fff"} />
-          <h6>Logout</h6>
-        </div>
+        <GoogleLogout
+          clientId={process.env.REACT_APP_CLIENT_ID!}
+          buttonText="Logout"
+          onLogoutSuccess={logout}
+          render={(renderProps) => (
+            <div
+              className="logout-account-settings"
+              onClick={renderProps.onClick}
+            >
+              <Lock size={30} color={"#fff"} />
+              <h6>Logout</h6>
+            </div>
+          )}
+        />
       ) : (
         <SpinnerInfinity style={{ margin: "0 auto" }} size={100} />
       )}
