@@ -44,19 +44,20 @@ function UserLogout() {
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        store.addNotification({
-          title: "Logout",
-          message: err.message,
-          type: "danger",
-          insert: "top",
-          container: "top-center",
-          animationIn: ["animate__animated", "animate__fadeIn"],
-          animationOut: ["animate__animated", "animate__fadeOut"],
-          dismiss: {
-            duration: 9000,
-            onScreen: true
-          }
-        });
+        window.location.href = "/";
+        // store.addNotification({
+        //   title: "Logout",
+        //   message: err.message,
+        //   type: "danger",
+        //   insert: "top",
+        //   container: "top-center",
+        //   animationIn: ["animate__animated", "animate__fadeIn"],
+        //   animationOut: ["animate__animated", "animate__fadeOut"],
+        //   dismiss: {
+        //     duration: 9000,
+        //     onScreen: true
+        //   }
+        // });
       });
   };
 
