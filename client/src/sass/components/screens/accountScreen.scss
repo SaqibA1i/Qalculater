@@ -52,6 +52,10 @@
 .logout-account-settings {
   @extend .account-settings;
   background-color: #c50000ad;
+  transition: 0.5s box-shadow ease-in-out;
+  &:hover {
+    box-shadow: 1px 3px 20px 6px rgba(255, 0, 0, 0.541);
+  }
   h6 {
     color: $theme-blue-main;
   }
