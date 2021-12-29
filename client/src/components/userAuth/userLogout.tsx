@@ -15,7 +15,6 @@ function UserLogout() {
   const { setAuthenticated } = useQalcContext()!;
   const logout = () => {
     setLoading(true);
-    signOut();
     axios({
       method: "post",
       url: process.env.REACT_APP_SERVER_PROXY! + "auth/logout",
@@ -46,7 +45,7 @@ function UserLogout() {
         setLoading(false);
         store.addNotification({
           title: "Logout",
-          message: err.message,
+          message: "ERROR " + err.message,
           type: "danger",
           insert: "top",
           container: "top-center",

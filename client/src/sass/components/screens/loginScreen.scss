@@ -79,6 +79,8 @@
       max-height: calc(100vh - 300px);
     }
     svg {
+      position: relative;
+      top: -5px;
       width: 200%;
       position: relative;
       animation: 5s wave infinite alternate-reverse ease-in-out;

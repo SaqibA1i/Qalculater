@@ -95,21 +95,9 @@ router.post("/login", (req, res) => {
 });
 
 router.post("/logout", async (req, res) => {
-  try {
-    let data = await revoke(req);
-    if (data.status != 200) {
-      throw data.response.error;
-    }
-    console.log("[SUCCESS] Logged out Successfully");
-    res.clearCookie("jwt_token");
-    res.clearCookie("access_token");
-    res.clearCookie("G_AUTHUSER_H");
-    res.status(data.status).json({ msg: "Logged out successfully" });
-  } catch (err) {
-    res.clearCookie("jwt_token");
-    res.clearCookie("access_token");
-    res.clearCookie("G_AUTHUSER_H");
-    res.status(400).json(err);
-  }
+  console.log("[SUCCESS] Logged out Successfully");
+  res.clearCookie("jwt_token");
+  res.clearCookie("access_token");
+  res.status(data.status).json({ msg: "Logged out successfully" });
 });
 module.exports = router;
