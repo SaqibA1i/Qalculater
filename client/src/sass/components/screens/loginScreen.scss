@@ -20,11 +20,11 @@
   }
 }
 .bubble-container {
-  z-index: 0;
+  z-index: 1;
   position: absolute;
   min-width: 100vw;
-  min-height: calc(100vh - 300px);
-  max-height: calc(100vh - 300px);
+  min-height: calc(100vh);
+  max-height: calc(100vh);
   transform-style: preserve-3d;
   overflow: hidden;
 }
@@ -93,7 +93,14 @@
     position: fixed;
     bottom: 0;
     width: 100%;
+    z-index: 1000;
     button {
+      cursor: pointer;
+      z-index: 1000;
+      &:hover {
+        transition: 0.5s box-shadow ease-in-out;
+        box-shadow: 5px 5px 15px 5px rgba(1, 80, 170, 0.281);
+      }
       img {
         width: 30px;
         padding: 10px;
@@ -103,6 +110,8 @@
       }
       border: 0;
       box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.13);
+
+      transition: 0.5s box-shadow ease-in-out;
       padding: 20px;
       font-size: 20px;
       background-color: $theme-blue-main;

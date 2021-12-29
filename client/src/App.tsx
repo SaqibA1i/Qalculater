@@ -12,6 +12,7 @@ import "./sass/styles.scss";
 
 import ScreenNavigator from "./components/ScreenNavigator";
 import axios from "axios";
+import { SpinnerDotted } from "spinners-react";
 
 function App() {
   /** STATE **/
@@ -134,7 +135,20 @@ function App() {
       }}
     >
       <ReactNotification />
-      {isAuthenticated ? <ScreenNavigator /> : <UserLogin />}
+      {isAuthenticated ? (
+        userInfo.imgURL === "NULL" &&
+        userInfo.firstName === "NULL" &&
+        userInfo.lastName === "NULL" ? (
+          <SpinnerDotted
+            style={{ left: "50%", top: "50%", position: "fixed" }}
+            size={50}
+          />
+        ) : (
+          <ScreenNavigator />
+        )
+      ) : (
+        <UserLogin />
+      )}
     </Context.Provider>
   );
 }

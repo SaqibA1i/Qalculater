@@ -16,11 +16,7 @@ function Navbar() {
             : "Term: " + selection?.currTerm + ", " + selection?.currCourse}
         </h6>
       </div>
-      {userInfo?.imgURL != "NULL" ? (
-        <img className="nav-profile-img" src={userInfo!.imgURL} />
-      ) : (
-        <SpinnerInfinity size={50} color={"red"} />
-      )}
+      <img className="nav-profile-img" src={userInfo!.imgURL} />
     </div>
   );
 }

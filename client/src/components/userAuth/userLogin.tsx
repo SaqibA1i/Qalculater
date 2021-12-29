@@ -130,6 +130,7 @@ function UserLogin() {
                 <div className="bubble-wrap">{bubbles}</div>
               </div>
               <h1>Welcome to the grades app!</h1>
+
               <svg
                 id="wave"
                 style={{ transform: "rotate(180deg)", transition: "0.3s" }}
