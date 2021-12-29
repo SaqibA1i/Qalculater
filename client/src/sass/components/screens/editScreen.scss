@@ -25,7 +25,7 @@
       flex-direction: row;
       align-items: center;
       height: 120px;
-      overflow-x: scroll;
+      overflow-x: auto;
       width: 100%;
       padding: 10px;
       margin-bottom: 20px;
@@ -47,6 +47,7 @@
           width: max-content;
           background-color: $theme-blue-main;
           border-radius: 15px;
+          padding: 15px;
           .left-section {
             @include flexCenter(row);
             padding: 0;
@@ -143,7 +144,7 @@
       padding: 10px;
       width: 100%;
       max-height: calc(100vh - 520px);
-      overflow-y: scroll;
+      overflow-y: auto;
       p {
         margin: 0 0 5px 0;
       }
@@ -151,7 +152,16 @@
         cursor: pointer;
         @extend .edit-slider-term;
         width: 100%;
-        background-color: $del-red;
+        background: $blue-gradient;
+        // background: linear-gradient(
+        //   -45deg,
+        //   #52c2ee,
+        //   #3c4de785,
+        //   #23a6d5,
+        //   #23d5ab
+        // );
+        // background-size: 400% 400%;
+        // animation: blue-bg 5s infinite;
         box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.13);
         margin: 10px 0 0 0;
         border-radius: 25px;
@@ -237,7 +247,7 @@
   @include flexCenter(row);
   padding: 0;
   border-radius: 15px;
-  background-color: $del-red;
+  background: $blue-gradient;
   .bottom-section {
     padding: 0 10px;
     width: fit-content;

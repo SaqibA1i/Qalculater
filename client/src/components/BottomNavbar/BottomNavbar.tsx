@@ -5,7 +5,7 @@ import { useQalcContext } from "../../context/qalculaterContext";
 function BottomNavbar() {
   let iconSize = 23;
   let iconColor = "#406882";
-  let iconColorChosen = "#1A374D";
+  let iconColorChosen = "#002199";
   const { swipeSlide, setSwipeSlide } = useQalcContext()!;
 
   return (

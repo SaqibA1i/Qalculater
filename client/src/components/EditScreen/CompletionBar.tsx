@@ -13,6 +13,7 @@ const CompletionBar = (Props: completionProps) => {
         style={{
           backgroundColor: Props.color,
           width: Math.min(Props.completion, 100) + "%",
+          boxShadow: "1px 1px 13px 0px " + Props.color
         }}
       ></div>
     </div>
