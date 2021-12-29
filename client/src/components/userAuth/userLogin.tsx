@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GoogleLogin } from "react-google-login";
 import { currSelection, User } from "../../TS types/Types";
 import axios from "axios";
@@ -9,17 +9,11 @@ import { store } from "react-notifications-component";
 import "animate.css";
 import "react-notifications-component/dist/theme.css";
 function UserLogin() {
-  const [loading, setLoading] = useState<boolean>(false);
-
+  const [loading, setLoading] = useState<boolean>(true);
+  const [bubbles, setBubbles] = useState<any>([]);
   const { setUserInfo, setAuthenticated, setSelection } = useQalcContext()!;
-  let bubbles: any = [];
-  const addBubbles = () => {
-    for (let i = 0; i < 100; i++) {
-      bubbles.push(<div key={i} className="bubble"></div>);
-    }
-    return bubbles;
-  };
   const onSuccess = (res: any) => {
+    setAuthenticated(true);
     axios({
       method: "post",
       url: process.env.REACT_APP_SERVER_PROXY + "auth/login",
@@ -33,19 +27,15 @@ function UserLogin() {
       .then((responseJson) => {
         let response: User = responseJson.data.data;
         // console.log(response);
-
         setAuthenticated(true);
-
         setUserInfo(response);
         // Deal with the Current Term and Course
         let currTerm: string | null = localStorage.getItem("currentTerm");
         let currCourse: string | null = localStorage.getItem("currentCourse");
-
         let tempSel: currSelection = {
           currTerm: currTerm !== null ? currTerm : "undefined",
           currCourse: currCourse !== null ? currCourse : "undefined"
         };
-
         if (currTerm === null && response.data.length !== 0) {
           // getting the first term in the data array
           tempSel.currTerm = Object.keys(response.data[0])[0];
@@ -54,7 +44,6 @@ function UserLogin() {
           tempSel.currTerm = "undefined";
           tempSel.currCourse = "undefined";
         }
-
         // local storage is either a term or its an undefined string
         setSelection(tempSel);
         setLoading(false);
@@ -94,6 +83,7 @@ function UserLogin() {
 
   const onFaliure = (res: any) => {
     setLoading(false);
+    setAuthenticated(false);
     store.addNotification({
       title: "Login",
       message: res.message,
@@ -108,12 +98,28 @@ function UserLogin() {
       }
     });
   };
+  useEffect(() => {
+    let tempBubbles = [];
+    for (let i = 0; i < 100; i++) {
+      tempBubbles.push(<div key={i} className="bubble"></div>);
+    }
+    setBubbles(tempBubbles);
+  }, []);
   return (
     <div>
       <GoogleLogin
         clientId={process.env.REACT_APP_CLIENT_ID!}
         buttonText="Login"
-        onRequest={() => setLoading(true)}
+        onRequest={() => {
+          console.log("requesting");
+          setLoading(true);
+        }}
+        onAutoLoadFinished={(isLoggedIn) => {
+          console.log("isLoggedIn", isLoggedIn);
+          if (!isLoggedIn) {
+            setLoading(false);
+          }
+        }}
         onSuccess={onSuccess}
         onFailure={onFaliure}
         cookiePolicy={"single_host_origin"}
@@ -121,7 +127,7 @@ function UserLogin() {
           <div className="login">
             <div className="top-section">
               <div className="bubble-container">
-                <div className="bubble-wrap">{addBubbles()}</div>
+                <div className="bubble-wrap">{bubbles}</div>
               </div>
               <h1>Welcome to the grades app!</h1>
               <svg
@@ -154,16 +160,14 @@ function UserLogin() {
               </svg>
             </div>
             <div className="bottom-section">
-              <button onClick={renderProps.onClick}>
-                {!loading ? (
-                  <>
-                    <img src={googleIcon} />
-                    Sign in
-                  </>
-                ) : (
-                  <SpinnerInfinity style={{ margin: "0 auto" }} size={100} />
-                )}
-              </button>
+              {!loading ? (
+                <button onClick={renderProps.onClick}>
+                  <img src={googleIcon} />
+                  Sign in
+                </button>
+              ) : (
+                <SpinnerInfinity style={{ margin: "0 auto" }} size={100} />
+              )}
             </div>
           </div>
         )}
