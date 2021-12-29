@@ -1,1 +1,5 @@
-
+.loading-screen {
+  @include flexCenter(row);
+  justify-content: center;
+  height: 100vh;
+}
