@@ -17,6 +17,11 @@ const router = express();
 */
 router.post("/login", (req, res) => {
   console.log("jwt_token exists: ", req.cookies["jwt_token"] != undefined);
+  console.log(
+    "access_token exists: ",
+    req.cookies["access_token"] != undefined
+  );
+
   verify(req)
     .then((response) => {
       console.log("[Authentication Success]: ", response["sub"]);
@@ -98,10 +103,13 @@ router.post("/logout", async (req, res) => {
     console.log("[SUCCESS] Logged out Successfully");
     res.clearCookie("jwt_token");
     res.clearCookie("access_token");
+    res.clearCookie("G_AUTHUSER_H");
     res.status(data.status).json({ msg: "Logged out successfully" });
   } catch (err) {
-    console.log(" Logging out");
-    res.status(400).json({ msg: "" + err });
+    res.clearCookie("jwt_token");
+    res.clearCookie("access_token");
+    res.clearCookie("G_AUTHUSER_H");
+    res.status(400).json(err);
   }
 });
 module.exports = router;

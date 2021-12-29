@@ -96,14 +96,14 @@ function UserLogin() {
     setLoading(false);
     store.addNotification({
       title: "Login",
-      message: JSON.stringify(res),
+      message: res.message,
       type: "danger",
       insert: "top",
       container: "top-center",
       animationIn: ["animate__animated", "animate__fadeIn"],
       animationOut: ["animate__animated", "animate__fadeOut"],
       dismiss: {
-        duration: 3000,
+        duration: 10000,
         onScreen: true
       }
     });

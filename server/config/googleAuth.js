@@ -4,11 +4,6 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const User = require("./User");
 
 async function verify(req) {
-  console.log(
-    ("jwt_token exists: " + req.cookies["jwt_token"] !=
-      undefined + "access_token exists: " + req.cookies["access_token"]) !=
-      undefined
-  );
   const ticket = await client.verifyIdToken({
     idToken:
       req.body.id_token == undefined
