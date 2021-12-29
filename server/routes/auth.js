@@ -1,5 +1,5 @@
 const express = require("express");
-const { verify, revoke } = require("../config/googleAuth");
+const verify = require("../config/googleAuth");
 let User = require("../config/User");
 
 const router = express();
@@ -98,6 +98,6 @@ router.post("/logout", async (req, res) => {
   console.log("[SUCCESS] Logged out Successfully");
   res.clearCookie("jwt_token");
   res.clearCookie("access_token");
-  res.status(data.status).json({ msg: "Logged out successfully" });
+  res.status(200).json({ msg: "Logged out successfully" });
 });
 module.exports = router;

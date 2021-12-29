@@ -19,9 +19,4 @@ async function verify(req) {
   return payload;
 }
 
-async function revoke(req) {
-  client.revokeCredentials;
-  const accessRevoke = await client.revokeToken(req.cookies["access_token"]);
-  return accessRevoke;
-}
-module.exports = { verify, revoke };
+module.exports = verify;

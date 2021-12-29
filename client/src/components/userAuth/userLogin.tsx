@@ -120,6 +120,9 @@ function UserLogin() {
         render={(renderProps) => (
           <div className="login">
             <div className="top-section">
+              <div className="bubble-container">
+                <div className="bubble-wrap">{addBubbles()}</div>
+              </div>
               <h1>Welcome to the grades app!</h1>
               <svg
                 id="wave"
