@@ -334,7 +334,7 @@ function EditScreen() {
             id="assessments"
           >
             <p>
-              Completed: <i>{getCoruseData()[1]}%</i>
+              Completed: <i>{getCoruseData()[2]}%</i>
             </p>
 
             <CompletionBar

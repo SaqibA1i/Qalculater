@@ -1,6 +1,6 @@
 const express = require("express");
 const User = require("../config/User");
-const { verify, revoke } = require("../config/googleAuth");
+const verify = require("../config/googleAuth");
 const termRoutes = express();
 
 /*
@@ -17,57 +17,6 @@ const termRoutes = express();
   }
 */
 
-termRoutes.get("/get", (req, res) => {
-  console.log("[Data Requested]");
-  // AUTHENTICATING THE TOKEN SENT
-  verify(req)
-    .then((response) => {
-      console.log("[Authentication Success] : ", response["sub"]);
-      // Checking if user exists
-      User.findOne({ googleId: response["sub"] }, function (err, user) {
-        if (err) {
-          console.log("[Error with DB]", err);
-          res.locals.error = false;
-        }
-        // if no user was found create it
-        if (!user) {
-          console.log("[Creating User]");
-          user = new User({
-            googleId: response["sub"],
-            displayName: response["name"],
-            firstName: response["given_name"],
-            lastName: response["family_name"],
-            imgURL: response["picture"]
-          });
-          user.save((err) => {
-            if (err) {
-              console.log("[Error Saving User] : ", err);
-            } else {
-              console.log("[Success Creating User]");
-            }
-          });
-        } else {
-          console.log("[User Already Exists]");
-        }
-        // Seting the local response
-        let userInfo = {
-          firstName: user.firstName,
-          lastName: user.lastName,
-          imgURL: user.imgURL,
-          data: JSON.parse(user.data)
-        };
-        res.status(200).json({
-          msg: "Data successfully fetched",
-          data: JSON.parse(userInfo)
-        });
-      });
-    })
-    .catch((err) => {
-      console.log("[Authentication Faliure] ", err.toString().split(",")[0]);
-      res.locals.data = err.toString().split(",")[0];
-      res.status(401).json({ msg: "Error retrieving data." });
-    });
-});
 /*
   Description: Updates data. Any modifications to terms, courses
                 assignments, etc. go through this route!
