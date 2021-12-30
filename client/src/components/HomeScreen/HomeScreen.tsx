@@ -29,14 +29,14 @@ function HomeScreen() {
     average: number;
     gpa: number;
     completed: number;
-    highestTerm: string;
-    lowestTerm: string;
+    highestTerm: { name: string; average: number };
+    lowestTerm: { name: string; average: number };
   }>({
     average: 0,
     gpa: 0,
     completed: 0,
-    highestTerm: "",
-    lowestTerm: ""
+    highestTerm: { name: "", average: NaN },
+    lowestTerm: { name: "", average: NaN }
   });
 
   const { selection, userInfo } = useQalcContext()!;
@@ -62,8 +62,11 @@ function HomeScreen() {
       termStatistics.completed = termInfo[4]!;
     }
     if (termMap.length > 0) {
-      termStatistics.highestTerm = termMap[0][0];
-      termStatistics.lowestTerm = termMap[termMap.length - 1][0];
+      termStatistics.highestTerm.name = termMap[0][0];
+      termStatistics.highestTerm.average = termMap[0][1];
+
+      termStatistics.lowestTerm.name = termMap[termMap.length - 1][0];
+      termStatistics.lowestTerm.average = termMap[termMap.length - 1][1];
     }
     setTermStats({ ...termStatistics });
     // ASSESSMENTS
@@ -113,12 +116,18 @@ function HomeScreen() {
           <div className="key-statistics-card">
             <GraphUpArrow size={30} color="#064bcac2" />
             <p>Highest Term</p>
-            <h5>{termStatistics.highestTerm}</h5>
+            <h5>
+              {termStatistics.highestTerm.name}
+              <b>{termStatistics.highestTerm.average} %</b>
+            </h5>
           </div>
           <div className="key-statistics-card">
             <GraphDownArrow size={30} color="#064bcac2" />
             <p>Lowest Term</p>
-            <h5>{termStatistics.lowestTerm}</h5>
+            <h5>
+              {termStatistics.lowestTerm.name}
+              <b>{termStatistics.lowestTerm.average} %</b>
+            </h5>
           </div>
         </div>
       </div>
