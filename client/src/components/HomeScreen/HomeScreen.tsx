@@ -23,8 +23,8 @@ import {
 
 function HomeScreen() {
   const [courseStatistics, setCourseStats] = useState<
-    [aHundredCount: number, failedCount: number]
-  >([0, 0]);
+    [aHundredCount: number, failedCount: number, totalAssessments: number]
+  >([0, 0, 0]);
   const [termStatistics, setTermStats] = useState<{
     average: number;
     gpa: number;
@@ -80,7 +80,7 @@ function HomeScreen() {
         ++failed;
       }
     });
-    setCourseStats([atHundred, failed]);
+    setCourseStats([atHundred, failed, assessments.length]);
   }, [selection, userInfo]);
 
   return (
@@ -135,12 +135,16 @@ function HomeScreen() {
             <div className="key-statistics-card">
               <Check2Circle size={30} color="#064bcac2" />
               <p>100% Assessments</p>
-              <h5>{courseStatistics[0]}</h5>
+              <h5>
+                {courseStatistics[0]} / {courseStatistics[2]}
+              </h5>
             </div>
             <div className="key-statistics-card">
               <XCircle size={30} color="#064bcac2" />
               <p>Failed Assessments</p>
-              <h5>{courseStatistics[1]}</h5>
+              <h5>
+                {courseStatistics[1]} / {courseStatistics[2]}
+              </h5>
             </div>
           </div>
         )}
