@@ -17,8 +17,7 @@ function UserLogin() {
     axios({
       method: "post",
       url: process.env.REACT_APP_SERVER_PROXY + "auth/login",
-      timeout: 10000, // 10 seconds timeout
-      withCredentials: true,
+      // withCredentials: true,
       data: {
         id_token: res.tokenObj.id_token,
         access_token: res.tokenObj.access_token

@@ -11,7 +11,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./sass/styles.scss";
 
 import ScreenNavigator from "./components/ScreenNavigator";
-import axios from "axios";
+import axios, { Axios } from "axios";
 import { SpinnerDotted, SpinnerInfinity } from "spinners-react";
 
 function App() {
@@ -53,71 +53,7 @@ function App() {
   };
 
   useEffect(() => {
-    // if (document.cookie.includes("G_AUTHUSER_H=1")) {
-    //   setAuthenticated(true);
-    //   console.log("here");
-    //   axios({
-    //     method: "post",
-    //     url: process.env.REACT_APP_SERVER_PROXY + "auth/login",
-    //     timeout: 10000, // 10 seconds timeout
-    //     withCredentials: true
-    //   })
-    //     .then((responseJson) => {
-    //       let response: User = responseJson.data.data;
-    //       // console.log(response);
-    //       setUserInfo(response);
-    //       // Deal with the Current Term and Course
-    //       let currTerm: string | null = localStorage.getItem("currentTerm");
-    //       let currCourse: string | null = localStorage.getItem("currentCourse");
-    //       let tempSel: currSelection = {
-    //         currTerm: currTerm !== null ? currTerm : "undefined",
-    //         currCourse: currCourse !== null ? currCourse : "undefined"
-    //       };
-    //       if (currTerm === null && response.data.length !== 0) {
-    //         // getting the first term in the data array
-    //         tempSel.currTerm = Object.keys(response.data[0])[0];
-    //         tempSel.currCourse = "undefined";
-    //       } else if (response.data.length === 0) {
-    //         tempSel.currTerm = "undefined";
-    //         tempSel.currCourse = "undefined";
-    //       }
-    //       // local storage is either a term or its an undefined string
-    //       setSelection(tempSel);
-    //       store.addNotification({
-    //         title: "Login",
-    //         message: "Success!",
-    //         type: "success",
-    //         insert: "top",
-    //         container: "top-center",
-    //         animationIn: ["animate__animated", "animate__fadeIn"],
-    //         animationOut: ["animate__animated", "animate__fadeOut"],
-    //         dismiss: {
-    //           duration: 3000,
-    //           onScreen: true
-    //         }
-    //       });
-    //     })
-    //     .catch((err) => {
-    //       console.log(err.toString());
-    //       setAuthenticated(false);
-    //       store.addNotification({
-    //         title: "Login",
-    //         message: JSON.stringify(err),
-    //         type: "danger",
-    //         insert: "top",
-    //         container: "top-center",
-    //         animationIn: ["animate__animated", "animate__fadeIn"],
-    //         animationOut: ["animate__animated", "animate__fadeOut"],
-    //         dismiss: {
-    //           duration: 3000,
-    //           onScreen: true
-    //         }
-    //       });
-    //     });
-    // } else {
-    //   console.log("not authenticated");
-    //   setAuthenticated(false);
-    // }
+    axios.defaults.withCredentials = true;
   }, []);
   return (
     <Context.Provider

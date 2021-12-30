@@ -180,7 +180,7 @@ const push = async (updatedUserData: AcademicData) => {
   let result = await axios({
     url: process.env.REACT_APP_SERVER_PROXY + "term/update",
     method: "POST",
-    withCredentials: true,
+    // withCredentials: true,
     data: {
       data: updatedUserData
     }

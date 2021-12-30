@@ -17,9 +17,9 @@ function UserLogout() {
     setLoading(true);
     axios({
       method: "post",
-      url: process.env.REACT_APP_SERVER_PROXY! + "auth/logout",
-      timeout: 10000, // 10 seconds timeout
-      withCredentials: true
+      url: process.env.REACT_APP_SERVER_PROXY! + "auth/logout"
+      // timeout: 10000, // 10 seconds timeout
+      // withCredentials: true
     })
       .then(async (res) => {
         console.log(res);
