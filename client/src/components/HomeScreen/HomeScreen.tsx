@@ -46,7 +46,6 @@ function HomeScreen() {
       userInfo.data,
       selection.currTerm
     );
-
     let termMap: CoursePercentageMap = getTermPercentageMapForAll(
       userInfo.data
     );
@@ -58,12 +57,11 @@ function HomeScreen() {
         return 1;
       }
     );
-
     if (termInfo != undefined) {
       termStatistics.average = termInfo?.[1];
       termStatistics.completed = termInfo[4]!;
     }
-    if (termMap != undefined) {
+    if (termMap.length > 0) {
       termStatistics.highestTerm = termMap[0][0];
       termStatistics.lowestTerm = termMap[termMap.length - 1][0];
     }
@@ -94,7 +92,9 @@ function HomeScreen() {
         <div className="edit-slider" style={{ marginBottom: 0 }}>
           <div className="key-statistics-card">
             <Book size={30} color="#064bcac2" />
-            <p>{selection.currTerm} Average</p>
+            <p>
+              {selection.currTerm != "undefined" && selection.currTerm} Average
+            </p>
             <h5>{termStatistics.average}</h5>
           </div>
           {/* <div className="key-statistics-card">
@@ -104,7 +104,10 @@ function HomeScreen() {
           </div> */}
           <div className="key-statistics-card">
             <CheckCircle size={30} color="#064bcac2" />
-            <p>{selection.currTerm} Courses Completed</p>
+            <p>
+              {selection.currTerm != "undefined" && selection.currTerm} Courses
+              Completed
+            </p>
             <h5>{termStatistics.completed}</h5>
           </div>
           <div className="key-statistics-card">
