@@ -77,6 +77,16 @@
       font-size: 30px;
       min-height: calc(100vh - 300px);
       max-height: calc(100vh - 300px);
+      flex-direction: column;
+      justify-content: center;
+      p {
+        font-size: 15px;
+        font-weight: 500;
+        b {
+          color: #ffd400;
+          border-bottom: 2px solid #ffd400;
+        }
+      }
     }
     svg {
       position: relative;

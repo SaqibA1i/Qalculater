@@ -128,7 +128,14 @@ function UserLogin() {
               <div className="bubble-container">
                 <div className="bubble-wrap">{bubbles}</div>
               </div>
-              <h1>Welcome to the grades app!</h1>
+              <h1>
+                Welcome to the grades app!
+                <p>
+                  <b>Note:</b> If using Apple devices make sure{" "}
+                  <b style={{ border: 0 }}>"prevent cross-site tracking"</b> is
+                  disabled for this site.
+                </p>
+              </h1>
 
               <svg
                 id="wave"
