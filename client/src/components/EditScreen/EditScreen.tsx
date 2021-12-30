@@ -194,14 +194,18 @@ function EditScreen() {
                     <div className="container">
                       <div className="left-section">
                         <h5 style={{ color: "#333" }}>{term[0]}</h5>
-                        <p style={{ color: colors[idx % colors.length] }}>
+                        <p
+                          style={{
+                            color: getColor(term[1] / 100)
+                          }}
+                        >
                           {term[1] ? term[1].toFixed(2) : " - "}%
                         </p>
                       </div>
                       <p>Completed: {term[2] ? term[2].toFixed(2) : 0}%</p>
                       <CompletionBar
                         completion={term[2] ? term[2] : 0}
-                        color={colors[idx % colors.length]}
+                        color={getColor(term[1] / 100)}
                       />
                     </div>
                     <div

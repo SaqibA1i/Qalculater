@@ -158,7 +158,8 @@ export type coursePercentageSingle = [
   courseName: string,
   courseAverage: number,
   courseCompletion: number,
-  courseCredit?: number
+  courseCredit?: number,
+  completedCourses?: number
 ];
 export type CoursePercentageMap = coursePercentageSingle[];
 

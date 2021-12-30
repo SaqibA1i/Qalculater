@@ -1,13 +1,147 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useQalcContext } from "../../context/qalculaterContext";
 import BarOverview from "./BarOverview/BarOverview";
+import {
+  Book,
+  GraphDownArrow,
+  GraphUpArrow,
+  CheckCircle,
+  XCircle,
+  Check2Circle,
+  Mortarboard
+} from "react-bootstrap-icons";
+import {
+  AssessmentData,
+  CoursePercentageMap,
+  coursePercentageSingle
+} from "../../TS types/Types";
+import {
+  getAssessmentsFromTermCourse,
+  getTermPercentageMapFrom,
+  getTermPercentageMapForAll
+} from "../../helperFunctions/helpers";
 
 function HomeScreen() {
+  const [courseStatistics, setCourseStats] = useState<
+    [aHundredCount: number, failedCount: number]
+  >([0, 0]);
+  const [termStatistics, setTermStats] = useState<{
+    average: number;
+    gpa: number;
+    completed: number;
+    highestTerm: string;
+    lowestTerm: string;
+  }>({
+    average: 0,
+    gpa: 0,
+    completed: 0,
+    highestTerm: "",
+    lowestTerm: ""
+  });
+
+  const { selection, userInfo } = useQalcContext()!;
+  useEffect(() => {
+    // TERMS
+    let termInfo: coursePercentageSingle | undefined = getTermPercentageMapFrom(
+      userInfo.data,
+      selection.currTerm
+    );
+
+    let termMap: CoursePercentageMap = getTermPercentageMapForAll(
+      userInfo.data
+    );
+    termMap.sort(
+      (term1: coursePercentageSingle, term2: coursePercentageSingle) => {
+        if (term1[1] > term2[1]) {
+          return -1;
+        }
+        return 1;
+      }
+    );
+
+    if (termInfo != undefined) {
+      termStatistics.average = termInfo?.[1];
+      termStatistics.completed = termInfo[4]!;
+    }
+    if (termMap != undefined) {
+      termStatistics.highestTerm = termMap[0][0];
+      termStatistics.lowestTerm = termMap[termMap.length - 1][0];
+    }
+    setTermStats({ ...termStatistics });
+    // ASSESSMENTS
+    let assessments: AssessmentData[] = getAssessmentsFromTermCourse(
+      selection,
+      userInfo.data
+    );
+    let failed = 0;
+    let atHundred = 0;
+    assessments.map((assessment: AssessmentData) => {
+      if (assessment[1] === 100) {
+        ++atHundred;
+      } else if (assessment[1] < 50) {
+        ++failed;
+      }
+    });
+    setCourseStats([atHundred, failed]);
+  }, [selection, userInfo]);
+
   return (
-    <div className="homeScreen">
-      <h2>Grade Bars</h2>
+    <div className="edit-screen">
+      <div className="edit-container">
+        <h2>
+          Key Term Statistics: <b>{selection.currTerm}</b>
+        </h2>
+        <div className="edit-slider" style={{ marginBottom: 0 }}>
+          <div className="key-statistics-card">
+            <Book size={30} color="#064bcac2" />
+            <p>{selection.currTerm} Average</p>
+            <h5>{termStatistics.average}</h5>
+          </div>
+          {/* <div className="key-statistics-card">
+            <Mortarboard size={30} color={"#064bcac2"} />
+            <p>{selection.currTerm} CGPA</p>
+            <h5>{termStatistics.gpa.toFixed(2)}</h5>
+          </div> */}
+          <div className="key-statistics-card">
+            <CheckCircle size={30} color="#064bcac2" />
+            <p>{selection.currTerm} Courses Completed</p>
+            <h5>{termStatistics.completed}</h5>
+          </div>
+          <div className="key-statistics-card">
+            <GraphUpArrow size={30} color="#064bcac2" />
+            <p>Highest Term</p>
+            <h5>{termStatistics.highestTerm}</h5>
+          </div>
+          <div className="key-statistics-card">
+            <GraphDownArrow size={30} color="#064bcac2" />
+            <p>Lowest Term</p>
+            <h5>{termStatistics.lowestTerm}</h5>
+          </div>
+        </div>
+      </div>
       <BarOverview />
-      <h2>Course Progress</h2>
-      <BarOverview />
+      <div className="edit-container">
+        <h2>
+          Key Course Statistics:{" "}
+          <b>
+            {selection.currCourse == "undefined" ? "" : selection.currCourse}
+          </b>
+        </h2>
+        {selection.currCourse != "undefined" && (
+          <div className="edit-slider">
+            <div className="key-statistics-card">
+              <Check2Circle size={30} color="#064bcac2" />
+              <p>100% Assessments</p>
+              <h5>{courseStatistics[0]}</h5>
+            </div>
+            <div className="key-statistics-card">
+              <XCircle size={30} color="#064bcac2" />
+              <p>Failed Assessments</p>
+              <h5>{courseStatistics[1]}</h5>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

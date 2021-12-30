@@ -7,7 +7,7 @@ import {
   CoursePercentageMap,
   AssessmentData,
   currSelection,
-  coursePercentageSingle,
+  coursePercentageSingle
 } from "../TS types/Types";
 
 // smaller helper functions
@@ -69,7 +69,7 @@ export const getCoursePercentageMapFromTerm = (
           Object.keys(termData[i])[0],
           courseAverage[0],
           courseAverage[1],
-          termData[i][courseName].credit,
+          termData[i][courseName].credit
         ]);
       }
     }
@@ -79,8 +79,6 @@ export const getCoursePercentageMapFromTerm = (
   return result;
 };
 
-//TODO write a function which creates a map
-//TODO of all terms, their averages and completion
 export const getTermPercentageMapFrom = (
   userData: AcademicData,
   term: string
@@ -89,6 +87,7 @@ export const getTermPercentageMapFrom = (
   let divisor = 0;
   let runningCount = 0;
   let idx = indexAtWhichTermExists(term, userData);
+  let atHundred = 0;
   if (idx != undefined) {
     let termName: string = Object.keys(userData[idx])[0];
     let courses: Course[] = userData[idx][termName];
@@ -97,6 +96,9 @@ export const getTermPercentageMapFrom = (
         getCourseAvg(course[Object.keys(course)[0]]);
       let courseCred: number = course[Object.keys(course)[0]].credit;
       runningCount += courseCred * courseAvg[0];
+      if (courseAvg[1] > 99) {
+        ++atHundred;
+      }
       termCompletion += Math.min(courseAvg[1], 100); // if some courses have bonuses and completion exceeds 100%
       divisor += courseCred;
     });
@@ -104,6 +106,8 @@ export const getTermPercentageMapFrom = (
       term,
       parseFloat((runningCount / divisor).toFixed(2)),
       termCompletion / courses.length,
+      0,
+      atHundred
     ];
   }
 
@@ -178,8 +182,8 @@ const push = async (updatedUserData: AcademicData) => {
     method: "POST",
     withCredentials: true,
     data: {
-      data: updatedUserData,
-    },
+      data: updatedUserData
+    }
   });
   return result.data;
 };
@@ -357,7 +361,7 @@ export const editCoursePushHelper = async (
       }
       newCourse[newCourseToAdd] = {
         credit: newCredToAdd,
-        data: userData[idx][currTerm][idxCourse][courseToEdit].data,
+        data: userData[idx][currTerm][idxCourse][courseToEdit].data
       };
 
       userData[idx][currTerm].splice(idxCourse, 1);
