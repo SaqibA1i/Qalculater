@@ -87,7 +87,7 @@ function HomeScreen() {
   }, [selection, userInfo]);
 
   return (
-    <div className="edit-screen">
+    <div className="edit-screen" style={{ marginBottom: "100px" }}>
       <div className="edit-container">
         <h2>
           Key Term Statistics: <b>{selection.currTerm}</b>
@@ -98,7 +98,9 @@ function HomeScreen() {
             <p>
               {selection.currTerm != "undefined" && selection.currTerm} Average
             </p>
-            <h5>{termStatistics.average}</h5>
+            <h5>
+              <b style={{ margin: 0 }}>{termStatistics.average} %</b>
+            </h5>
           </div>
           {/* <div className="key-statistics-card">
             <Mortarboard size={30} color={"#064bcac2"} />
