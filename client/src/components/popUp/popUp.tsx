@@ -436,6 +436,7 @@ function PopUp(Props: PopUpProps) {
   };
   const editClick = () => {
     try {
+      setLoading(true);
       //! ** EDITING TERM
       if (Props.popType == "Term" && typeof Props.edit != "boolean") {
         let name = (inputNameRef.current! as HTMLInputElement).value;
@@ -473,8 +474,10 @@ function PopUp(Props: PopUpProps) {
             });
             // Close the popup
             Props.setPopUp(false);
+            setLoading(false);
           })
           .catch((err) => {
+            setLoading(false);
             alert(err);
           });
       }
@@ -525,8 +528,10 @@ function PopUp(Props: PopUpProps) {
                 }
               });
               Props.setPopUp(false);
+              setLoading(false);
             })
             .catch((err) => {
+              setLoading(false);
               alert(err);
             });
         } else {
@@ -590,8 +595,10 @@ function PopUp(Props: PopUpProps) {
               });
               // Close the popup
               Props.setPopUp(false);
+              setLoading(false);
             })
             .catch((err) => {
+              setLoading(false);
               alert(err);
             });
         } else {
@@ -599,6 +606,7 @@ function PopUp(Props: PopUpProps) {
         }
       }
     } catch (err) {
+      setLoading(false);
       store.addNotification({
         title: "Edit",
         message: "" + err,

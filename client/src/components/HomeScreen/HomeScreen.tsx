@@ -133,7 +133,7 @@ function HomeScreen() {
           </div>
         </div>
       </div>
-      <BarOverview />
+      <BarOverview termAvg={termStatistics.average} />
       <div className="edit-container">
         <h2>
           Key Course Statistics:{" "}
