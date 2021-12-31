@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Grades App",
+  "name": "Streamlines keeping track of grades and monitoring academic progress",
   "icons": [
     {
       "src": "favicon.ico",
