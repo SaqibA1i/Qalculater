@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { GoogleLogin } from "react-google-login";
 import { currSelection, User } from "../../TS types/Types";
 import axios from "axios";
@@ -8,16 +8,18 @@ import { SpinnerInfinity } from "spinners-react";
 import { store } from "react-notifications-component";
 import "animate.css";
 import "react-notifications-component/dist/theme.css";
+
 function UserLogin() {
   const [loading, setLoading] = useState<boolean>(true);
   const [bubbles, setBubbles] = useState<any>([]);
   const { setUserInfo, setAuthenticated, setSelection } = useQalcContext()!;
+
   const onSuccess = (res: any) => {
     setAuthenticated(true);
     axios({
       method: "post",
       url: process.env.REACT_APP_SERVER_PROXY + "auth/login",
-      // withCredentials: true,
+
       data: {
         id_token: res.tokenObj.id_token,
         access_token: res.tokenObj.access_token
@@ -97,6 +99,7 @@ function UserLogin() {
       }
     });
   };
+
   useEffect(() => {
     let tempBubbles = [];
     for (let i = 0; i < 100; i++) {
@@ -104,6 +107,7 @@ function UserLogin() {
     }
     setBubbles(tempBubbles);
   }, []);
+
   return (
     <div>
       <GoogleLogin

@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Plus } from "react-bootstrap-icons";
+import {
+  Plus,
+  SortAlphaDown,
+  SortAlphaDownAlt,
+  SortNumericDown,
+  SortNumericDownAlt
+} from "react-bootstrap-icons";
 import { useQalcContext } from "../../context/qalculaterContext";
 import PopUp from "../popUp/popUp";
 import {
   PopTypes,
-  Course,
   AssessmentData,
   CoursePercentageMap,
-  coursePercentageSingle
+  SortModes
 } from "../../TS types/Types";
-import { colors } from "../../helperFunctions/colors";
 import {
-  ArchiveFill,
   PenFill,
   DashCircle,
   PlusCircle,
@@ -21,17 +24,18 @@ import {
 import {
   getCoursePercentageMapFromTerm,
   getAssessmentsFromTermCourse,
-  getTermPercentageMapForAll
+  getTermPercentageMapForAll,
+  indexAtWhichCourseExists,
+  indexAtWhichTermExists
 } from "../../helperFunctions/helpers";
-
 import CompletionBar from "./CompletionBar";
+import { sortAssessments } from "../../helperFunctions/sorterFunctions";
 
 function EditScreen() {
   // Fixed variables
   const iconSize = 50;
 
-  const { userInfo, selection, setSelection, setCarouselSwipable } =
-    useQalcContext()!;
+  const { userInfo, selection, setSelection, setUserInfo } = useQalcContext()!;
   const [popUp, setPopUp] = useState<boolean>(false);
   const [popType, setPopType] = useState<PopTypes>("Term");
   const [courses, setCourses] = useState<CoursePercentageMap>([]);
@@ -40,6 +44,62 @@ function EditScreen() {
   const [edit, setEdit] = useState<AssessmentData | boolean>(false);
   const [termHidden, hideTerm] = useState<boolean>(false);
   const [minimizeCourse, setMinCourse] = useState<boolean>(false);
+  const [sortAlpha, setSortAlpha] = useState<SortModes>("alpha");
+  const [sortGrades, setSortGrades] = useState<SortModes>("grades");
+
+  const sortAssessmentsHelperAlpha = () => {
+    let assessments: AssessmentData[] = getAssessmentsFromTermCourse(
+      selection,
+      userInfo.data
+    );
+    //! SORT ASSESSMENTS
+    if (sortAlpha === "alpha") {
+      setSortAlpha("alpha-alt");
+    } else {
+      setSortAlpha("alpha");
+    }
+    sortAssessments(sortAlpha, assessments);
+    let idxTerm = indexAtWhichTermExists(selection.currTerm, userInfo.data);
+    if (idxTerm != undefined) {
+      let idxCourse = indexAtWhichCourseExists(
+        userInfo.data[idxTerm][selection.currTerm],
+        selection.currCourse
+      );
+      if (idxCourse != undefined) {
+        userInfo.data[idxTerm][selection.currTerm][idxCourse][
+          selection.currCourse
+        ].data = assessments;
+      }
+    }
+    setUserInfo({ ...userInfo });
+  };
+
+  const sortAssessmentsHelperGrades = () => {
+    let assessments: AssessmentData[] = getAssessmentsFromTermCourse(
+      selection,
+      userInfo.data
+    );
+    //! SORT ASSESSMENTS
+    if (sortGrades === "grades") {
+      setSortGrades("grades-alt");
+    } else {
+      setSortGrades("grades");
+    }
+    sortAssessments(sortGrades, assessments);
+    let idxTerm = indexAtWhichTermExists(selection.currTerm, userInfo.data);
+    if (idxTerm != undefined) {
+      let idxCourse = indexAtWhichCourseExists(
+        userInfo.data[idxTerm][selection.currTerm],
+        selection.currCourse
+      );
+      if (idxCourse != undefined) {
+        userInfo.data[idxTerm][selection.currTerm][idxCourse][
+          selection.currCourse
+        ].data = assessments;
+      }
+    }
+    setUserInfo({ ...userInfo });
+  };
 
   useEffect(() => {
     setTermsAvg(getTermPercentageMapForAll(userInfo.data));
@@ -69,6 +129,7 @@ function EditScreen() {
     } else {
       setMinCourse(false);
     }
+    sortAssessmentsHelperAlpha();
   }, []);
 
   const getCoruseData = () => {
@@ -328,6 +389,16 @@ function EditScreen() {
         <div className="edit-container">
           <h2>
             Assessments: <b>{selection.currCourse}</b>
+            <span onClick={sortAssessmentsHelperAlpha}>
+              {sortAlpha === "alpha" ? <SortAlphaDown /> : <SortAlphaDownAlt />}
+            </span>
+            <span onClick={sortAssessmentsHelperGrades}>
+              {sortGrades === "grades" ? (
+                <SortNumericDown />
+              ) : (
+                <SortNumericDownAlt />
+              )}
+            </span>
           </h2>
           <div
             className={

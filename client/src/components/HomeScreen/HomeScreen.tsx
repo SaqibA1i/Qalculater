@@ -1,6 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQalcContext } from "../../context/qalculaterContext";
 import BarOverview from "./BarOverview/BarOverview";
+import {
+  Chart as ChartJS,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend
+} from "chart.js";
+
+import { Scatter } from "react-chartjs-2";
+
 import {
   Book,
   GraphDownArrow,
@@ -8,18 +19,23 @@ import {
   CheckCircle,
   XCircle,
   Check2Circle,
-  Mortarboard
+  Mortarboard,
+  SortAlphaDown
 } from "react-bootstrap-icons";
 import {
   AssessmentData,
   CoursePercentageMap,
-  coursePercentageSingle
+  coursePercentageSingle,
+  SortModes
 } from "../../TS types/Types";
 import {
   getAssessmentsFromTermCourse,
   getTermPercentageMapFrom,
-  getTermPercentageMapForAll
+  getTermPercentageMapForAll,
+  indexAtWhichTermExists,
+  indexAtWhichCourseExists
 } from "../../helperFunctions/helpers";
+import { sortAssessments } from "../../helperFunctions/sorterFunctions";
 
 function HomeScreen() {
   const [courseStatistics, setCourseStats] = useState<
@@ -39,9 +55,10 @@ function HomeScreen() {
     lowestTerm: { name: "", average: NaN }
   });
 
-  const { selection, userInfo } = useQalcContext()!;
+  const { selection, userInfo, setUserInfo } = useQalcContext()!;
+
   useEffect(() => {
-    // TERMS
+    //! TERMS
     let termInfo: coursePercentageSingle | undefined = getTermPercentageMapFrom(
       userInfo.data,
       selection.currTerm
@@ -69,7 +86,8 @@ function HomeScreen() {
       termStatistics.lowestTerm.average = termMap[termMap.length - 1][1];
     }
     setTermStats({ ...termStatistics });
-    // ASSESSMENTS
+
+    //! ASSESSMENTS
     let assessments: AssessmentData[] = getAssessmentsFromTermCourse(
       selection,
       userInfo.data
@@ -160,6 +178,7 @@ function HomeScreen() {
           </div>
         )}
       </div>
+      <div className="edit-container"></div>
     </div>
   );
 }

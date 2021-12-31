@@ -11,7 +11,7 @@ import {
 } from "../TS types/Types";
 
 // smaller helper functions
-const indexAtWhichTermExists = (
+export const indexAtWhichTermExists = (
   term: string,
   userData: AcademicData
 ): number | undefined => {
@@ -26,7 +26,7 @@ const indexAtWhichTermExists = (
   return undefined;
 };
 
-const indexAtWhichCourseExists = (
+export const indexAtWhichCourseExists = (
   termData: Course[],
   currCourse: string
 ): number | undefined => {

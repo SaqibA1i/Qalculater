@@ -170,3 +170,5 @@ export type currSelection = {
 };
 
 export type PopTypes = "Term" | "Course" | "Assessment";
+
+export type SortModes = "alpha" | "alpha-alt" | "grades" | "grades-alt";
