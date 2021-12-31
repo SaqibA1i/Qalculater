@@ -107,7 +107,10 @@ function BarOverview(Props: BarProps) {
                         fontWeight: 900,
                         maxWidth: width + "px"
                       }
-                    : { maxWidth: width + "px" }
+                    : {
+                        maxWidth: width + "px",
+                        borderBottom: "1px solid transparent"
+                      }
                 }
               >
                 {singleMap[0]}
