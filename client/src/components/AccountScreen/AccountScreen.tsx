@@ -6,6 +6,7 @@ import {
   FileEarmarkBarGraph,
   ChevronRight,
   LightningCharge,
+  LockFill
 } from "react-bootstrap-icons";
 
 function AccountScreen() {
@@ -15,6 +16,10 @@ function AccountScreen() {
       <div className="profile">
         <img src={userInfo?.imgURL} />
         <h4>{userInfo?.firstName + ", " + userInfo?.lastName}</h4>
+        <span>
+          <LockFill color={"green"} size={15} />
+          <p>Your data is encrypted!</p>
+        </span>
       </div>
 
       <div className="account-settings">

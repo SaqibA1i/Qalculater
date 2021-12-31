@@ -19,6 +19,21 @@
       width: 100px;
       height: 100px;
     }
+    h4 {
+      margin-bottom: 0;
+    }
+    span {
+      color: rgba(51, 51, 51, 0.747);
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: baseline;
+      margin-top: 7px;
+      p {
+        margin: 0;
+        margin-left: 2px;
+      }
+    }
   }
 }
 

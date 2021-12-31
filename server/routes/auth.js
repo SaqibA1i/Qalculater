@@ -63,7 +63,6 @@ router.post("/login", (req, res) => {
           imgURL: decrypt({ content: user.imgURL, iv: ivStringFromDB }),
           data: JSON.parse(decrypt({ content: user.data, iv: ivStringFromDB }))
         };
-        console.log(userData);
         if (req.body.id_token != undefined) {
           res
             .status(200)
