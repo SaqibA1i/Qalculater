@@ -390,13 +390,17 @@ function EditScreen() {
           <h2>
             Assessments: <b>{selection.currCourse}</b>
             <span onClick={sortAssessmentsHelperAlpha}>
-              {sortAlpha === "alpha" ? <SortAlphaDown /> : <SortAlphaDownAlt />}
+              {sortAlpha === "alpha" ? (
+                <SortAlphaDown size={21} />
+              ) : (
+                <SortAlphaDownAlt size={21} />
+              )}
             </span>
             <span onClick={sortAssessmentsHelperGrades}>
               {sortGrades === "grades" ? (
-                <SortNumericDown />
+                <SortNumericDown size={21} />
               ) : (
-                <SortNumericDownAlt />
+                <SortNumericDownAlt size={21} />
               )}
             </span>
           </h2>

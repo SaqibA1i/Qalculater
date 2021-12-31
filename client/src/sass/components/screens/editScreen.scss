@@ -8,20 +8,28 @@
   .edit-container {
     h2 {
       text-align: left;
+      display: flex;
+      flex-direction: row;
       margin: 0;
+      align-items: baseline;
       b {
         font-weight: 600;
         font-size: 21px;
         color: $purple;
+        margin-left: 5px;
+      }
+      svg {
+        margin-left: 10px;
       }
     }
     span {
       background-color: $theme-grey-main;
       border-radius: 5px;
-      padding: 0px 5px;
+      padding: 5px;
       margin-left: 10px;
       color: rgba(51, 51, 51, 0.76);
       transition: 0.3s background-color ease-in-out;
+      display: flex;
       &:hover {
         background-color: $theme-grey-main-light;
         transition: 0.3s background-color ease-in-out;
