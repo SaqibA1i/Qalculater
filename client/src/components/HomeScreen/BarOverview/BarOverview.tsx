@@ -103,10 +103,11 @@ function BarOverview(Props: BarProps) {
                   singleMap[0] === selection.currCourse
                     ? {
                         color: "#2c76ffc2",
+                        borderBottom: "1px solid #2c76ffc2",
                         fontWeight: 900,
-                        width: width + "px"
+                        maxWidth: width + "px"
                       }
-                    : { width: width + "px" }
+                    : { maxWidth: width + "px" }
                 }
               >
                 {singleMap[0]}
