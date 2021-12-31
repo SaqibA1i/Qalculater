@@ -429,7 +429,12 @@ function EditScreen() {
                   data-aos-delay={idx * 100}
                   className="edit-slider-edit-del"
                 >
-                  <div className="edit-slider-term-vertical">
+                  <div
+                    className="edit-slider-term-vertical"
+                    onClick={() => {
+                      editAssessment(assessment);
+                    }}
+                  >
                     <div className="bottom">
                       <h5>{assessment[0]}</h5>
                       <h6>worth {assessment[2]}%</h6>

@@ -2,9 +2,10 @@
   @include flexCenter(row);
   padding: 0;
   margin-left: 30px;
+  position: relative;
   .avgLine {
-    width: 100%;
-    left: 0;
+    width: calc(100% + 60px);
+    left: -50px;
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -13,7 +14,8 @@
     p {
       margin: 0 10px;
       font-size: 15px;
-      font-weight: 500;
+      font-weight: 700;
+      font-family: Nunito;
     }
     hr {
       border: 0;

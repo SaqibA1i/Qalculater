@@ -1,7 +1,6 @@
 const { OAuth2Client, auth } = require("google-auth-library");
 require("dotenv").config();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-const User = require("./User");
 
 async function verify(req) {
   const ticket = await client.verifyIdToken({

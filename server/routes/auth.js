@@ -1,6 +1,8 @@
 const express = require("express");
 const verify = require("../config/googleAuth");
 let User = require("../config/User");
+const crypto = require("crypto");
+const { encrypt, decrypt } = require("../config/crypto");
 
 const router = express();
 /*
@@ -21,42 +23,47 @@ router.post("/login", (req, res) => {
     "access_token exists: ",
     req.cookies["access_token"] != undefined
   );
+  const ivString = crypto.randomBytes(16);
 
   verify(req)
     .then((response) => {
       console.log("[Authentication Success]: ", response["sub"]);
       // Checking if user exists
-      User.findOne({ googleId: response["sub"] }, function (err, user) {
+      User.findOne({ encGoogleId: response["sub"] }, function (err, user) {
         if (err) {
           console.log("[Error with DB]", err);
         }
         // if no user was found create it
         if (!user) {
-          console.log("[Creating User]");
+          // encrypt the response data before saving it
           user = new User({
-            googleId: response["sub"],
-            displayName: response["name"],
-            firstName: response["given_name"],
-            lastName: response["family_name"],
-            imgURL: response["picture"]
+            encGoogleId: response["sub"],
+            displayName: encrypt(response["name"], ivString),
+            firstName: encrypt(response["given_name"], ivString),
+            lastName: encrypt(response["family_name"], ivString),
+            imgURL: encrypt(response["picture"], ivString),
+            ivString: ivString.toString("hex"),
+            data: encrypt("[]", ivString)
           });
           user.save((err) => {
             if (err) {
               console.log("[Error Saving User] : ", err);
             } else {
-              console.log("[Success Creating User]");
+              console.log("[Success Creating User]", user.toString());
             }
           });
         } else {
           console.log("[User Already Exists]");
         }
-        // Seting the local response
+        // Setting the response
+        const ivStringFromDB = user.ivString;
         let userData = {
-          firstName: user.firstName,
-          lastName: user.lastName,
-          imgURL: user.imgURL,
-          data: JSON.parse(user.data)
+          firstName: decrypt({ content: user.firstName, iv: ivStringFromDB }),
+          lastName: decrypt({ content: user.lastName, iv: ivStringFromDB }),
+          imgURL: decrypt({ content: user.imgURL, iv: ivStringFromDB }),
+          data: JSON.parse(decrypt({ content: user.data, iv: ivStringFromDB }))
         };
+        console.log(userData);
         if (req.body.id_token != undefined) {
           res
             .status(200)

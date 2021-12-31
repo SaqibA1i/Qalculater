@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQalcContext } from "../../../context/qalculaterContext";
 import {
   getCoursePercentageMapFromTerm,
@@ -33,18 +33,6 @@ function BarOverview(Props: BarProps) {
   };
 
   useEffect(() => {
-    if (document.getElementsByClassName("bar").length != 0) {
-      let top =
-        (document.getElementsByClassName("bar")[0] as HTMLBodyElement)
-          .offsetTop +
-        (document.getElementsByClassName("bar")[0] as HTMLBodyElement)
-          .offsetHeight -
-        10;
-      setAvg(top);
-      console.log(top);
-    } else {
-      console.log("zero");
-    }
     let courses: CoursePercentageMap | void = getCoursePercentageMapFromTerm(
       selection.currTerm,
       userInfo.data!
@@ -68,7 +56,7 @@ function BarOverview(Props: BarProps) {
   };
   return (
     <div className="bar-overview" id="bar-overview">
-      <div className="avgLine" style={{ top: avg - Props.termAvg * 2 }}>
+      <div className="avgLine" style={{ top: -2 * Props.termAvg + 235 }}>
         <p>{Props.termAvg}</p>
         <hr />
       </div>

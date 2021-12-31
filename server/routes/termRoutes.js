@@ -2,6 +2,7 @@ const express = require("express");
 const User = require("../config/User");
 const verify = require("../config/googleAuth");
 const termRoutes = express();
+const { encrypt, decrypt, hexToCrypto } = require("../config/crypto");
 
 /*
   Description: Gets all the data, terms, courses etc.
@@ -34,32 +35,50 @@ const termRoutes = express();
 termRoutes.post("/update", (req, res) => {
   verify(req)
     .then((response) => {
-      console.log("[Authentication Success] : ", response["sub"]);
+      console.log("[Authentication Success]");
       console.log("[Data Sent] : ", req.body.data != undefined);
       // Checking if user exists
-      User.findOneAndUpdate(
-        { googleId: response["sub"] },
-        { data: JSON.stringify(req.body.data) },
-        {
-          new: true // returns the updated USer
-        }
-      )
-        .then((response) => {
-          console.log("[Success] Data is updated");
-          let userInfo = {
-            firstName: response["firstName"],
-            lastName: response["lastName"],
-            imgURL: response["imgURL"],
-            data: JSON.parse(response["data"])
-          };
-          res.status(200).json({
-            msg: "Data Updated",
-            data: userInfo
+      User.findOne({ encGoogleId: response["sub"] }).then((response2) => {
+        User.findOneAndUpdate(
+          { encGoogleId: response["sub"] },
+          {
+            data: encrypt(
+              JSON.stringify(req.body.data),
+              hexToCrypto(response2["ivString"])
+            )
+          },
+          {
+            new: true // returns the updated USer
+          }
+        )
+          .then((response) => {
+            console.log("[Success] Data is updated");
+            let userInfo = {
+              firstName: decrypt({
+                content: response["firstName"],
+                iv: response["ivString"]
+              }),
+              lastName: decrypt({
+                content: response["lastName"],
+                iv: response["ivString"]
+              }),
+              imgURL: decrypt({
+                content: response["imgURL"],
+                iv: response["ivString"]
+              }),
+              data: JSON.parse(
+                decrypt({ content: response["data"], iv: response["ivString"] })
+              )
+            };
+            res.status(200).json({
+              msg: "Data Updated",
+              data: userInfo
+            });
+          })
+          .catch((err) => {
+            console.log(err);
           });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      });
     })
     .catch((err) => {
       console.log("[Authentication Faliure] ", err.toString().split(",")[0]);

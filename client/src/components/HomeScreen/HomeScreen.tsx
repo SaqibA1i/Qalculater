@@ -162,14 +162,14 @@ function HomeScreen() {
         {selection.currCourse != "undefined" && (
           <div className="edit-slider">
             <div className="key-statistics-card">
-              <Check2Circle size={30} color="#064bcac2" />
+              <Check2Circle size={30} color="green" />
               <p>100% Assessments</p>
               <h5>
                 {courseStatistics[0]} / {courseStatistics[2]}
               </h5>
             </div>
             <div className="key-statistics-card">
-              <XCircle size={30} color="#064bcac2" />
+              <XCircle size={30} color="red" />
               <p>Failed Assessments</p>
               <h5>
                 {courseStatistics[1]} / {courseStatistics[2]}

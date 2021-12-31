@@ -1,9 +1,5 @@
 const express = require("express");
-const { OAuth2Client } = require("google-auth-library");
 const cors = require("cors");
-const mongoose = require("mongoose");
-const session = require("express-session");
-const MongoStore = new require("connect-mongo");
 const connection = require("./config/database");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
