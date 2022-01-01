@@ -6,7 +6,8 @@ import {
   FileEarmarkBarGraph,
   ChevronRight,
   LightningCharge,
-  LockFill
+  LockFill,
+  Lock
 } from "react-bootstrap-icons";
 
 function AccountScreen() {
