@@ -35,6 +35,15 @@ router.post("/login", (req, res) => {
         }
         // if no user was found create it
         if (!user) {
+          console.log("[Creating User]");
+          response["name"] = response["name"] ? response["name"] : "-";
+          response["given_name"] = response["given_name"]
+            ? response["given_name"]
+            : "No Name";
+          response["family_name"] = response["family_name"]
+            ? response["family_name"]
+            : "-";
+
           // encrypt the response data before saving it
           user = new User({
             encGoogleId: response["sub"],
@@ -42,9 +51,10 @@ router.post("/login", (req, res) => {
             firstName: encrypt(response["given_name"], ivString),
             lastName: encrypt(response["family_name"], ivString),
             imgURL: encrypt(response["picture"], ivString),
-            ivString: ivString.toString("hex"),
-            data: encrypt("[]", ivString)
+            data: encrypt("[]", ivString),
+            ivString: ivString.toString("hex")
           });
+
           user.save((err) => {
             if (err) {
               console.log("[Error Saving User] : ", err);

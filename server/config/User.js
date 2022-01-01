@@ -8,19 +8,23 @@ const UserSchema = new mongoose.Schema({
   },
   displayName: {
     type: String,
-    required: true
+    required: true,
+    default: ""
   },
   firstName: {
     type: String,
-    required: true
+    required: true,
+    default: ""
   },
   lastName: {
     type: String,
-    required: true
+    required: true,
+    default: ""
   },
   imgURL: {
     type: String,
-    required: true
+    required: true,
+    default: ""
   },
   ivString: {
     type: String,

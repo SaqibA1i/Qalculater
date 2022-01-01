@@ -5,31 +5,17 @@ const termRoutes = express();
 const { encrypt, decrypt, hexToCrypto } = require("../config/crypto");
 
 /*
-  Description: Gets all the data, terms, courses etc.
-
-  INPUT -> Request body : {
-    access_token : ...,
-    termName : "2A"
-  }
-  
-  OUTPUT -> Response body : {
-    msg : ....,
-    data: {"2A": {"ECE 205":{"credit":0.5,"data":[["A1",96,45],[..]]}}}
-  }
-*/
-
-/*
   Description: Updates data. Any modifications to terms, courses
                 assignments, etc. go through this route!
 
   INPUT -> Request body : {
-    access_token : ...,
-    termName : "2A"
+    data:[{"2A":[...]}]
   }
+  jwt_token from cookie
   
   OUTPUT -> Response body : {
     msg : ....
-    data: {"2A": {}}
+    data: [{"2A":[...]}]
   }
 */
 termRoutes.post("/update", (req, res) => {
@@ -82,8 +68,7 @@ termRoutes.post("/update", (req, res) => {
     })
     .catch((err) => {
       console.log("[Authentication Faliure] ", err.toString().split(",")[0]);
-      // res.locals.data = err.toString().split(",")[0];
-      // res.locals.error = true;
+
       res.status(401).json({ msg: "Error retrieving data." });
     });
 });
