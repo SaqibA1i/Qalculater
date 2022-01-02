@@ -12,6 +12,8 @@ export type graph_t = {
   setAuthenticated: (isAuth: boolean) => void;
   carouselSwipable: boolean;
   setCarouselSwipable: (b: boolean) => void;
+  darkMode: boolean;
+  setDarkMode: (b: boolean) => void;
 };
 
 export const Context = React.createContext<graph_t | undefined>(undefined);

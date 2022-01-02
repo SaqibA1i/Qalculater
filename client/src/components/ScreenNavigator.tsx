@@ -8,8 +8,13 @@ import AccountScreen from "./AccountScreen/AccountScreen";
 import { useQalcContext } from "../context/qalculaterContext";
 
 function ScreenNavigator() {
-  const { setSwipeSlide, swipeSlide, carouselSwipable, setCarouselSwipable } =
-    useQalcContext()!;
+  const {
+    darkMode,
+    setSwipeSlide,
+    swipeSlide,
+    carouselSwipable,
+    setCarouselSwipable
+  } = useQalcContext()!;
 
   const getConfigurableProps: any = () => ({
     showArrows: false,
@@ -33,7 +38,9 @@ function ScreenNavigator() {
   });
 
   return (
-    <div className="screen-navigator">
+    <div
+      className={darkMode ? "screen-navigator dark-mode" : "screen-navigator"}
+    >
       <Navbar />
       <Carousel
         {...getConfigurableProps()}

@@ -31,11 +31,8 @@ import {
 import {
   getAssessmentsFromTermCourse,
   getTermPercentageMapFrom,
-  getTermPercentageMapForAll,
-  indexAtWhichTermExists,
-  indexAtWhichCourseExists
+  getTermPercentageMapForAll
 } from "../../helperFunctions/helpers";
-import { sortAssessments } from "../../helperFunctions/sorterFunctions";
 
 function HomeScreen() {
   const [courseStatistics, setCourseStats] = useState<
@@ -112,7 +109,7 @@ function HomeScreen() {
         </h2>
         <div className="edit-slider" style={{ marginBottom: 0 }}>
           <div className="key-statistics-card">
-            <Book size={30} color="#064bcac2" />
+            <Book size={30} />
             <p>
               {selection.currTerm != "undefined" && selection.currTerm} Average
             </p>
@@ -126,7 +123,7 @@ function HomeScreen() {
             <h5>{termStatistics.gpa.toFixed(2)}</h5>
           </div> */}
           <div className="key-statistics-card">
-            <CheckCircle size={30} color="#064bcac2" />
+            <CheckCircle size={30} />
             <p>
               {selection.currTerm != "undefined" && selection.currTerm} Courses
               Completed
@@ -134,7 +131,7 @@ function HomeScreen() {
             <h5>{termStatistics.completed}</h5>
           </div>
           <div className="key-statistics-card">
-            <GraphUpArrow size={30} color="#064bcac2" />
+            <GraphUpArrow size={30} />
             <p>Highest Term</p>
             <h5>
               {termStatistics.highestTerm.name}
@@ -142,7 +139,7 @@ function HomeScreen() {
             </h5>
           </div>
           <div className="key-statistics-card">
-            <GraphDownArrow size={30} color="#064bcac2" />
+            <GraphDownArrow size={30} />
             <p>Lowest Term</p>
             <h5>
               {termStatistics.lowestTerm.name}

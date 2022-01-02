@@ -30,6 +30,7 @@ function App() {
   });
   const [swipeSlide, setSwipeSlide] = useState<number>(1);
   const [carouselSwipable, setCarouselSwipable] = useState<boolean>(true);
+  const [darkMode, setDarkMode] = useState<boolean>(false);
 
   /** Helper Functions to modify state **/
   const setUserInfoHelper = (newUser: User) => {
@@ -52,8 +53,18 @@ function App() {
     setCarouselSwipable(slideBool);
   };
 
+  const setDarkModeHelper = (b: boolean) => {
+    localStorage.setItem("darkMode", b.toString());
+    setDarkMode(b);
+  };
   useEffect(() => {
     axios.defaults.withCredentials = true;
+    let darkModeStorage: string | null = localStorage.getItem("darkMode");
+    if (darkModeStorage != null) {
+      darkModeStorage === "true" ? setDarkMode(true) : setDarkMode(false);
+    } else {
+      setDarkMode(false);
+    }
   }, []);
   return (
     <Context.Provider
@@ -67,7 +78,9 @@ function App() {
         setUserInfo: setUserInfoHelper,
         setAuthenticated: setAuthenticatedHelper,
         carouselSwipable: carouselSwipable,
-        setCarouselSwipable: setCarouselSwipableHelper
+        setCarouselSwipable: setCarouselSwipableHelper,
+        darkMode: darkMode,
+        setDarkMode: setDarkModeHelper
       }}
     >
       <ReactNotification />

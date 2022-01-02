@@ -21,10 +21,7 @@ function BottomNavbar() {
           }}
           className={swipeSlide == 0 ? "bottom-navbar-chosen" : ""}
         >
-          <House
-            size={iconSize}
-            color={swipeSlide == 0 ? iconColorChosen : iconColor}
-          />
+          <House size={iconSize} />
           <p>Home</p>
         </div>
         <div
@@ -37,10 +34,7 @@ function BottomNavbar() {
           }}
           className={swipeSlide == 1 ? "bottom-navbar-chosen" : ""}
         >
-          <Pen
-            size={iconSize}
-            color={swipeSlide == 1 ? iconColorChosen : iconColor}
-          />
+          <Pen size={iconSize} />
           <p>Edit</p>
         </div>
         <div
@@ -53,10 +47,7 @@ function BottomNavbar() {
           }}
           className={swipeSlide == 2 ? "bottom-navbar-chosen" : ""}
         >
-          <PersonCircle
-            size={iconSize}
-            color={swipeSlide == 2 ? iconColorChosen : iconColor}
-          />
+          <PersonCircle size={iconSize} />
           <p>Account</p>
         </div>
       </div>

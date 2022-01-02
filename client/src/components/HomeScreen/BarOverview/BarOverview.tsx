@@ -90,8 +90,6 @@ function BarOverview(Props: BarProps) {
                 style={
                   singleMap[0] === selection.currCourse
                     ? {
-                        color: "#2c76ffc2",
-                        borderBottom: "1px solid #2c76ffc2",
                         fontWeight: 900,
                         maxWidth: width + "px"
                       }
@@ -99,6 +97,9 @@ function BarOverview(Props: BarProps) {
                         maxWidth: width + "px",
                         borderBottom: "1px solid transparent"
                       }
+                }
+                className={
+                  singleMap[0] === selection.currCourse ? "selected" : ""
                 }
               >
                 {singleMap[0]}

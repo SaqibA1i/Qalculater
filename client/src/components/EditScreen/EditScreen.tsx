@@ -220,17 +220,9 @@ function EditScreen() {
         <h2>
           Terms
           {termHidden ? (
-            <PlusCircle
-              size={15}
-              color={"#333"}
-              onClick={hideTermHelperToggle}
-            />
+            <PlusCircle size={15} onClick={hideTermHelperToggle} />
           ) : (
-            <DashCircle
-              size={15}
-              color={"#333"}
-              onClick={hideTermHelperToggle}
-            />
+            <DashCircle size={15} onClick={hideTermHelperToggle} />
           )}
         </h2>
         {!termHidden && (
@@ -254,7 +246,7 @@ function EditScreen() {
                   <div className="cover">
                     <div className="container">
                       <div className="left-section">
-                        <h5 style={{ color: "#333" }}>{term[0]}</h5>
+                        <h5>{term[0]}</h5>
                         <p
                           style={{
                             color: getColor(term[1] / 100)
@@ -279,16 +271,14 @@ function EditScreen() {
                         editTerm(term[0]);
                       }}
                     >
-                      {selection.currTerm == term[0] && (
-                        <PenFill size={20} color={"aliceblue"} />
-                      )}
+                      {selection.currTerm == term[0] && <PenFill size={20} />}
                     </div>
                   </div>
                 </div>
               );
             })}
             <div className="edit-add" data-aos="zoom-in" onClick={addTerm}>
-              <Plus size={iconSize} color={"#333"} />
+              <Plus size={iconSize} />
             </div>
           </div>
         )}
@@ -304,7 +294,7 @@ function EditScreen() {
                 onClick={minimizeCourseToggle}
               />
             ) : (
-              <Grid size={15} color={"#333"} onClick={minimizeCourseToggle} />
+              <Grid size={15} onClick={minimizeCourseToggle} />
             )}
           </h2>
           <div
@@ -363,10 +353,7 @@ function EditScreen() {
                       data-aos="zoom-in"
                     >
                       {selection.currCourse == course[0] && (
-                        <PenFill
-                          size={minimizeCourse ? 10 : 20}
-                          color={"aliceblue"}
-                        />
+                        <PenFill size={minimizeCourse ? 10 : 20} />
                       )}
                     </div>
                   </div>
@@ -443,7 +430,6 @@ function EditScreen() {
                   </div>
                   <PenFill
                     size={25}
-                    color="aliceblue"
                     onClick={() => {
                       editAssessment(assessment);
                     }}
@@ -452,7 +438,7 @@ function EditScreen() {
               );
             })}
             <div className="edit-add" onClick={addAssessment}>
-              <Plus size={iconSize} color={"#333"} />
+              <Plus size={iconSize} />
             </div>
           </div>
         </div>

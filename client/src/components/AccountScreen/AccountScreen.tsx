@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap-icons";
 
 function AccountScreen() {
-  const { userInfo } = useQalcContext()!;
+  const { userInfo, darkMode, setDarkMode } = useQalcContext()!;
   return (
     <div className="account-screen">
       <div className="profile">
@@ -23,14 +23,19 @@ function AccountScreen() {
         </span>
       </div>
 
-      <div className="account-settings">
-        <LightningCharge size={30} color={"#333"} />
-        <h6>Animations</h6>
+      <div
+        className="account-settings"
+        onClick={() => {
+          setDarkMode(!darkMode);
+        }}
+      >
+        <LightningCharge size={30} />
+        <h6>Dark Mode</h6>
       </div>
 
-      <div className="account-settings accordian">
+      {/* <div className="account-settings accordian">
         <div className="info">
-          <FileEarmarkBarGraph size={30} color={"#333"} />
+          <FileEarmarkBarGraph size={30} />
           <h6>GPA scale</h6>
         </div>
 
@@ -40,9 +45,9 @@ function AccountScreen() {
         </p>
       </div>
       <div className="account-settings">
-        <QuestionCircle size={30} color={"#333"} />
+        <QuestionCircle size={30} />
         <h6>About</h6>
-      </div>
+      </div> */}
       <div className="hr"></div>
       <UserLogout />
     </div>

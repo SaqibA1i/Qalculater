@@ -193,6 +193,8 @@
         align-items: center;
 
         svg {
+          color: $theme-blue-main;
+
           margin: 0 20px;
         }
         .edit-slider-term-vertical {
@@ -279,6 +281,9 @@
   .expanded {
     opacity: 1;
     transition: 0.5s opacity ease-in-out;
+    svg {
+      color: $theme-blue-main;
+    }
   }
 }
 .completion-bar {
@@ -289,5 +294,303 @@
   .completion-bar-bar {
     height: 6px;
     border-radius: 9px;
+  }
+}
+
+.dark-mode {
+  background: $dark-theme-bg;
+
+  .edit-screen {
+    width: 100%;
+    padding: 0 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    .edit-container {
+      h2 {
+        text-align: left;
+        display: flex;
+        flex-direction: row;
+        margin: 0;
+        align-items: baseline;
+        color: $dark-theme-font-color;
+        b {
+          font-weight: 600;
+          font-size: 21px;
+          color: $purple;
+          margin-left: 5px;
+          color: $dark-theme-yellow-dark;
+        }
+        svg {
+          margin-left: 10px;
+        }
+      }
+      span {
+        background-color: $theme-grey-main;
+        border-radius: 5px;
+        padding: 5px;
+        margin-left: 10px;
+        color: rgba(51, 51, 51, 0.76);
+        transition: 0.3s background-color ease-in-out;
+        display: flex;
+        &:hover {
+          background-color: $theme-grey-main-light;
+          transition: 0.3s background-color ease-in-out;
+        }
+        cursor: pointer;
+        svg {
+          margin-left: 0;
+        }
+      }
+
+      .edit-slider {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 120px;
+        overflow-x: auto;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+
+        .edit-slider-term {
+          z-index: 0;
+          display: inline-block;
+          margin: 0 15px 0 0;
+          height: auto;
+          border-radius: 20px 16px 16px 20px;
+          box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.13);
+          @include flexCenter(row);
+          padding: 0px;
+          cursor: pointer;
+          font-size: 20px;
+          .container {
+            @include flexCenter(column);
+            align-items: flex-start;
+            width: max-content;
+            background: $dark-theme-bg;
+            border-radius: 15px;
+            padding: 15px;
+            .left-section {
+              @include flexCenter(row);
+              padding: 0;
+              width: 100%;
+              justify-content: space-between;
+              h5 {
+                margin: 0 0 10px 0;
+                text-align: left;
+                font-size: 13px;
+                color: $dark-theme-font-color;
+              }
+              p {
+                margin: 0;
+                top: -5px;
+                position: relative;
+                font-size: 17px;
+                font-weight: 700;
+                font-style: italic;
+                padding: 0 10px;
+                color: $dark-theme-font-color;
+              }
+            }
+            p {
+              margin: 0 0 10px 0;
+              padding: 0;
+              font-size: 10px;
+              text-overflow: ellipsis;
+              text-align: left;
+              overflow: hidden;
+              color: $dark-theme-font-color;
+              white-space: nowrap;
+            }
+          }
+        }
+        .minimize {
+          margin: 5px 5px;
+          .cover {
+            align-items: center;
+            .container {
+              padding: 5px 10px;
+              .left-section {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                h5 {
+                  font-size: 12px;
+                  margin: 0;
+                }
+                p {
+                  font-size: 12px;
+                  margin: 0;
+                  position: static;
+                }
+              }
+            }
+          }
+        }
+        .edit-slider-entry {
+          display: inline-block;
+          margin: 0 0 10px 10px;
+          height: 70px;
+          min-width: 70px;
+          border-radius: 50%;
+          background: $dark-theme-gradient;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          font-size: 20px;
+        }
+        .edit-add {
+          @extend .edit-slider-entry;
+          background: $dark-theme-gradient;
+        }
+        .pill {
+          padding: 15px 20px;
+          width: 130px;
+          margin: 10px 5px;
+          height: 10px;
+          border-radius: 20px;
+          background: $dark-theme-bg;
+        }
+      }
+
+      .min-term {
+        flex-wrap: wrap;
+      }
+
+      .selected {
+        transition: 0.5s background-color ease-in-out;
+        background-color: $theme-blue-main-sel;
+      }
+
+      .edit-slider-vertical {
+        flex-direction: column;
+        padding: 10px;
+        width: 100%;
+        max-height: calc(100vh - 520px);
+        overflow-y: auto;
+        p {
+          margin: 0 0 5px 0;
+          color: $dark-theme-font-color;
+        }
+        .edit-slider-edit-del {
+          cursor: pointer;
+          @extend .edit-slider-term;
+          width: 100%;
+          background: $dark-theme-gradient;
+          box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.13);
+          margin: 10px 0 0 0;
+          border-radius: 25px;
+          padding: 0;
+          height: auto;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+
+          svg {
+            color: $dark-theme-bg;
+            margin: 0 20px;
+          }
+          .edit-slider-term-vertical {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            width: inherit;
+            border-radius: 25px;
+            background: $dark-theme-bg;
+            padding: 10px 20px;
+            left: 0;
+            align-items: center;
+
+            p {
+              margin: 0;
+              color: $dark-theme-yellow-dark;
+              font-size: 20px;
+              font-weight: 700;
+              max-width: 105px;
+              min-width: 105px;
+              text-align: right;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              font-style: italic;
+            }
+            .bottom {
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+              justify-content: space-between;
+              align-items: flex-start;
+              h5 {
+                margin: 0;
+                font-size: 13px;
+                color: $dark-theme-yellow-dark;
+                max-width: 140px;
+                min-width: 120px;
+                text-align: left;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+              }
+              h6 {
+                margin: 0;
+                max-width: 100px;
+                min-width: 100px;
+                text-align: left;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                font-size: 12px;
+                color: $dark-theme-font-color;
+              }
+            }
+          }
+        }
+
+        .edit-add {
+          margin: 20px 0 0 0;
+          background: $dark-theme-gradient;
+          border-radius: 40px;
+        }
+      }
+
+      .edit-slider-vertical-long {
+        max-height: calc(100vh - 380px);
+      }
+    }
+  }
+  .cover {
+    @include flexCenter(row);
+    padding: 0;
+    border-radius: 15px;
+    background: $dark-theme-gradient;
+    .bottom-section {
+      padding: 0 10px;
+      width: fit-content;
+      display: flex;
+      flex-direction: row;
+      opacity: 0;
+      transition: 0.5s opacity ease-in-out;
+    }
+    .expanded {
+      opacity: 1;
+      transition: 0.5s opacity ease-in-out;
+      svg {
+        color: $dark-theme-bg;
+      }
+    }
+  }
+  .completion-bar {
+    width: 100%;
+    border-radius: 9px;
+    height: 6px;
+    background: $dark-theme-bg-light;
+    .completion-bar-bar {
+      height: 6px;
+      border-radius: 9px;
+    }
   }
 }
