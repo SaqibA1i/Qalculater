@@ -55,3 +55,28 @@ html {
   border-radius: 50px;
   border: 3px solid $theme-blue-main;
 }
+
+.dark-mode {
+  /* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #505050;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: $dark-theme-bg;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #1a1a1a50;
+    border-radius: 50px;
+    border: 3px solid transparent;
+  }
+}
