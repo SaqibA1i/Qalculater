@@ -1,3 +1,12 @@
+@keyframes move-left {
+  from {
+    left: 0;
+  }
+  to {
+    left: 50px;
+  }
+}
+
 .account-screen {
   width: 100%;
   height: calc(100vh - 70);
@@ -40,9 +49,26 @@
 
 .account-settings {
   @include flexCenter(row);
-  justify-content: flex-start;
+  justify-content: space-between;
   border-radius: 10px;
   cursor: pointer;
+  .left-section {
+    @include flexCenter(row);
+    padding: 0;
+  }
+  .slider-click {
+    width: 50px;
+    background-color: $theme-blue-main-sel;
+    height: 25px;
+    border-radius: 13px;
+    text-align: left;
+    padding: 0;
+    svg {
+      color: $purple;
+      margin: 0;
+      font-size: 25px;
+    }
+  }
   svg {
     color: $dark-theme-bg;
   }
@@ -70,6 +96,7 @@
 
 .logout-account-settings {
   @extend .account-settings;
+  justify-content: flex-start;
   background-color: #c50000ad;
   transition: 0.5s box-shadow ease-in-out;
   &:hover {
@@ -125,9 +152,26 @@
 
   .account-settings {
     @include flexCenter(row);
-    justify-content: flex-start;
+    justify-content: space-between;
     border-radius: 10px;
     cursor: pointer;
+    .left-section {
+      @include flexCenter(row);
+      padding: 0;
+    }
+    .slider-click {
+      width: 50px;
+      background-color: $dark-theme-bg-light;
+      height: 25px;
+      border-radius: 13px;
+      text-align: right;
+      padding: 0;
+      svg {
+        color: $dark-theme-yellow-dark;
+        margin: 0;
+        font-size: 25px;
+      }
+    }
     svg {
       color: $dark-theme-font-color;
     }
@@ -155,6 +199,7 @@
 
   .logout-account-settings {
     @extend .account-settings;
+    justify-content: flex-start;
     background-color: #c5000080;
     transition: 0.5s box-shadow ease-in-out;
     &:hover {

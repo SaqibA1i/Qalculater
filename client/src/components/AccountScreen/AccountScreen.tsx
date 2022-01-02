@@ -7,7 +7,8 @@ import {
   ChevronRight,
   LightningCharge,
   LockFill,
-  Lock
+  Lock,
+  CircleFill
 } from "react-bootstrap-icons";
 
 function AccountScreen() {
@@ -29,8 +30,13 @@ function AccountScreen() {
           setDarkMode(!darkMode);
         }}
       >
-        <LightningCharge size={30} />
-        <h6>Dark Mode</h6>
+        <div className="left-section">
+          <LightningCharge size={30} />
+          <h6>Dark Mode</h6>
+        </div>
+        <div className={"slider-click"}>
+          <CircleFill />
+        </div>
       </div>
 
       {/* <div className="account-settings accordian">
