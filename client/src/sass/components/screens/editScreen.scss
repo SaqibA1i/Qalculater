@@ -368,7 +368,8 @@
             @include flexCenter(column);
             align-items: flex-start;
             width: max-content;
-            background: $dark-theme-bg;
+            background: $dark-them-bg-shade2;
+            margin: -1px;
             border-radius: 15px;
             padding: 15px;
             .left-section {
@@ -500,7 +501,8 @@
             justify-content: center;
             width: inherit;
             border-radius: 25px;
-            background: $dark-theme-bg;
+            background: $dark-them-bg-shade2;
+            margin: -1px;
             padding: 10px 20px;
             left: 0;
             align-items: center;

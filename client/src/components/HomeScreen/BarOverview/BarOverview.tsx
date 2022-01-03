@@ -80,7 +80,9 @@ function BarOverview(Props: BarProps) {
                     getColor((singleMap[1] + 3) / 100) +
                     ", " +
                     getColor((singleMap[1] - 10) / 100) +
-                    ")"
+                    ")",
+                  boxShadow:
+                    "0px 0px 9px 0px " + getColor((singleMap[1] - 10) / 100)
                 }}
               >
                 <p>{singleMap[1].toFixed(2)}%</p>
