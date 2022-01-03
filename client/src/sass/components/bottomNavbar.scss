@@ -60,6 +60,9 @@
         }
         border-radius: 2px;
         transition: 0.3s border-bottom-color ease-in-out;
+        p {
+          color: $dark-theme-yellow-dark;
+        }
       }
       & > * {
         cursor: pointer;

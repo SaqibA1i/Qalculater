@@ -4,7 +4,7 @@ import { useQalcContext } from "../../context/qalculaterContext";
 import LoadingGif from "../../images/loading.gif";
 
 function Navbar() {
-  const { userInfo, selection } = useQalcContext()!;
+  const { userInfo, selection, setSwipeSlide } = useQalcContext()!;
   return (
     <div className="navbar">
       <div className="welcome">
@@ -16,7 +16,13 @@ function Navbar() {
             : "Term: " + selection?.currTerm + ", " + selection?.currCourse}
         </h6>
       </div>
-      <img className="nav-profile-img" src={userInfo!.imgURL} />
+      <img
+        onClick={() => {
+          setSwipeSlide(2);
+        }}
+        className="nav-profile-img"
+        src={userInfo!.imgURL}
+      />
     </div>
   );
 }
