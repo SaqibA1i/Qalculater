@@ -7,8 +7,9 @@
     @include flexCenter(row);
     padding: 10px;
     justify-content: space-around;
+    transition: 0.5s background ease-in-out;
 
-    background-color: aliceblue;
+    background: aliceblue;
     svg {
       color: #333;
     }
@@ -48,6 +49,7 @@
       justify-content: space-around;
       padding: 10px;
       background: $dark-theme-bg;
+      transition: 0.5s background ease-in-out;
       svg {
         color: $dark-theme-font-color;
       }

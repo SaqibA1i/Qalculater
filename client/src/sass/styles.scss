@@ -18,7 +18,8 @@
 }
 
 html {
-  background-color: $theme-blue-main;
+  background: $theme-blue-main;
+
   // https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting?rq=1
 
   -webkit-touch-callout: none; /* iOS Safari */
@@ -60,8 +61,7 @@ html {
   /* ===== Scrollbar CSS ===== */
   /* Firefox */
   background: $dark-theme-bg;
-  min-height: 100vh;
-  height: 100%;
+
   * {
     scrollbar-width: thin;
     scrollbar-color: #505050;
