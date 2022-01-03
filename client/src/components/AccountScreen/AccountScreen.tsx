@@ -6,6 +6,7 @@ import {
   FileEarmarkBarGraph,
   ChevronRight,
   LightningCharge,
+  Lightbulb,
   LockFill,
   Lock,
   CircleFill
@@ -31,7 +32,7 @@ function AccountScreen() {
         }}
       >
         <div className="left-section">
-          <LightningCharge size={30} />
+          <Lightbulb size={30} />
           <h6>Dark Mode</h6>
         </div>
         <div className={"slider-click"}>

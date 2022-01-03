@@ -400,7 +400,7 @@ function EditScreen() {
             id="assessments"
           >
             <p>
-              Completed: <i>{getCoruseData()[2]}%</i>
+              Completed: <i>{getCoruseData()[2].toFixed(2)}%</i>
             </p>
 
             <CompletionBar
