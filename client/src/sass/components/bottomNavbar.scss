@@ -6,6 +6,8 @@
   .bottom-navbar {
     @include flexCenter(row);
     padding: 10px;
+    justify-content: space-around;
+
     background-color: aliceblue;
     svg {
       color: #333;
@@ -43,6 +45,7 @@
     bottom: 0;
     .bottom-navbar {
       @include flexCenter(row);
+      justify-content: space-around;
       padding: 10px;
       background: $dark-theme-bg;
       svg {

@@ -59,6 +59,9 @@ html {
 .dark-mode {
   /* ===== Scrollbar CSS ===== */
   /* Firefox */
+  background: $dark-theme-bg;
+  min-height: 100vh;
+  height: 100%;
   * {
     scrollbar-width: thin;
     scrollbar-color: #505050;
