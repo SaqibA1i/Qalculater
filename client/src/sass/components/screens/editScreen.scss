@@ -321,6 +321,10 @@
           margin-left: 5px;
           color: $dark-theme-yellow-dark;
         }
+        span {
+          background: $dark-theme-bg-light;
+          color: $theme-blue-main;
+        }
         svg {
           margin-left: 10px;
         }
@@ -334,7 +338,7 @@
         transition: 0.3s background-color ease-in-out;
         display: flex;
         &:hover {
-          background-color: $theme-grey-main-light;
+          background-color: rgb(100, 100, 100);
           transition: 0.3s background-color ease-in-out;
         }
         cursor: pointer;
