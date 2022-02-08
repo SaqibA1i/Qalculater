@@ -177,7 +177,6 @@ export const getAssessmentsFromTermCourse = (
 // Functions which push data to the server
 
 const push = async (updatedUserData: AcademicData) => {
-  console.log("he");
   let result = await axios({
     url: process.env.REACT_APP_SERVER_PROXY + "term/update",
     method: "POST",
