@@ -16,6 +16,9 @@ function UserLogin() {
 
   const onSuccess = (res: any) => {
     setAuthenticated(true);
+    sessionStorage.setItem("jwt_token", res.tokenObj.id_token);
+    sessionStorage.setItem("access_token", res.tokenObj.access_token);
+
     axios({
       method: "post",
       url: process.env.REACT_APP_SERVER_PROXY + "auth/login",

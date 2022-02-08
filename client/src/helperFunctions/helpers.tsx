@@ -177,12 +177,15 @@ export const getAssessmentsFromTermCourse = (
 // Functions which push data to the server
 
 const push = async (updatedUserData: AcademicData) => {
+  console.log("he");
   let result = await axios({
     url: process.env.REACT_APP_SERVER_PROXY + "term/update",
     method: "POST",
     // withCredentials: true,
     data: {
-      data: updatedUserData
+      data: updatedUserData,
+      id_token: sessionStorage.getItem("jwt_token"),
+      access_token: sessionStorage.getItem("access_token")
     }
   });
   return result.data;
