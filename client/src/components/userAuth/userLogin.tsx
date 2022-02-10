@@ -16,6 +16,7 @@ function UserLogin() {
 
   const onSuccess = (res: any) => {
     setAuthenticated(true);
+
     sessionStorage.setItem("jwt_token", res.tokenObj.id_token);
     sessionStorage.setItem("access_token", res.tokenObj.access_token);
 
@@ -25,8 +26,8 @@ function UserLogin() {
 
       data: {
         id_token: res.tokenObj.id_token,
-        access_token: res.tokenObj.access_token
-      }
+        access_token: res.tokenObj.access_token,
+      },
     })
       .then((responseJson) => {
         let response: User = responseJson.data.data;
@@ -38,7 +39,7 @@ function UserLogin() {
         let currCourse: string | null = localStorage.getItem("currentCourse");
         let tempSel: currSelection = {
           currTerm: currTerm !== null ? currTerm : "undefined",
-          currCourse: currCourse !== null ? currCourse : "undefined"
+          currCourse: currCourse !== null ? currCourse : "undefined",
         };
         if (currTerm === null && response.data.length !== 0) {
           // getting the first term in the data array
@@ -61,8 +62,8 @@ function UserLogin() {
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
             duration: 3000,
-            onScreen: true
-          }
+            onScreen: true,
+          },
         });
       })
       .catch((err) => {
@@ -79,8 +80,8 @@ function UserLogin() {
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
             duration: 3000,
-            onScreen: true
-          }
+            onScreen: true,
+          },
         });
       });
   };
@@ -98,8 +99,8 @@ function UserLogin() {
       animationOut: ["animate__animated", "animate__fadeOut"],
       dismiss: {
         duration: 10000,
-        onScreen: true
-      }
+        onScreen: true,
+      },
     });
   };
 
@@ -135,14 +136,7 @@ function UserLogin() {
               <div className="bubble-container">
                 <div className="bubble-wrap">{bubbles}</div>
               </div>
-              <h1>
-                Welcome to the grades app!
-                <p>
-                  <b>Note:</b> If using Apple devices make sure{" "}
-                  <b style={{ border: 0 }}>"prevent cross-site tracking"</b> is
-                  disabled for this site.
-                </p>
-              </h1>
+              <h1>Welcome to the grades app!</h1>
 
               <svg
                 id="wave"
