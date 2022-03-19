@@ -51,7 +51,7 @@ function BarOverview(Props: BarProps) {
 
   const getWidth = () => {
     let courses = coursePercentageMap.length;
-    return 70 / courses + "vw"; // 5 margin each side
+    return 65 / courses + "vw"; // 5 margin each side
   };
 
   return (
@@ -74,7 +74,7 @@ function BarOverview(Props: BarProps) {
                 }}
                 style={{
                   height: singleMap[1] * 2 + "px",
-                  width: width + "px",
+                  width: width,
                   background:
                     "linear-gradient(" +
                     getColor((singleMap[1] + 3) / 100) +
