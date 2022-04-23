@@ -1,15 +1,27 @@
+.full-container {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: 100;
+  backdrop-filter: blur(1px);
+  background: #0000007a;
+}
+
 .popup-model {
   font-family: Nunito;
-  position: absolute;
-  left: 10px;
-  top: calc(100vh / 4 - 100px);
-  width: calc(100% - 20px);
-  border-radius: 20px;
-  background-color: #8f8f8f82;
-  backdrop-filter: blur(10px);
+  position: relative;
+  border-radius: 10px;
+  width: 70vw;
+  top: 100px;
+  margin: 0 auto;
+  background-color: $theme-blue-main;
+  border: 1px solid $theme-grey-main;
   transition: 20s opacity ease-in-out;
   @include flexCenter(column);
+  align-items: flex-start;
   animation: fadeIn 0.5s linear;
+  color: $dark-theme-bg;
+  max-width: 500px;
   z-index: 100;
   .popup-header {
     width: 100%;
@@ -18,7 +30,7 @@
     h3 {
       overflow: hidden;
       white-space: nowrap;
-      border-bottom: 3px solid #333;
+      border-bottom: 3px solid $dark-theme-bg;
     }
     svg {
       cursor: pointer;
@@ -32,6 +44,10 @@
     }
   }
   .popup-header-input {
+    @include flexCenter(column);
+    padding: 0;
+    align-items: start;
+    margin-bottom: 10px;
     h5 {
       margin: 5px 0;
       text-align: left;
@@ -41,45 +57,187 @@
       height: 29px;
       border-radius: 10px;
       border: none;
-      background-color: $theme-blue-main;
-      margin: 0 0 10px 0;
-      -webkit-box-shadow: inset 1px 3px 4px -2px rgba(0, 0, 0, 0.37);
-      box-shadow: inset 5px 3px 12px -2px rgba(0, 0, 0, 0.37);
+      background-color: #c3d7d85c;
+      height: 40px;
+      font-size: 17px;
+      width: -webkit-fill-available;
+      margin-bottom: 5px;
+      border: 1px solid $theme-grey-main;
     }
   }
-
+  span {
+    font-size: 13px;
+    color: $error;
+    margin-left: 4px;
+  }
   h3 {
     margin: 0;
   }
   .button-container {
-    @include flexCenter(row);
+    @include flexCenter(column);
+    padding: 0;
+    hr {
+      width: 100%;
+      border: 1px solid $theme-blue-main-sel;
+      background: $theme-blue-main-sel;
+    }
     .popup-header-button {
-      border-radius: 20px;
+      @include flexCenter(row);
+      justify-content: center;
+      border-radius: 7px;
       font-size: 20px;
-      padding: 10px 40px;
+      font-weight: 500;
       border: 0;
-      background-color: $theme-yellow-main;
+      height: 10px;
+      background: $blue-gradient;
+
       margin: 20px;
-      color: white;
+      color: $theme-grey-main;
+      cursor: pointer;
+      &:hover {
+        background: $dark-theme-yellow-dark;
+      }
+      svg {
+        margin-right: 15px;
+        min-width: fit-content;
+      }
     }
     .popup-header-edit {
       @extend .popup-header-button;
       background: $blue-gradient;
       cursor: pointer;
-      box-shadow: 5px 5px 20px 6px rgba(0, 102, 255, 0.53);
-
       width: 150px;
     }
     .popup-header-delete {
       cursor: pointer;
-      box-shadow: 5px 5px 20px 6px rgba(255, 0, 0, 0.53);
       @extend .popup-header-button;
-      background-color: $red;
+      background: #9d1818cc;
       width: 150px;
     }
   }
 }
 
+.dark-mode {
+  .popup-model {
+    font-family: Nunito;
+    position: relative;
+    border-radius: 10px;
+    width: 70vw;
+    top: 100px;
+    margin: 0 auto;
+    background-color: $dark-theme-bg-light;
+    transition: 20s opacity ease-in-out;
+    @include flexCenter(column);
+    align-items: flex-start;
+    animation: fadeIn 0.5s linear;
+    max-width: 500px;
+    z-index: 100;
+    border: none;
+    .popup-header {
+      width: 100%;
+      @include flexCenter(row);
+      padding: 0 0 20px 0;
+      h3 {
+        color: $theme-grey-main;
+        overflow: hidden;
+        white-space: nowrap;
+        border-bottom: 3px solid $theme-grey-main;
+      }
+      svg {
+        cursor: pointer;
+        margin-bottom: 10px;
+        position: relative;
+        top: -25px;
+        right: -25px;
+        border-radius: 50%;
+        background-color: rgb(214, 214, 214);
+        border: 1px solid rgba(51, 51, 51, 0.13);
+      }
+    }
+    .popup-header-input {
+      @include flexCenter(column);
+      padding: 0;
+      align-items: start;
+      margin-bottom: 10px;
+      h5 {
+        margin: 5px 0;
+        text-align: left;
+        color: $theme-grey-main;
+      }
+      input {
+        padding: 0 10px;
+        height: 29px;
+        border-radius: 10px;
+        border: none;
+        background-color: $dark-theme-bg;
+        height: 40px;
+        font-size: 17px;
+        width: -webkit-fill-available;
+        color: $theme-grey-main;
+        margin-bottom: 5px;
+        -webkit-box-shadow: inset 1px 3px 4px -2px rgba(0, 0, 0, 0.37);
+        box-shadow: inset 5px 3px 12px -2px rgba(0, 0, 0, 0.37);
+      }
+    }
+    span {
+      font-size: 13px;
+      color: $error;
+      margin-left: 4px;
+    }
+    h3 {
+      margin: 0;
+    }
+    .button-container {
+      @include flexCenter(column);
+      padding: 0;
+      hr {
+        width: 100%;
+        border: 1px solid $dark-theme-bg;
+        background: $dark-theme-bg;
+      }
+      .popup-header-button {
+        @include flexCenter(row);
+        justify-content: center;
+        border-radius: 7px;
+        font-size: 20px;
+        font-weight: 500;
+        border: 0;
+        height: 10px;
+        background: $blue-gradient;
+
+        margin: 20px;
+        color: $theme-grey-main;
+        cursor: pointer;
+        &:hover {
+          background: $dark-theme-yellow-dark;
+        }
+        svg {
+          margin-right: 15px;
+          min-width: fit-content;
+        }
+      }
+      .popup-header-edit {
+        @extend .popup-header-button;
+        background: $blue-gradient;
+        cursor: pointer;
+        width: 150px;
+      }
+      .popup-header-delete {
+        cursor: pointer;
+        @extend .popup-header-button;
+        background: #9d1818cc;
+        width: 150px;
+      }
+    }
+  }
+  .full-container {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    z-index: 100;
+    backdrop-filter: blur(1px);
+  }
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -98,4 +256,8 @@
 .edit-slider-entry-hidden {
   @extend .edit-slider-entry;
   background-color: white;
+}
+
+form {
+  width: -webkit-fill-available;
 }

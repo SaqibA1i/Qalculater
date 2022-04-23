@@ -1,30 +1,36 @@
-import React, { useEffect } from "react";
-import { SpinnerInfinity } from "spinners-react";
-import { useQalcContext } from "../../context/qalculaterContext";
-import LoadingGif from "../../images/loading.gif";
+import { useDispatch, useSelector } from "react-redux";
+import { CAROUSEL_ACTIONS } from "../../redux/carousel";
+import { CAROUSEL_SLIDE } from "../../redux/carousel/types";
+import { getSelData } from "../../redux/currentSelections/selectors";
+import { getUserInfo } from "../../redux/userInfo/selectors";
+import { UserInfo } from "../../redux/userInfo/types";
+import { CurrSelection } from "../../TS types/Types";
 
-function Navbar() {
-  const { userInfo, selection, setSwipeSlide } = useQalcContext()!;
+const Navbar = () => {
+  const dispatch = useDispatch();
+  const { currTerm, currCourse } = useSelector(getSelData) as CurrSelection;
+  const { firstName, imgURL } = useSelector(getUserInfo) as UserInfo;
   return (
     <div className="navbar">
       <div className="welcome">
-        Welcome, {userInfo?.firstName}
+        Welcome, {firstName}
         <br />
         <h6>
-          {selection?.currTerm == "undefined"
+          {currTerm === undefined
             ? "Choose a Term"
-            : "Term: " + selection?.currTerm + ", " + selection?.currCourse}
+            : "Term: " + currTerm + ", " + currCourse}
         </h6>
       </div>
       <img
         onClick={() => {
-          setSwipeSlide(2);
+          dispatch(CAROUSEL_ACTIONS.updateSlide(CAROUSEL_SLIDE.ACCOUNT));
         }}
         className="nav-profile-img"
-        src={userInfo!.imgURL}
+        src={imgURL}
+        alt="User Icon"
       />
     </div>
   );
-}
+};
 
 export default Navbar;

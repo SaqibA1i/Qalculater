@@ -13,8 +13,6 @@
   
 */
 
-import { Terminal } from "react-bootstrap-icons";
-
 let s = [
   {
     "2B": [
@@ -36,9 +34,9 @@ let s = [
             ["Quiz 10", 74, 5],
             ["Quiz 11", 88, 5],
             ["Quiz 9", 79, 5],
-            ["Curve", 100, 6]
-          ]
-        }
+            ["Curve", 100, 6],
+          ],
+        },
       },
       {
         "ECE 207": {
@@ -56,9 +54,9 @@ let s = [
             ["A07", 100, 1],
             ["A08", 0.001, 1],
             ["A09", 100, 1],
-            ["A10", 100, 1]
-          ]
-        }
+            ["A10", 100, 1],
+          ],
+        },
       },
       {
         "ECE 203": {
@@ -66,9 +64,9 @@ let s = [
           data: [
             ["❓Final (80%)", 88.3, 80],
             ["Test 1 (10%)", 80.7, 10],
-            ["Test 2 (10%)", 24.5, 10]
-          ]
-        }
+            ["Test 2 (10%)", 24.5, 10],
+          ],
+        },
       },
       {
         "ECE 252": {
@@ -86,9 +84,9 @@ let s = [
             ["A4", 100, 5],
             ["A3", 100, 5],
             ["A2", 100, 5],
-            ["A1", 100, 5]
-          ]
-        }
+            ["A1", 100, 5],
+          ],
+        },
       },
       {
         "ECE 208": {
@@ -102,9 +100,9 @@ let s = [
             ["Q1", 80, 10],
             ["Q2", 100, 10],
             ["Q3", 60, 10],
-            ["A1 (Dropped)", 40, 0.0001]
-          ]
-        }
+            ["A1 (Dropped)", 40, 0.0001],
+          ],
+        },
       },
       {
         "ECE 298": {
@@ -118,12 +116,12 @@ let s = [
             ["B2 Report", 100, 10],
             ["B2 Quiz", 56.67, 10],
             ["B1 Report", 95, 10],
-            ["B1 Quiz", 95, 10]
-          ]
-        }
-      }
-    ]
-  }
+            ["B1 Quiz", 95, 10],
+          ],
+        },
+      },
+    ],
+  },
 ];
 type weight = number;
 type percentageAcheived = number;
@@ -164,11 +162,17 @@ export type coursePercentageSingle = [
 export type CoursePercentageMap = coursePercentageSingle[];
 
 // current Selection of course and term
-export type currSelection = {
-  currTerm: string | "undefined";
-  currCourse: string | "undefined";
+export type CurrSelection = {
+  currTerm: string | undefined;
+  currCourse: string | undefined;
+  currAssessment?: string;
 };
 
 export type PopTypes = "Term" | "Course" | "Assessment";
 
-export type SortModes = "alpha" | "alpha-alt" | "grades" | "grades-alt";
+export enum SORT_MODES {
+  ALPHABET = "alpha",
+  ALPHABET_ALT = "alpha-alt",
+  GRADE = "grades",
+  GRADE_ALT = "grades-alt",
+}

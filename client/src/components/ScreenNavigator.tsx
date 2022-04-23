@@ -1,20 +1,27 @@
-import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import BottomNavbar from "./BottomNavbar/BottomNavbar";
-import EditScreen from "./EditScreen/EditScreen";
-import HomeScreen from "./HomeScreen/HomeScreen";
+import EditScreen from "../pages/EditScreen/EditScreen";
 import Navbar from "./navbar/navbar";
-import AccountScreen from "./AccountScreen/AccountScreen";
-import { useQalcContext } from "../context/qalculaterContext";
+import AccountScreen from "../pages/AccountScreen/AccountScreen";
+import { useDispatch, useSelector } from "react-redux";
+import { getSlide } from "../redux/carousel/selectors";
+import { CAROUSEL_ACTIONS } from "../redux/carousel";
+import { getUserInfo } from "../redux/userInfo/selectors";
+import { useNavigate } from "react-router-dom";
+import PopupModal from "./PopUpModal";
+import HomeScreen from "../pages/HomeScreen/HomeScreen";
 
 function ScreenNavigator() {
-  const {
-    darkMode,
-    setSwipeSlide,
-    swipeSlide,
-    carouselSwipable,
-    setCarouselSwipable
-  } = useQalcContext()!;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector(getUserInfo);
+  const { darkMode } = useSelector(getSlide);
+  const { slide: swipeSlide } = useSelector(getSlide);
+
+  if (!isAuthenticated) {
+    navigate("/login");
+    return <></>;
+  }
 
   const getConfigurableProps: any = () => ({
     showArrows: false,
@@ -34,13 +41,14 @@ function ScreenNavigator() {
     transitionTime: 300,
     swipeScrollTolerance: 50,
 
-    preventMovementUntilSwipeScrollTolerance: true
+    preventMovementUntilSwipeScrollTolerance: true,
   });
 
   return (
     <div
       className={darkMode ? "screen-navigator dark-mode" : "screen-navigator"}
     >
+      <PopupModal />
       <Navbar />
       <Carousel
         {...getConfigurableProps()}
@@ -51,7 +59,9 @@ function ScreenNavigator() {
               "carousel-status"
             )[0] as HTMLBodyElement;
             let status = statusElement.innerText;
-            setSwipeSlide!(parseInt(status.split("of")[0]) - 1);
+            dispatch(
+              CAROUSEL_ACTIONS.updateSlide(parseInt(status.split("of")[0]) - 1)
+            );
           }, 300);
         }}
       >
