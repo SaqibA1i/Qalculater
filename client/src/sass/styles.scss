@@ -2,13 +2,8 @@
 @import "./utilities/_mixins.scss";
 
 @import "./components/screens/editScreen.scss";
-@import "./components/screen-navigator.scss";
 @import "./components/screens/accountScreen.scss";
 @import "./components/carousel.scss";
-@import "./components/bottomNavbar.scss";
-@import "./components/navbar.scss";
-@import "./components/screens/popUp.scss";
-@import "./components/screens/barOverview.scss";
 @import "./components//screens/homeScreen.scss";
 @import "./components/screens/loginScreen.scss";
 
@@ -31,9 +26,6 @@ html {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-.hideBlock {
-  display: none;
-}
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
 * {
@@ -43,8 +35,8 @@ html {
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 5px;
+  height: 3px;
 }
 
 *::-webkit-scrollbar-track {
@@ -69,8 +61,8 @@ html {
 
   /* Chrome, Edge, and Safari */
   *::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 5px;
+    height: 3px;
   }
 
   *::-webkit-scrollbar-track {

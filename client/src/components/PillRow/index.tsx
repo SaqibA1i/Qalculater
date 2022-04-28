@@ -1,9 +1,10 @@
 import { keys } from "lodash";
-import { Plus } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { CAROUSEL_ACTIONS } from "../../redux/carousel";
+import styled from "styled-components";
 import { getSelData } from "../../redux/currentSelections/selectors";
 import { POPUP_ACTIONS } from "../../redux/popup";
+import { HBox } from "../../styles/HBox";
+import { AddButton } from "../../styles/Styles";
 import { DATA_TYPE, ACTION_TYPE } from "../../utils/constants";
 import Pill from "./Pill";
 
@@ -11,6 +12,15 @@ type Props = {
   data: { [entry: string]: { average: number; completion: number } };
   isTermRow: boolean;
 };
+
+const StyledSlider = styled(HBox)`
+  overflow-x: auto;
+  max-width: 100vw;
+  padding: 10px;
+  justify-content: start;
+  margin-bottom: 1rem;
+`;
+
 const PillRow = ({ data, isTermRow }: Props) => {
   const dispatch = useDispatch();
   const { currCourse, currTerm } = useSelector(getSelData);
@@ -23,7 +33,7 @@ const PillRow = ({ data, isTermRow }: Props) => {
   });
 
   return (
-    <div className="edit-slider">
+    <StyledSlider>
       {sortedData.map((label, idx) => {
         const { average, completion } = data[label];
         return (
@@ -37,9 +47,8 @@ const PillRow = ({ data, isTermRow }: Props) => {
           />
         );
       })}
-      <div
-        className="edit-add"
-        data-aos="zoom-in"
+      <AddButton
+        borderRadius="50%"
         onClick={() => {
           dispatch(
             POPUP_ACTIONS.open({
@@ -49,10 +58,8 @@ const PillRow = ({ data, isTermRow }: Props) => {
             })
           );
         }}
-      >
-        <Plus size={50} />
-      </div>
-    </div>
+      />
+    </StyledSlider>
   );
 };
 

@@ -3,6 +3,7 @@ import { cloneDeep } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { AssessmentFormSchema } from "../components/Forms/Assessments/type";
 import { CourseFormSchema } from "../components/Forms/Courses/types";
+import { CONFIRMATION_ACTION } from "../redux/confirmationDIalog";
 import { CURR_SELECTION_ACTIONS } from "../redux/currentSelections";
 import { getSelData } from "../redux/currentSelections/selectors";
 import { GRADE_FILTERED_ACTIONS } from "../redux/grades";
@@ -39,7 +40,6 @@ const useApi = (): Props => {
     currAssessment = "",
   } = useSelector(getSelData);
   const { notify } = useNotification();
-  const { reGenerateFields } = useUpdateSelection();
 
   const push = async (updatedUserData: Terms) => {
     // convert to api acceptable format
@@ -101,14 +101,19 @@ const useApi = (): Props => {
   const deleteTerm = () => {
     const data = cloneDeep(unfilteredData);
     delete data[currTerm];
-    push(data).then(() => {
-      dispatch(
-        CURR_SELECTION_ACTIONS.update({
-          currCourse: undefined,
-          currTerm: undefined,
+    dispatch(CONFIRMATION_ACTION.open());
+    dispatch(
+      CONFIRMATION_ACTION.handleSubmit(() =>
+        push(data).then(() => {
+          dispatch(
+            CURR_SELECTION_ACTIONS.update({
+              currCourse: undefined,
+              currTerm: undefined,
+            })
+          );
         })
-      );
-    });
+      )
+    );
   };
 
   const addCourse = ({ name, credit }: CourseFormSchema) => {

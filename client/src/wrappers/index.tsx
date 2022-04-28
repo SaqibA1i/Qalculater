@@ -1,15 +1,29 @@
+import { useSelector } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { getSlide } from "../redux/carousel/selectors";
+
 import ReduxWrapper from "../redux/reduxStore";
+import { theme } from "../styles/Styles";
 
 type Props = {
   children: JSX.Element[];
 };
-const Wrappers = ({ children }: Props) => {
+
+const ThemeWrappers = ({ children }: Props) => {
+  const { theme: currTheme } = useSelector(getSlide);
   return (
-    <ReduxWrapper>
+    <ThemeProvider theme={theme[currTheme]}>
       <BrowserRouter>
         <>{children}</>
       </BrowserRouter>
+    </ThemeProvider>
+  );
+};
+const Wrappers = ({ children }: Props) => {
+  return (
+    <ReduxWrapper>
+      <ThemeWrappers>{children}</ThemeWrappers>
     </ReduxWrapper>
   );
 };

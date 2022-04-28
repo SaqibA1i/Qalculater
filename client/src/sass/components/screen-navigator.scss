@@ -1,9 +1,0 @@
-.loading-screen {
-  @include flexCenter(row);
-  justify-content: center;
-  height: 100vh;
-  backdrop-filter: blur(3px);
-  width: 100vw;
-  position: fixed;
-  z-index: 100;
-}

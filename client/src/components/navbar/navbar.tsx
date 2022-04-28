@@ -1,35 +1,49 @@
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import { CAROUSEL_ACTIONS } from "../../redux/carousel";
 import { CAROUSEL_SLIDE } from "../../redux/carousel/types";
 import { getSelData } from "../../redux/currentSelections/selectors";
 import { getUserInfo } from "../../redux/userInfo/selectors";
 import { UserInfo } from "../../redux/userInfo/types";
+import { Box } from "../../styles/Box";
+import { HBox } from "../../styles/HBox";
+import { VBox } from "../../styles/VBox";
 import { CurrSelection } from "../../TS types/Types";
+
+const StyledHBox = styled(HBox)`
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+`;
+
+const StyledImg = styled.img`
+  border-radius: 50%;
+  width: 2.3rem;
+  height: 2.3;
+`;
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const { currTerm, currCourse } = useSelector(getSelData) as CurrSelection;
   const { firstName, imgURL } = useSelector(getUserInfo) as UserInfo;
   return (
-    <div className="navbar">
-      <div className="welcome">
-        Welcome, {firstName}
-        <br />
-        <h6>
-          {currTerm === undefined
-            ? "Choose a Term"
-            : "Term: " + currTerm + ", " + currCourse}
-        </h6>
-      </div>
-      <img
+    <StyledHBox>
+      <VBox style={{ alignItems: "start" }}>
+        <Box fontWeight={900} fontSize="1.2rem">
+          Welcome, {firstName}
+        </Box>
+        <Box as="p" fontWeight="500" fontSize="0.9rem">
+          {currTerm || "Choose a Term"} {currCourse ? ": " + currCourse : ""}
+        </Box>
+      </VBox>
+      <StyledImg
         onClick={() => {
           dispatch(CAROUSEL_ACTIONS.updateSlide(CAROUSEL_SLIDE.ACCOUNT));
         }}
-        className="nav-profile-img"
         src={imgURL}
         alt="User Icon"
       />
-    </div>
+    </StyledHBox>
   );
 };
 

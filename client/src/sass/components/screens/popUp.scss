@@ -137,12 +137,14 @@
       width: 100%;
       @include flexCenter(row);
       padding: 0 0 20px 0;
+      color: $theme-grey-main;
+
       h3 {
-        color: $theme-grey-main;
         overflow: hidden;
         white-space: nowrap;
         border-bottom: 3px solid $theme-grey-main;
       }
+
       svg {
         cursor: pointer;
         margin-bottom: 10px;
@@ -219,6 +221,12 @@
       .popup-header-edit {
         @extend .popup-header-button;
         background: $blue-gradient;
+        cursor: pointer;
+        width: 150px;
+      }
+      .popup-header-cancel {
+        @extend .popup-header-button;
+        background: #777777;
         cursor: pointer;
         width: 150px;
       }
