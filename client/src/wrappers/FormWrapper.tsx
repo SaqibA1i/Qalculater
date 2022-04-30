@@ -2,10 +2,15 @@ import { useSelector } from "react-redux";
 import { getPopupSelector } from "../redux/popup/selector";
 import { ACTION_TYPE } from "../utils/constants";
 import { Archive, ArchiveFill, PencilFill } from "react-bootstrap-icons";
+import { VBox } from "../styles/VBox";
+import styled from "styled-components";
+import { Button } from "../styles/Button";
+import { Box } from "../styles/Box";
+import { ErrorMessage, StyledHr, StyledVBox } from "./styles";
 type Props = {
   onSubmit: () => void;
-  children: JSX.Element[] | JSX.Element;
-  errors: any;
+  children?: JSX.Element[] | JSX.Element;
+  errors?: any;
   deleteAction: () => void;
 };
 
@@ -13,25 +18,26 @@ const Form = ({ onSubmit, children, errors, deleteAction }: Props) => {
   const { actionType } = useSelector(getPopupSelector);
   return (
     <form onSubmit={onSubmit} onReset={deleteAction}>
-      {children}
-      {errors[""] && <span>{errors[""].message}</span>}
-      <div className="button-container">
+      <StyledVBox>{children}</StyledVBox>
+      {errors[""] && <ErrorMessage>{errors[""].message}</ErrorMessage>}
+      <VBox marginTop="25px">
         {actionType === ACTION_TYPE.EDIT ? (
           <>
-            <button type="submit" className="popup-header-edit">
+            <Button intent="submit" type="submit">
               Edit
-            </button>
-            <hr />
-            <button type="reset" className="popup-header-delete">
+            </Button>
+            <StyledHr />
+
+            <Button intent="delete" type="reset">
               Delete
-            </button>
+            </Button>
           </>
         ) : (
-          <button type="submit" className="popup-header-button">
+          <Button intent="submit" type="submit">
             Submit
-          </button>
+          </Button>
         )}
-      </div>
+      </VBox>
     </form>
   );
 };

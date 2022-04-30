@@ -3,6 +3,8 @@ import { Provider } from "react-redux";
 import { AcademicData, CurrSelection } from "../TS types/Types";
 import { carousel } from "./carousel";
 import { Carousel } from "./carousel/types";
+import { confirmation } from "./confirmationDIalog";
+import { Confirmation } from "./confirmationDIalog/types";
 import { currSel } from "./currentSelections";
 import { gradeDataFiltered } from "./grades";
 import { GradeFiltered } from "./grades/types";
@@ -22,6 +24,7 @@ export type AppState = {
   loading: boolean;
   gradeDataFiltered: GradeFiltered;
   popup: PopupContext;
+  confirmation: Confirmation;
 };
 
 const ReduxWrapper = ({ children }: Props) => {
@@ -33,6 +36,7 @@ const ReduxWrapper = ({ children }: Props) => {
       loading: loading.reducer,
       gradeDataFiltered: gradeDataFiltered.reducer,
       popup: popup.reducer,
+      // confirmation: confirmation.reducer,
     },
   });
   return <Provider store={store}>{children}</Provider>;

@@ -6,8 +6,17 @@ import { POPUP_ACTIONS } from "../../../redux/popup";
 import { ACTION_TYPE, DATA_TYPE } from "../../../utils/constants";
 import { getColor } from "../../../utils/helpers/colors";
 import CompletionBar from "../../../pages/EditScreen/CompletionBar";
+import { BackWrapper, StyledPill, StyledVBox } from "./styles";
+import { Box } from "../../../styles/Box";
+import { VBox } from "../../../styles/VBox";
+import { HBox } from "../../../styles/HBox";
+import { ThemeContext } from "styled-components";
+import { useContext } from "react";
+import { getSlide } from "../../../redux/carousel/selectors";
+import { CAROUSEL_SLIDE } from "../../../redux/carousel/types";
 
 type Props = {
+  id: number;
   label: string;
   average: number;
   completion: number;
@@ -15,10 +24,20 @@ type Props = {
   isSelected: boolean;
 };
 
-const Pill = ({ label, average, completion, isTermRow, isSelected }: Props) => {
+const Pill = ({
+  id,
+  label,
+  average,
+  completion,
+  isTermRow,
+  isSelected,
+}: Props) => {
   const dispatch = useDispatch();
+  const theme = useContext(ThemeContext);
+
   const { updateSelected } = useUpdateSelection();
   const selection = useSelector(getSelData);
+  const { slide } = useSelector(getSlide);
   const updateSel = isTermRow
     ? {
         currTerm: label,
@@ -26,33 +45,44 @@ const Pill = ({ label, average, completion, isTermRow, isSelected }: Props) => {
       }
     : { ...selection, currCourse: label };
 
+  const isPageSelected = slide === CAROUSEL_SLIDE.EDIT ? 1 : 0;
+
   return (
-    <div
-      className={isSelected ? "edit-slider-term selected" : "edit-slider-term"}
+    <StyledPill
+      style={{
+        opacity: isPageSelected,
+        transitionDelay: isTermRow ? `0.${id}9s` : `0.${id + 2}9s`,
+        marginLeft: isPageSelected ? `0` : `-90px`,
+      }}
       onClick={() => {
         updateSelected(updateSel);
       }}
     >
-      <div className="cover">
-        <div className="container">
-          <div className="left-section">
-            <h5>{label}</h5>
-            <p
-              style={{
-                color: getColor(average / 100),
-              }}
+      <BackWrapper>
+        <StyledVBox>
+          <HBox>
+            <Box as="h5" fontSize="1rem">
+              {label}
+            </Box>
+            <Box
+              color={getColor(average / 100)}
+              fontSize="1.2rem"
+              fontWeight={700}
             >
               {average || "--"}%
-            </p>
-          </div>
-          <p>Completed: {completion || "--"}%</p>
+            </Box>
+          </HBox>
+          <Box fontSize="0.6rem" marginBottom="0.1rem">
+            Completed: {completion || "--"}%
+          </Box>
+
           <CompletionBar
-            completion={completion || 0}
+            completion={isPageSelected * completion || 0}
             color={getColor(average / 100)}
           />
-        </div>
-        <div
-          className={isSelected ? "bottom-section expanded" : "bottom-section"}
+        </StyledVBox>
+        <Box
+          padding="10px 0"
           onClick={() => {
             dispatch(
               POPUP_ACTIONS.open({
@@ -62,10 +92,12 @@ const Pill = ({ label, average, completion, isTermRow, isSelected }: Props) => {
             );
           }}
         >
-          {isSelected && <PenFill size={20} />}
-        </div>
-      </div>
-    </div>
+          <Box padding="10px" color={theme.main}>
+            {isSelected && <PenFill size={20} />}
+          </Box>
+        </Box>
+      </BackWrapper>
+    </StyledPill>
   );
 };
 

@@ -1,16 +1,21 @@
+import { useContext } from "react";
 import { PencilFill, X } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
+import { ThemeContext } from "styled-components";
 import { getSelData } from "../../redux/currentSelections/selectors";
 import { POPUP_ACTIONS } from "../../redux/popup";
 import { getPopupSelector } from "../../redux/popup/selector";
+import { Box } from "../../styles/Box";
 import { ACTION_TYPE, DATA_TYPE } from "../../utils/constants";
 import AssessmentForm from "../Forms/Assessments";
 import CourseForm from "../Forms/Courses";
 import TermForm from "../Forms/Terms";
+import { FullContainer, StyledCancel, StyledHBox, StyledModal } from "./styles";
 
 const PopupModal = () => {
   const dispatch = useDispatch();
   const { isOpen, dataType, actionType } = useSelector(getPopupSelector);
+  const theme = useContext(ThemeContext);
 
   const getFormToRender = (): JSX.Element => {
     switch (dataType) {
@@ -23,23 +28,24 @@ const PopupModal = () => {
     }
   };
   return (
-    <div className={!isOpen ? "hideBlock" : "full-container"}>
-      <div className="popup-model">
-        <div className="popup-header">
-          <h3>
+    <FullContainer isOpen={!!isOpen}>
+      <StyledModal>
+        <StyledHBox className="popup-header">
+          <Box as="h3" borderBottom={`3px solid ${theme.text}`}>
             {actionType} {dataType}
-          </h3>
-          <X
-            size={30}
-            color="#333"
-            onClick={() => {
-              dispatch(POPUP_ACTIONS.close());
-            }}
-          />
-        </div>
+          </Box>
+          <StyledCancel>
+            <X
+              size={30}
+              onClick={() => {
+                dispatch(POPUP_ACTIONS.close());
+              }}
+            />
+          </StyledCancel>
+        </StyledHBox>
         {isOpen && getFormToRender()}
-      </div>
-    </div>
+      </StyledModal>
+    </FullContainer>
   );
 };
 

@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LOCAL_STORAGE } from "../../utils/constants";
-import { Carousel } from "./types";
+import { Carousel, THEME } from "./types";
 
 export const carousel = createSlice({
     name: "CAROUSEL",
     initialState: {
         slide: 1,
         darkMode: false,
-        termHidden: false
+        termHidden: false,
+        theme: THEME.LIGHT
     } as Carousel,
     reducers: {
         updateSlide: (state, { payload: slide }: PayloadAction<Partial<number>>) => {
@@ -17,6 +18,7 @@ export const carousel = createSlice({
         toggleDarkMode: (state, { payload }: PayloadAction<boolean>) => {
             localStorage.setItem(LOCAL_STORAGE.DARK_MODE, (String(Number(payload))))
             state.darkMode = payload;
+            state.theme = payload ? THEME.DARK : THEME.LIGHT;
             return state;
         },
         toggleTermHidden: (state, { payload }: PayloadAction<boolean>) => {
