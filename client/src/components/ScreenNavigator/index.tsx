@@ -1,17 +1,16 @@
 import { Carousel } from "react-responsive-carousel";
 import EditScreen from "../../pages/EditScreen/EditScreen";
 import Navbar from "../navbar/navbar";
-import AccountScreen from "../../pages/AccountScreen/AccountScreen";
 import { useDispatch, useSelector } from "react-redux";
 import { getSlide } from "../../redux/carousel/selectors";
 import { CAROUSEL_ACTIONS } from "../../redux/carousel";
 import { getUserInfo } from "../../redux/userInfo/selectors";
 import { useNavigate } from "react-router-dom";
 import PopupModal from "../PopUpModal";
-import HomeScreen from "../../pages/HomeScreen/HomeScreen";
-import ConfirmationDialog from "../ConfirmationDialog";
 import { ScreenNav } from "./styles";
 import BottomNavbar from "../BottomNavbar";
+import HomeScreen from "../../pages/HomeScreen";
+import AccountScreen from "../../pages/AccountScreen";
 
 function ScreenNavigator() {
   const dispatch = useDispatch();
@@ -47,12 +46,8 @@ function ScreenNavigator() {
   });
 
   return (
-    <ScreenNav
-      className={darkMode ? "screen-navigator dark-mode" : "screen-navigator"}
-    >
+    <ScreenNav>
       <PopupModal />
-      {/* <ConfirmationDialog /> */}
-
       <Navbar />
       <Carousel
         {...getConfigurableProps()}

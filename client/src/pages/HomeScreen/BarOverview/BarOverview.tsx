@@ -11,6 +11,8 @@ import styled, { ThemeContext } from "styled-components";
 import { useContext } from "react";
 import { Text } from "../../../styles/Text";
 import { HoveringText, StyledHBox, StyledHr, StyledLine } from "./styles";
+import { CAROUSEL_SLIDE } from "../../../redux/carousel/types";
+import { getSlide } from "../../../redux/carousel/selectors";
 
 function BarOverview() {
   const { updateSelected } = useUpdateSelection();
@@ -18,6 +20,8 @@ function BarOverview() {
 
   const { currTerm, currCourse } = useSelector(getSelData);
   const { terms, courses } = useSelector(getFilteredData);
+  const { slide } = useSelector(getSlide);
+
   if (currTerm === undefined) {
     return <></>;
   }
@@ -37,6 +41,8 @@ function BarOverview() {
     );
   };
 
+  const isHomeSelected: number = slide === CAROUSEL_SLIDE.HOME ? 1 : 0;
+
   const sortedCourses = keys(courses).sort((a, b) => {
     const { average: prev } = courses[a];
     const { average: next } = courses[b];
@@ -47,7 +53,7 @@ function BarOverview() {
   });
 
   return (
-    <Box paddingTop="50px">
+    <Box padding="50px 30px 30px 30px" width="-webkit-fill-available">
       <StyledLine style={{ top: -2 * average + 347 }}>
         <p>{average}</p>
         <StyledHr />
@@ -64,9 +70,10 @@ function BarOverview() {
                   updateSelected({ currTerm, currCourse: courseName });
                 }}
                 style={{
-                  height: average * 2 || 0 + "px",
+                  height: isHomeSelected * (average * 2 || 0) + "px",
                   width: width,
                   background: getGradient(average),
+                  transitionDelay: `${idx}00ms`,
                   boxShadow:
                     "0px 0px 9px 0px " + getColor((average - 10) / 100),
                 }}
@@ -75,7 +82,12 @@ function BarOverview() {
               </Box>
               <Text
                 color={currCourse === courseName ? theme.textAccent : ""}
-                fontWeight={currCourse === courseName ? 700 : 200}
+                fontWeight={currCourse === courseName ? 900 : 200}
+                border={
+                  "1px solid" + currCourse === courseName
+                    ? " black"
+                    : "transparent"
+                }
               >
                 {courseName}
               </Text>

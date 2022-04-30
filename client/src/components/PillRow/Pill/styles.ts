@@ -1,12 +1,10 @@
 import styled from "styled-components";
-import { Box } from "../../../styles/Box";
 import { HBox } from "../../../styles/HBox";
 import { VBox } from "../../../styles/VBox";
 
 export const StyledPill = styled(HBox)`
-    margin-right: 30px;
-`
-
+    gap: 0;
+`;
 
 export const BackWrapper = styled(HBox)`
     border-radius: 15px;

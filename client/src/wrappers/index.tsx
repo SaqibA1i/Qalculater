@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { getSlide } from "../redux/carousel/selectors";
+import { THEME } from "../redux/carousel/types";
 
 import ReduxWrapper from "../redux/reduxStore";
 import { theme } from "../styles/Styles";
@@ -11,7 +12,8 @@ type Props = {
 };
 
 const ThemeWrappers = ({ children }: Props) => {
-  const { theme: currTheme } = useSelector(getSlide);
+  const { theme: currTheme = THEME.LIGHT } = useSelector(getSlide);
+
   return (
     <ThemeProvider theme={theme[currTheme]}>
       <BrowserRouter>

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { alignItems, background, border, borderRadius, color, compose, fontSize, fontStyle, fontWeight, justifyContent, layout, margin, padding } from "styled-system";
+import { alignItems, background, border, borderRadius, boxShadow, color, compose, flexbox, fontSize, fontStyle, fontWeight, justifyContent, layout, margin, minWidth, padding } from "styled-system";
 type Props = React.CSSProperties;
 
 export const Box = styled.div<Props>(
@@ -22,6 +22,9 @@ export const Box = styled.div<Props>(
         fontWeight,
         alignItems,
         justifyContent,
-        fontStyle
+        fontStyle,
+        minWidth,
+        flexbox,
+        boxShadow
     )
 )

@@ -12,8 +12,11 @@ import { VBox } from "../../../styles/VBox";
 import { HBox } from "../../../styles/HBox";
 import { ThemeContext } from "styled-components";
 import { useContext } from "react";
+import { getSlide } from "../../../redux/carousel/selectors";
+import { CAROUSEL_SLIDE } from "../../../redux/carousel/types";
 
 type Props = {
+  id: number;
   label: string;
   average: number;
   completion: number;
@@ -21,12 +24,20 @@ type Props = {
   isSelected: boolean;
 };
 
-const Pill = ({ label, average, completion, isTermRow, isSelected }: Props) => {
+const Pill = ({
+  id,
+  label,
+  average,
+  completion,
+  isTermRow,
+  isSelected,
+}: Props) => {
   const dispatch = useDispatch();
   const theme = useContext(ThemeContext);
 
   const { updateSelected } = useUpdateSelection();
   const selection = useSelector(getSelData);
+  const { slide } = useSelector(getSlide);
   const updateSel = isTermRow
     ? {
         currTerm: label,
@@ -34,8 +45,15 @@ const Pill = ({ label, average, completion, isTermRow, isSelected }: Props) => {
       }
     : { ...selection, currCourse: label };
 
+  const isPageSelected = slide === CAROUSEL_SLIDE.EDIT ? 1 : 0;
+
   return (
     <StyledPill
+      style={{
+        opacity: isPageSelected,
+        transitionDelay: isTermRow ? `0.${id}9s` : `0.${id + 2}9s`,
+        marginLeft: isPageSelected ? `0` : `-90px`,
+      }}
       onClick={() => {
         updateSelected(updateSel);
       }}
@@ -59,7 +77,7 @@ const Pill = ({ label, average, completion, isTermRow, isSelected }: Props) => {
           </Box>
 
           <CompletionBar
-            completion={completion || 0}
+            completion={isPageSelected * completion || 0}
             color={getColor(average / 100)}
           />
         </StyledVBox>

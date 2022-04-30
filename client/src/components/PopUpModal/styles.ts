@@ -7,7 +7,7 @@ type Props = {
     isOpen: boolean;
 }
 export const FullContainer = styled(HBox) <Props>`
-${({ isOpen }) => `
+${({ isOpen, theme }) => `
     backdrop-filter: blur(1px);
     height: 100vh;
     position: absolute;
@@ -15,7 +15,7 @@ ${({ isOpen }) => `
     z-index: ${isOpen ? 100 : -1};
     opacity: ${isOpen ? 1 : 0};
     display: flex;
-    background: #00000061;
+    background: ${theme.backdrop};
     justify-content: center;
     align-items: baseline;
 `}

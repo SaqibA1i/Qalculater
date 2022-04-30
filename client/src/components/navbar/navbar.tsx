@@ -18,8 +18,8 @@ const StyledHBox = styled(HBox)`
 
 const StyledImg = styled.img`
   border-radius: 50%;
-  width: 2.3rem;
-  height: 2.3;
+  width: 3rem;
+  height: 3rem;
 `;
 
 const Navbar = () => {
@@ -29,10 +29,10 @@ const Navbar = () => {
   return (
     <StyledHBox>
       <VBox style={{ alignItems: "start" }}>
-        <Box fontWeight={900} fontSize="1.2rem">
+        <Box fontWeight={900} fontSize="1.5rem">
           Welcome, {firstName}
         </Box>
-        <Box as="p" fontWeight="500" fontSize="0.9rem">
+        <Box as="p" fontWeight="500" fontSize="1.2rem">
           {currTerm || "Choose a Term"} {currCourse ? ": " + currCourse : ""}
         </Box>
       </VBox>

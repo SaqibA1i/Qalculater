@@ -7,8 +7,4 @@ export const Text = styled(Box)`
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-top: 5px;
-    @media (max-width: 768px) {
-        font-size: 10px;
-    
-  }
 `

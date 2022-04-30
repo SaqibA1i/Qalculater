@@ -17,7 +17,7 @@ export const StyledHr = styled.hr`
   border-top: 2px dashed rgba(51, 51, 51, 0.527);
   height: 0;
   margin-left: 20px;
-  width: 90vw;
+  width: calc(100vw - 116px);
 `;
 export const HoveringText = styled(Text)`
   position: relative;

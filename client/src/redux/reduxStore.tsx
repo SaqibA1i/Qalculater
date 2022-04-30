@@ -36,7 +36,7 @@ const ReduxWrapper = ({ children }: Props) => {
       loading: loading.reducer,
       gradeDataFiltered: gradeDataFiltered.reducer,
       popup: popup.reducer,
-      confirmation: confirmation.reducer,
+      // confirmation: confirmation.reducer,
     },
   });
   return <Provider store={store}>{children}</Provider>;

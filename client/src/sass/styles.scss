@@ -1,16 +1,6 @@
 @import "./utilities/variables.scss";
-@import "./utilities/_mixins.scss";
 
-@import "./components/screens/editScreen.scss";
-@import "./components/screens/accountScreen.scss";
-@import "./components/carousel.scss";
-@import "./components//screens/homeScreen.scss";
 @import "./components/screens/loginScreen.scss";
-
-@font-face {
-  font-family: Nunito;
-  src: url("../fonts/Nunito/Nunito-VariableFont_wght.ttf");
-}
 
 html {
   background: $theme-blue-main;
@@ -24,6 +14,16 @@ html {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+
+  /* Phone */
+  @media only screen and (min-width: 0px) {
+    font-size: 10px;
+  }
+
+  /* Tablet */
+  @media only screen and (min-width: 600px) {
+    font-size: 15px;
+  }
 }
 
 /* ===== Scrollbar CSS ===== */
@@ -74,4 +74,14 @@ html {
     border-radius: 50px;
     border: 3px solid transparent;
   }
+}
+
+/* REACT CAROUSEL */
+.carousel .control-dots .dot.selected,
+.carousel .control-dots .dot:hover,
+.carousel .control-dots .dot {
+  opacity: 0;
+}
+.carousel .carousel-status {
+  opacity: 0;
 }

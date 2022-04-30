@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { DashCircle, PlusCircle, Grid, GridFill } from "react-bootstrap-icons";
+import { useContext } from "react";
+import { DashCircle, PlusCircle } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getSelData } from "../../redux/currentSelections/selectors";
 import { getFilteredData } from "../../redux/grades/selectors";
@@ -7,19 +7,23 @@ import PillRow from "../../components/PillRow";
 import AssessmentSection from "../../components/AssessmentSection";
 import { CAROUSEL_ACTIONS } from "../../redux/carousel";
 import { getSlide } from "../../redux/carousel/selectors";
+import { Box } from "../../styles/Box";
+import { StyledVBox, TextBox } from "./styles";
+import { ThemeContext } from "styled-components";
 
 function EditScreen() {
   // Fixed variables
   const dispatch = useDispatch();
+  const theme = useContext(ThemeContext);
   const { currCourse, currTerm } = useSelector(getSelData);
   const { terms, courses } = useSelector(getFilteredData);
   const { termHidden } = useSelector(getSlide);
 
   return (
-    <div className="edit-screen">
-      <div className="edit-container">
-        <h2>
-          Terms
+    <StyledVBox>
+      <StyledVBox>
+        <TextBox>
+          Terms&nbsp;
           {termHidden ? (
             <PlusCircle
               size={15}
@@ -35,19 +39,24 @@ function EditScreen() {
               }}
             />
           )}
-        </h2>
-        {!termHidden && <PillRow data={terms} isTermRow />}
-      </div>
+        </TextBox>
+        <PillRow data={terms} isTermRow hidden={termHidden} />
+      </StyledVBox>
 
-      <div className="edit-container">
-        <h2>
-          Courses: <b>{currTerm}</b>
-        </h2>
-        {currTerm && <PillRow data={courses} isTermRow={false} />}
-      </div>
+      <StyledVBox>
+        <TextBox>
+          Courses:&nbsp;<Box color={theme.textAccent}>{currTerm}</Box>
+        </TextBox>
+        <PillRow data={courses} isTermRow={false} hidden={!!!currTerm} />
+      </StyledVBox>
 
-      {currCourse && <AssessmentSection />}
-    </div>
+      <StyledVBox>
+        <TextBox>
+          Assessments:&nbsp;<Box color={theme.textAccent}>{currCourse}</Box>
+        </TextBox>
+        {currCourse && <AssessmentSection />}
+      </StyledVBox>
+    </StyledVBox>
   );
 }
 

@@ -24,6 +24,7 @@ import { VBox } from "../../styles/VBox";
 import styled, { ThemeContext } from "styled-components";
 import { HBox } from "../../styles/HBox";
 import { BackWrapper, StyledVBox } from "../PillRow/Pill/styles";
+import { CAROUSEL_SLIDE } from "../../redux/carousel/types";
 
 export const StyledHBox = styled(HBox)`
   padding: 10px 30px;
@@ -47,101 +48,97 @@ const AssessmentSection = () => {
   const dispatch = useDispatch();
   const theme = useContext(ThemeContext);
   const { assessments, courses } = useSelector(getFilteredData);
-  const { termHidden } = useSelector(getSlide);
+  const { termHidden, slide } = useSelector(getSlide);
 
   if (currCourse === undefined) {
     return <></>;
   }
 
+  const isPageSelected = slide === CAROUSEL_SLIDE.EDIT ? 1 : 0;
+
   const { completion: courseCompletion = 0, average: courseAverage = 0 } =
     courses[currCourse] || {};
 
   return (
-    <VBox style={{ alignItems: "stretch" }}>
-      <HBox as="h2" style={{ justifyContent: "start" }} marginBottom="0.6rem">
-        <Box>Assessments:&nbsp;</Box>
-        <Box as="b" color={theme.textAccent}>
-          {currCourse}
-        </Box>
-      </HBox>
-      <Box>
-        <VBox
-          overflowY="scroll"
-          style={{
-            alignItems: "stretch",
-            justifyContent: "inherit",
-            gap: "0.6rem",
-          }}
-          padding="10px"
-          maxHeight={termHidden ? "calc(100vh - 390px)" : "calc(100vh - 530px)"}
-        >
-          <VBox marginBottom="10px">
-            <Box marginBottom="10px">Completed: {courseCompletion} %</Box>
-            <CompletionBar
-              completion={courseCompletion}
-              color={getColor(courseAverage / 100)}
-            />
-          </VBox>
+    <VBox
+      overflowY="scroll"
+      style={{
+        alignItems: "stretch",
+        justifyContent: "start",
+        gap: "0.6rem",
+      }}
+      padding="10px 25px"
+      maxHeight={termHidden ? "calc(100vh - 340px)" : "calc(100vh - 423px)"}
+      minWidth="-webkit-fill-available"
+    >
+      <VBox marginBottom="10px">
+        <Box marginBottom="10px">Completed: {courseCompletion} %</Box>
+        <CompletionBar
+          completion={courseCompletion}
+          color={getColor(courseAverage / 100)}
+        />
+      </VBox>
 
-          {keys(assessments).map((assessmentName, idx: number) => {
-            const { worth, myScorePercentage } = assessments[assessmentName];
-            return (
-              <StyledBackWrapper key={idx}>
-                <StyledHBox>
-                  <StyledVBox style={{ padding: 0, gap: 0 }}>
-                    <Box
-                      fontSize="0.9rem"
-                      fontWeight="700"
-                      color={theme.textAccent}
-                    >
-                      {assessmentName}
-                    </Box>
-                    <Box fontSize="0.7rem" fontWeight="bolder">
-                      worth {worth}%
-                    </Box>
-                  </StyledVBox>
-                  <Box
-                    fontWeight="bold"
-                    fontSize="1.2rem"
-                    color={theme.textAccent}
-                  >
-                    {myScorePercentage}%
-                  </Box>
-                </StyledHBox>
-                <Box
-                  padding="10px 0"
-                  onClick={() => {
-                    dispatch(
-                      CURR_SELECTION_ACTIONS.updateAssessment(assessmentName)
-                    );
-                    dispatch(
-                      POPUP_ACTIONS.open({
-                        actionType: ACTION_TYPE.EDIT,
-                        dataType: DATA_TYPE.ASSESSMENT,
-                      })
-                    );
-                  }}
-                >
-                  <Box paddingRight="20px" color={theme.main}>
-                    <PenFill size={20} />
-                  </Box>
-                </Box>
-              </StyledBackWrapper>
-            );
-          })}
-          <AddButton
-            borderRadius="45px"
-            onClick={() => {
-              dispatch(
-                POPUP_ACTIONS.open({
-                  actionType: ACTION_TYPE.CREATE,
-                  dataType: DATA_TYPE.ASSESSMENT,
-                })
-              );
+      {keys(assessments).map((assessmentName, idx: number) => {
+        const { worth, myScorePercentage } = assessments[assessmentName];
+        return (
+          <StyledBackWrapper
+            key={idx}
+            style={{
+              opacity: isPageSelected,
+              transitionDelay: `${idx + 3}00ms`,
+              marginLeft: isPageSelected ? `0` : `200px`,
             }}
-          />
-        </VBox>
-      </Box>
+          >
+            <StyledHBox>
+              <StyledVBox style={{ padding: 0, gap: 0 }}>
+                <Box
+                  fontSize="0.9rem"
+                  fontWeight="700"
+                  color={theme.textAccent}
+                >
+                  {assessmentName}
+                </Box>
+                <Box fontSize="0.7rem" fontWeight="bolder">
+                  worth {worth}%
+                </Box>
+              </StyledVBox>
+              <Box fontWeight="bold" fontSize="1.2rem" color={theme.textAccent}>
+                {myScorePercentage}%
+              </Box>
+            </StyledHBox>
+            <Box
+              padding="10px 0"
+              onClick={() => {
+                dispatch(
+                  CURR_SELECTION_ACTIONS.updateAssessment(assessmentName)
+                );
+                dispatch(
+                  POPUP_ACTIONS.open({
+                    actionType: ACTION_TYPE.EDIT,
+                    dataType: DATA_TYPE.ASSESSMENT,
+                  })
+                );
+              }}
+            >
+              <Box paddingRight="20px" color={theme.main}>
+                <PenFill size={20} />
+              </Box>
+            </Box>
+          </StyledBackWrapper>
+        );
+      })}
+      <AddButton
+        borderRadius="45px"
+        onClick={() => {
+          dispatch(
+            POPUP_ACTIONS.open({
+              actionType: ACTION_TYPE.CREATE,
+              dataType: DATA_TYPE.ASSESSMENT,
+            })
+          );
+        }}
+      />
     </VBox>
   );
 };
