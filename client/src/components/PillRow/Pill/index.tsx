@@ -49,11 +49,6 @@ const Pill = ({
 
   return (
     <StyledPill
-      style={{
-        opacity: isPageSelected,
-        transitionDelay: isTermRow ? `0.${id}9s` : `0.${id + 2}9s`,
-        marginLeft: isPageSelected ? `0` : `-90px`,
-      }}
       onClick={() => {
         updateSelected(updateSel);
       }}
@@ -72,7 +67,7 @@ const Pill = ({
               {average || "--"}%
             </Box>
           </HBox>
-          <Box fontSize="0.6rem" marginBottom="0.1rem">
+          <Box fontSize="0.8rem" marginBottom="0.1rem">
             Completed: {completion || "--"}%
           </Box>
 

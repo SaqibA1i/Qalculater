@@ -83,6 +83,7 @@ function BarOverview() {
               <Text
                 color={currCourse === courseName ? theme.textAccent : ""}
                 fontWeight={currCourse === courseName ? 900 : 200}
+                fontSize="0.8rem"
                 border={
                   "1px solid" + currCourse === courseName
                     ? " black"

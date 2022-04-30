@@ -21,5 +21,6 @@ export const StyledHr = styled.hr`
 `;
 export const HoveringText = styled(Text)`
   position: relative;
+  font-size: 0.8rem;
   top: -25px;
 `;

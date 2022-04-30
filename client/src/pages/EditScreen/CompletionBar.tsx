@@ -29,7 +29,7 @@ const CompletionBar = ({ completion, color }: completionProps) => {
           backgroundColor: color,
           width: Math.min(completion, 100) + "%",
           boxShadow: "1px 1px 16px 0px " + color,
-          transition: "all 2.5s",
+          transition: "all 1s ease-in-out",
         }}
       />
     </StyledBar>

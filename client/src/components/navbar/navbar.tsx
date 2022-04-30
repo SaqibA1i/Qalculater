@@ -12,7 +12,8 @@ import { CurrSelection } from "../../TS types/Types";
 
 const StyledHBox = styled(HBox)`
   justify-content: space-between;
-  padding: 0.5rem 1rem;
+  padding: 1.4rem;
+  padding-bottom: 0;
   margin-bottom: 1rem;
 `;
 

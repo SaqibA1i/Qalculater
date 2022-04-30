@@ -74,7 +74,7 @@ const AssessmentSection = () => {
       <VBox marginBottom="10px">
         <Box marginBottom="10px">Completed: {courseCompletion} %</Box>
         <CompletionBar
-          completion={courseCompletion}
+          completion={isPageSelected * courseCompletion}
           color={getColor(courseAverage / 100)}
         />
       </VBox>
@@ -82,14 +82,7 @@ const AssessmentSection = () => {
       {keys(assessments).map((assessmentName, idx: number) => {
         const { worth, myScorePercentage } = assessments[assessmentName];
         return (
-          <StyledBackWrapper
-            key={idx}
-            style={{
-              opacity: isPageSelected,
-              transitionDelay: `${idx + 3}00ms`,
-              marginLeft: isPageSelected ? `0` : `200px`,
-            }}
-          >
+          <StyledBackWrapper key={idx}>
             <StyledHBox>
               <StyledVBox style={{ padding: 0, gap: 0 }}>
                 <Box
@@ -99,7 +92,7 @@ const AssessmentSection = () => {
                 >
                   {assessmentName}
                 </Box>
-                <Box fontSize="0.7rem" fontWeight="bolder">
+                <Box fontSize="0.8rem" fontWeight="bold">
                   worth {worth}%
                 </Box>
               </StyledVBox>
