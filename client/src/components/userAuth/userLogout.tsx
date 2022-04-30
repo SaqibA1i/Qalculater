@@ -1,85 +1,34 @@
-import React, { useState } from "react";
-import { SpinnerInfinity } from "spinners-react";
-import { store } from "react-notifications-component";
-import "animate.css";
-import "react-notifications-component/dist/theme.css";
-import { useQalcContext } from "../../context/qalculaterContext";
+import { useContext } from "react";
 import { Lock } from "react-bootstrap-icons";
-import axios from "axios";
-import { useGoogleLogout, GoogleLogout } from "react-google-login";
+import { GoogleLogout } from "react-google-login";
+import styled, { ThemeContext } from "styled-components";
+import useLogout from "../../hooks/useLogout";
+import { StyledHBox } from "../../pages/AccountScreen/styles";
+import { Box } from "../../styles/Box";
+import { HBox } from "../../styles/HBox";
+import { getColor } from "../../utils/helpers/colors";
+
 function UserLogout() {
-  const [loading, setLoading] = useState<boolean>(false);
-  const { signOut, loaded } = useGoogleLogout({
-    clientId: process.env.REACT_APP_CLIENT_ID!
-  });
-  const { setAuthenticated } = useQalcContext()!;
-  const logout = () => {
-    setLoading(true);
-    axios({
-      method: "post",
-      url: process.env.REACT_APP_SERVER_PROXY! + "auth/logout"
-      // timeout: 10000, // 10 seconds timeout
-      // withCredentials: true
-    })
-      .then(async (res) => {
-        console.log(res);
-        setLoading(false);
-        setAuthenticated(false);
-
-        store.addNotification({
-          title: "Logout",
-          message: "You have successfully logged out",
-          type: "success",
-          insert: "top",
-          container: "top-center",
-          animationIn: ["animate__animated", "animate__fadeIn"],
-          animationOut: ["animate__animated", "animate__fadeOut"],
-          dismiss: {
-            duration: 3000,
-            onScreen: true
-          }
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-        store.addNotification({
-          title: "Logout",
-          message: "ERROR " + err.message,
-          type: "danger",
-          insert: "top",
-          container: "top-center",
-          animationIn: ["animate__animated", "animate__fadeIn"],
-          animationOut: ["animate__animated", "animate__fadeOut"],
-          dismiss: {
-            duration: 9000,
-            onScreen: true
-          }
-        });
-      });
-  };
-
+  const { logout } = useLogout();
+  const theme = useContext(ThemeContext);
   return (
-    <div>
-      {!loading ? (
-        <GoogleLogout
-          clientId={process.env.REACT_APP_CLIENT_ID!}
-          buttonText="Logout"
-          onLogoutSuccess={logout}
-          render={(renderProps) => (
-            <div
-              className="logout-account-settings"
-              onClick={renderProps.onClick}
-            >
-              <Lock size={30} color={"#fff"} />
-              <h6>Logout</h6>
-            </div>
-          )}
-        />
-      ) : (
-        <SpinnerInfinity style={{ margin: "0 auto" }} size={100} />
+    <GoogleLogout
+      clientId={process.env.REACT_APP_CLIENT_ID!}
+      buttonText="Logout"
+      onLogoutSuccess={logout}
+      render={(renderProps) => (
+        <StyledHBox
+          style={{ cursor: "pointer" }}
+          background={theme.error}
+          onClick={renderProps.onClick}
+        >
+          <HBox>
+            <Lock size={30} color={theme.light} />
+            <Box color={theme.light}>Logout</Box>
+          </HBox>
+        </StyledHBox>
       )}
-    </div>
+    />
   );
 }
 

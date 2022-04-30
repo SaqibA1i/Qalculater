@@ -1,107 +1,24 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import UserLogin from "./components/userAuth/userLogin";
-import Navbar from "./components/navbar/navbar";
-import { currSelection, User } from "./TS types/Types";
-import { Context, useQalcContext } from "./context/qalculaterContext";
-import ReactNotification, { store } from "react-notifications-component";
-
+import { useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import "react-notifications-component/dist/theme.css";
 import "./sass/styles.scss";
-
-import ScreenNavigator from "./components/ScreenNavigator";
-import axios, { Axios } from "axios";
-import { SpinnerDotted, SpinnerInfinity } from "spinners-react";
+import axios from "axios";
+import Loader from "./components/Loader";
+import ReactNotification from "react-notifications-component";
+import MainRoutes from "./routes/MainRoutes";
+import Wrappers from "./wrappers";
 
 function App() {
-  /** STATE **/
-  const [userInfo, setUserInfo] = useState<User>({
-    firstName: "NULL",
-    lastName: "NULL",
-    imgURL: "NULL",
-    data: []
-  });
-
-  const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
-  const [selection, setSelection] = useState<currSelection>({
-    currTerm: "undefined",
-    currCourse: "undefined"
-  });
-  const [swipeSlide, setSwipeSlide] = useState<number>(1);
-  const [carouselSwipable, setCarouselSwipable] = useState<boolean>(true);
-  const [darkMode, setDarkMode] = useState<boolean>(false);
-
-  /** Helper Functions to modify state **/
-  const setUserInfoHelper = (newUser: User) => {
-    setUserInfo(newUser);
-  };
-  const setAuthenticatedHelper = (isAuth: boolean) => {
-    setAuthenticated(isAuth);
-  };
-  const setSelectionHelper = (sel: currSelection) => {
-    localStorage.setItem("currentTerm", sel.currTerm);
-    localStorage.setItem("currentCourse", sel.currCourse);
-
-    setSelection(sel);
-  };
-  const setSwipeSlideHelper = (slide: number) => {
-    setSwipeSlide(slide);
-  };
-
-  const setCarouselSwipableHelper = (slideBool: boolean) => {
-    setCarouselSwipable(slideBool);
-  };
-
-  const setDarkModeHelper = (b: boolean) => {
-    localStorage.setItem("darkMode", b.toString());
-    setDarkMode(b);
-  };
   useEffect(() => {
     axios.defaults.withCredentials = true;
-    let darkModeStorage: string | null = localStorage.getItem("darkMode");
-    if (darkModeStorage != null) {
-      darkModeStorage === "true" ? setDarkMode(true) : setDarkMode(false);
-    } else {
-      setDarkMode(false);
-    }
   }, []);
+
   return (
-    <Context.Provider
-      value={{
-        userInfo: userInfo,
-        selection: selection,
-        swipeSlide: swipeSlide,
-        setSwipeSlide: setSwipeSlideHelper,
-        setSelection: setSelectionHelper,
-        isAuthenticated: isAuthenticated,
-        setUserInfo: setUserInfoHelper,
-        setAuthenticated: setAuthenticatedHelper,
-        carouselSwipable: carouselSwipable,
-        setCarouselSwipable: setCarouselSwipableHelper,
-        darkMode: darkMode,
-        setDarkMode: setDarkModeHelper
-      }}
-    >
+    <Wrappers>
+      <Loader />
       <ReactNotification />
-      {isAuthenticated ? (
-        userInfo.imgURL === "NULL" &&
-        userInfo.firstName === "NULL" &&
-        userInfo.lastName === "NULL" ? (
-          <div className="loading-screen">
-            <SpinnerInfinity
-              // style={{ left: "50%", top: "50%", position: "fixed" }}
-              size={100}
-              color="red"
-            />
-          </div>
-        ) : (
-          <ScreenNavigator />
-        )
-      ) : (
-        <UserLogin />
-      )}
-    </Context.Provider>
+      <MainRoutes />
+    </Wrappers>
   );
 }
 

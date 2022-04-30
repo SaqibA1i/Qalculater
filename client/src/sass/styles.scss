@@ -1,21 +1,6 @@
 @import "./utilities/variables.scss";
-@import "./utilities/_mixins.scss";
 
-@import "./components/screens/editScreen.scss";
-@import "./components/screen-navigator.scss";
-@import "./components/screens/accountScreen.scss";
-@import "./components/carousel.scss";
-@import "./components/bottomNavbar.scss";
-@import "./components/navbar.scss";
-@import "./components/screens/popUp.scss";
-@import "./components/screens/barOverview.scss";
-@import "./components//screens/homeScreen.scss";
 @import "./components/screens/loginScreen.scss";
-
-@font-face {
-  font-family: Nunito;
-  src: url("../fonts/Nunito/Nunito-VariableFont_wght.ttf");
-}
 
 html {
   background: $theme-blue-main;
@@ -29,11 +14,18 @@ html {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+
+  /* Phone */
+  @media only screen and (min-width: 0px) {
+    font-size: 10px;
+  }
+
+  /* Tablet */
+  @media only screen and (min-width: 600px) {
+    font-size: 15px;
+  }
 }
 
-.hideBlock {
-  display: none;
-}
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
 * {
@@ -43,8 +35,8 @@ html {
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 5px;
+  height: 3px;
 }
 
 *::-webkit-scrollbar-track {
@@ -69,8 +61,8 @@ html {
 
   /* Chrome, Edge, and Safari */
   *::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 5px;
+    height: 3px;
   }
 
   *::-webkit-scrollbar-track {
@@ -82,4 +74,14 @@ html {
     border-radius: 50px;
     border: 3px solid transparent;
   }
+}
+
+/* REACT CAROUSEL */
+.carousel .control-dots .dot.selected,
+.carousel .control-dots .dot:hover,
+.carousel .control-dots .dot {
+  opacity: 0;
+}
+.carousel .carousel-status {
+  opacity: 0;
 }
