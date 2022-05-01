@@ -26,6 +26,18 @@ import { HBox } from "../../styles/HBox";
 import { BackWrapper, StyledVBox } from "../PillRow/Pill/styles";
 import { CAROUSEL_SLIDE } from "../../redux/carousel/types";
 
+type Prop = { termHidden: boolean };
+const StyledBox = styled(VBox)<Prop>`
+  ${({ termHidden }) => `
+      max-height: ${termHidden ? "calc(100vh - 383px)" : "calc(100vh - 494px)"};
+      /* Tablet */
+      @media only screen and (min-width: 600px) {
+        max-height: ${
+          termHidden ? "calc(100vh - 483px)" : "calc(100vh - 594px)"
+        };
+      }
+    `}
+`;
 export const StyledHBox = styled(HBox)`
   padding: 10px 30px;
   width: max-content;
@@ -60,7 +72,7 @@ const AssessmentSection = () => {
     courses[currCourse] || {};
 
   return (
-    <VBox
+    <StyledBox
       overflowY="scroll"
       style={{
         alignItems: "stretch",
@@ -68,8 +80,8 @@ const AssessmentSection = () => {
         gap: "0.6rem",
       }}
       padding="10px 25px"
-      maxHeight={termHidden ? "calc(100vh - 383px)" : "calc(100vh - 494px)"}
       minWidth="-webkit-fill-available"
+      termHidden={termHidden}
     >
       <VBox marginBottom="10px">
         <Box marginBottom="10px">Completed: {courseCompletion} %</Box>
@@ -135,7 +147,7 @@ const AssessmentSection = () => {
       >
         <Plus size={40} />
       </StyledAddButton>
-    </VBox>
+    </StyledBox>
   );
 };
 
