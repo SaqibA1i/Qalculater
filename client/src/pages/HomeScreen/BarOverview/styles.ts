@@ -7,11 +7,22 @@ export const StyledHBox = styled(HBox)`
   justify-content: space-around;
   height: 200px;
 `;
-export const StyledLine = styled(HBox)`
+type Props = {
+    average: number;
+}
+export const StyledLine = styled(HBox) <Props>`
   position: absolute;
   left: 0;
   padding: 0 20px;
-  
+    /* Tablet */
+    ${({ average }) => `
+        top:${-2 * average + 385}px;
+            @media only screen and (min-width: 600px) {
+                top:${-2 * average + 397}px;
+          }
+        `
+    }
+ 
 `;
 export const StyledHr = styled.hr`
   background: transparent;

@@ -54,7 +54,7 @@ function BarOverview() {
 
   return (
     <Box padding="50px 30px 30px 30px" width="-webkit-fill-available">
-      <StyledLine style={{ top: -2 * average + 387 }}>
+      <StyledLine average={average}>
         <p>{average}</p>
         <StyledHr />
       </StyledLine>
