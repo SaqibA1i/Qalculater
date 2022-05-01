@@ -1,3 +1,5 @@
+export const DEV_EMAIL = "saqibalip321@gmail.com";
+
 enum TOKEN {
     JWT_TOKEN = "jwt_token",
     ACCESS_TOKEN = "access_token"

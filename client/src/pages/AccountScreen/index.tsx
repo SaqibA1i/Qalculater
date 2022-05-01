@@ -1,5 +1,13 @@
 import UserLogout from "../../components/userAuth/userLogout";
-import { Lightbulb, LockFill, CircleFill } from "react-bootstrap-icons";
+import {
+  Lightbulb,
+  LockFill,
+  CircleFill,
+  QuestionCircle,
+  Mailbox,
+  BoxArrowUpRight,
+  Envelope,
+} from "react-bootstrap-icons";
 import { UserInfo } from "../../redux/userInfo/types";
 import { getUserInfo } from "../../redux/userInfo/selectors";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +19,8 @@ import { VBox } from "../../styles/VBox";
 import { Portfolio, StyledHBox, StyledHr, StyledVBox } from "./styles";
 import { HBox } from "../../styles/HBox";
 import styled from "styled-components";
+import SectionRow from "./SectionRow";
+import { DEV_EMAIL } from "../../utils/constants";
 
 type Props = {
   theme: any;
@@ -42,22 +52,29 @@ function AccountScreen() {
         <Box>Your data is encrypted!</Box>
       </HBox>
 
-      <StyledHBox>
-        <HBox>
-          <Lightbulb size={30} />
-          <Box marginLeft="1rem" fontWeight="600">
-            Dark Mode
+      <SectionRow
+        label="Dark Mode"
+        icon={<Lightbulb size={30} />}
+        element={
+          <SliderPillBox
+            darkMode={darkMode}
+            onClick={() => {
+              dispatch(CAROUSEL_ACTIONS.toggleDarkMode(!darkMode));
+            }}
+          >
+            <CircleFill size={20} />
+          </SliderPillBox>
+        }
+      />
+      <SectionRow
+        label="Contact developer"
+        icon={<Envelope size={30} />}
+        element={
+          <Box as="a" href={`mailto:${DEV_EMAIL}?subject=Grades Application`}>
+            <BoxArrowUpRight size={30} />
           </Box>
-        </HBox>
-        <SliderPillBox
-          darkMode={darkMode}
-          onClick={() => {
-            dispatch(CAROUSEL_ACTIONS.toggleDarkMode(!darkMode));
-          }}
-        >
-          <CircleFill size={20} />
-        </SliderPillBox>
-      </StyledHBox>
+        }
+      />
       <StyledHr as="hr" />
       <UserLogout />
     </StyledVBox>

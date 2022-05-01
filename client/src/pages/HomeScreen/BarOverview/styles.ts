@@ -5,6 +5,7 @@ import { Text } from "../../../styles/Text";
 export const StyledHBox = styled(HBox)`
   align-items: end;
   justify-content: space-around;
+  height: 200px;
 `;
 export const StyledLine = styled(HBox)`
   position: absolute;
