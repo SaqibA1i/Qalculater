@@ -6,6 +6,7 @@ import { getSlide } from "../../redux/carousel/selectors";
 import { CAROUSEL_SLIDE } from "../../redux/carousel/types";
 import { Box } from "../../styles/Box";
 import { VBox } from "../../styles/VBox";
+import { switchSlide } from "../../utils/helpers/slide";
 
 type Props = {
   slide: CAROUSEL_SLIDE;
@@ -29,10 +30,7 @@ const SingleEntry = ({ slide, icon, label }: Props) => {
         ...selStyle,
       }}
       onClick={() => {
-        let element = document
-          .getElementsByClassName("control-dots")[0]
-          .getElementsByClassName("dot")[0] as HTMLElement;
-        element.click();
+        switchSlide(slide);
         dispatch(CAROUSEL_ACTIONS.updateSlide(slide));
       }}
     >

@@ -79,6 +79,6 @@ export const StyledSlider = styled(HBox)<Props>`
   ${({ theme, hidden = false }) => `
     opacity: ${hidden ? 0 : 1};
     visibility: ${hidden ? "hidden" : "visible"};
-    margin-top: ${hidden ? "-90px" : "0"};
+    margin-top: ${hidden ? "-117px" : "0"};
   `}
 `;

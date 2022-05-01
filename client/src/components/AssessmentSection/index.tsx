@@ -18,7 +18,7 @@ import { ACTION_TYPE, DATA_TYPE } from "../../utils/constants";
 import { getColor } from "../../utils/helpers/colors";
 import CompletionBar from "../../pages/EditScreen/CompletionBar";
 import { getSlide } from "../../redux/carousel/selectors";
-import { AddButton } from "../../styles/Styles";
+import { AddButton, StyledAddButton } from "../../styles/Styles";
 import { Box } from "../../styles/Box";
 import { VBox } from "../../styles/VBox";
 import styled, { ThemeContext } from "styled-components";
@@ -68,7 +68,7 @@ const AssessmentSection = () => {
         gap: "0.6rem",
       }}
       padding="10px 25px"
-      maxHeight={termHidden ? "calc(100vh - 340px)" : "calc(100vh - 423px)"}
+      maxHeight={termHidden ? "calc(100vh - 383px)" : "calc(100vh - 494px)"}
       minWidth="-webkit-fill-available"
     >
       <VBox marginBottom="10px">
@@ -121,8 +121,7 @@ const AssessmentSection = () => {
           </StyledBackWrapper>
         );
       })}
-      <AddButton
-        borderRadius="45px"
+      <StyledAddButton
         onClick={() => {
           dispatch(
             POPUP_ACTIONS.open({
@@ -131,7 +130,11 @@ const AssessmentSection = () => {
             })
           );
         }}
-      />
+        borderRadius="24px"
+        style={{ padding: 0 }}
+      >
+        <Plus size={40} />
+      </StyledAddButton>
     </VBox>
   );
 };
