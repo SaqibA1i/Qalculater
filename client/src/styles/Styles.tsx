@@ -8,6 +8,7 @@ const themeUnaware = {
   boxShadow: "5px 5px 15px 5px rgb(0 0 0 / 13%)",
   backdrop: "#00000061",
   light: "aliceblue",
+  error: "#ff5544",
 };
 
 export const theme = {
@@ -18,7 +19,6 @@ export const theme = {
     buttonAccent: "linear-gradient(#dfbd00, #c49703)",
     text: "aliceblue",
     textAccent: "#dfbd00",
-    error: "#ff8044",
     emptyBar: "#2e2f33",
     ...themeUnaware,
   },
@@ -29,7 +29,6 @@ export const theme = {
     buttonAccent: "#c3d7d8",
     text: "#25262c",
     textAccent: "rgba(44,118,255,.761)",
-    error: "#ff8044",
     emptyBar: "rgba(70,70,70,.151)",
     ...themeUnaware,
   },

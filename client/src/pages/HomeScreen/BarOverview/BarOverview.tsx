@@ -54,7 +54,7 @@ function BarOverview() {
 
   return (
     <Box padding="50px 30px 30px 30px" width="-webkit-fill-available">
-      <StyledLine style={{ top: -2 * average + 347 }}>
+      <StyledLine style={{ top: -2 * average + 387 }}>
         <p>{average}</p>
         <StyledHr />
       </StyledLine>
@@ -85,8 +85,8 @@ function BarOverview() {
                 fontWeight={currCourse === courseName ? 900 : 200}
                 fontSize="0.8rem"
                 border={
-                  "1px solid" + currCourse === courseName
-                    ? " black"
+                  "1px solid " + currCourse === courseName
+                    ? "black"
                     : "transparent"
                 }
               >

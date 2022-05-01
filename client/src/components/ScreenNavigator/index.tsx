@@ -41,29 +41,26 @@ function ScreenNavigator() {
     interval: 10,
     transitionTime: 300,
     swipeScrollTolerance: 50,
-
     preventMovementUntilSwipeScrollTolerance: true,
+    selectedItem: swipeSlide,
+    onSwipeEnd: () => {
+      setTimeout(() => {
+        let statusElement = document.getElementsByClassName(
+          "carousel-status"
+        )[0] as HTMLBodyElement;
+        let status = statusElement.innerText;
+        dispatch(
+          CAROUSEL_ACTIONS.updateSlide(parseInt(status.split("of")[0]) - 1)
+        );
+      }, 300);
+    },
   });
 
   return (
     <ScreenNav>
       <PopupModal />
       <Navbar />
-      <Carousel
-        {...getConfigurableProps()}
-        selectedItem={swipeSlide}
-        onSwipeEnd={() => {
-          setTimeout(() => {
-            let statusElement = document.getElementsByClassName(
-              "carousel-status"
-            )[0] as HTMLBodyElement;
-            let status = statusElement.innerText;
-            dispatch(
-              CAROUSEL_ACTIONS.updateSlide(parseInt(status.split("of")[0]) - 1)
-            );
-          }, 300);
-        }}
-      >
+      <Carousel {...getConfigurableProps()}>
         <HomeScreen />
         <EditScreen />
         <AccountScreen />
