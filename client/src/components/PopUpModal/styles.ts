@@ -18,6 +18,7 @@ ${({ isOpen, theme }) => `
     background: ${theme.backdrop};
     justify-content: center;
     align-items: baseline;
+    transition: none;
 `}
 `
 
