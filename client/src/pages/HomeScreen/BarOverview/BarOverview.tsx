@@ -24,7 +24,7 @@ function BarOverview() {
   if (currTerm === undefined) {
     return <></>;
   }
-  const { average = 0 } = terms[currTerm];
+  const { average = 0 } = terms[currTerm] || {};
 
   const getWidth = () => {
     return 65 / keys(courses).length + "vw"; // 5 margin each side
