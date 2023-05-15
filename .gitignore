@@ -1,6 +1,6 @@
-server/node_modules
+*node_modules
 client/.env
-server/.env
+*.env
 client/node_modules
 client/build
 .vercel
