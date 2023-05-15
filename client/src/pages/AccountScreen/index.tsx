@@ -18,9 +18,10 @@ import { Box } from "../../styles/Box";
 import { VBox } from "../../styles/VBox";
 import { Portfolio, StyledHBox, StyledHr, StyledVBox } from "./styles";
 import { HBox } from "../../styles/HBox";
-import styled from "styled-components";
+import styled, { ThemeContext } from "styled-components";
 import SectionRow from "./SectionRow";
 import { DEV_EMAIL } from "../../utils/constants";
+import { useContext } from "react";
 
 type Props = {
   theme: any;
@@ -43,6 +44,8 @@ function AccountScreen() {
   const dispatch = useDispatch();
   const { firstName, lastName, imgURL } = useSelector(getUserInfo) as UserInfo;
   const { darkMode } = useSelector(getSlide) as Carousel;
+  const theme = useContext(ThemeContext);
+
   return (
     <StyledVBox>
       <Portfolio src={imgURL} alt="User Icon" />
@@ -72,6 +75,23 @@ function AccountScreen() {
         element={
           <Box as="a" href={`mailto:${DEV_EMAIL}?subject=Grades Application`}>
             <BoxArrowUpRight size={30} />
+          </Box>
+        }
+      />
+      <SectionRow
+        element={
+          <Box
+            as="p"
+            style={{ fontSize: "15px", fontWeight: "500", textAlign: "left" }}
+          >
+            This Application is a copyright of{" "}
+            <a href="https://codele.ca" style={{ color: theme.textAccent }}>
+              @Codele Web Dev
+            </a>
+            , founded by{" "}
+            <a href="https://saqibali.ca" style={{ color: theme.textAccent }}>
+              @Saqib Ali
+            </a>
           </Box>
         }
       />
