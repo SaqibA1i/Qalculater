@@ -11,9 +11,13 @@ server.use(cookieParser());
 server.use(express.urlencoded({ extended: true }));
 server.use(
   cors({
-    origin: [process.env.client, "http://localhost:3000"],
+    origin: [
+      process.env.client,
+      "http://localhost:3000",
+      "https://grades-application.netlify.app",
+    ],
     credentials: true,
-    exposedHeaders: ["set-cookie"]
+    exposedHeaders: ["set-cookie"],
   })
 );
 
