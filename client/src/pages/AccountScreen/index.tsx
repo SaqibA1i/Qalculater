@@ -78,13 +78,27 @@ function AccountScreen() {
           </Box>
         }
       />
+
+      <StyledHr as="hr" />
+      <UserLogout />
       <SectionRow
         element={
           <Box
             as="p"
             style={{ fontSize: "15px", fontWeight: "500", textAlign: "left" }}
           >
-            This Application is a copyright of{" "}
+            <h3
+              style={{ textDecoration: "underline", color: theme.textAccent }}
+            >
+              About Us
+            </h3>
+            Introducing Grades Tracker, the seamless web app for effortlessly
+            tracking and managing your grades. With its intuitive interface,
+            input and update grades, monitor GPA, and view course breakdowns.
+            Stay organized and informed with Grades Tracker.
+            <br />
+            <br />
+            This Application is a copyright of
             <a href="https://codele.ca" style={{ color: theme.textAccent }}>
               @Codele Web Dev
             </a>
@@ -95,8 +109,6 @@ function AccountScreen() {
           </Box>
         }
       />
-      <StyledHr as="hr" />
-      <UserLogout />
     </StyledVBox>
   );
 }
