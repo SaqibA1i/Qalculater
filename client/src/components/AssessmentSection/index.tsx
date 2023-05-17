@@ -27,9 +27,9 @@ import { BackWrapper, StyledVBox } from "../PillRow/Pill/styles";
 import { CAROUSEL_SLIDE } from "../../redux/carousel/types";
 
 type Prop = { termHidden: boolean };
-const StyledBox = styled(VBox)<Prop>`
+export const StyledBox = styled(VBox)<Prop>`
   ${({ termHidden }) => `
-      max-height: ${termHidden ? "calc(100vh - 383px)" : "calc(100vh - 494px)"};
+      max-height: ${termHidden ? "calc(100vh - 500px)" : "calc(100vh - 494px)"};
       /* Tablet */
       @media only screen and (min-width: 600px) {
         max-height: ${
