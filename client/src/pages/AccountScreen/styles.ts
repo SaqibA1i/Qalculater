@@ -18,11 +18,11 @@ export const StyledHBox = styled(HBox)`
     font-size: 1.5rem;
 `
 export const StyledVBox = styled(VBox)`
-    max-height: 100vh;
+    max-height: 80vh;
     overflow-y: scroll;
     gap: 1rem;
-    padding: 50px 3rem;
-    padding-bottom: 100px;
+    padding: 0px 3rem;
+    place-content: start;
 `
 export const StyledHr = styled.hr`
     width: -webkit-fill-available;
