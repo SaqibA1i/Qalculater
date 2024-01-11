@@ -40,7 +40,7 @@ const AssessmentForm = () => {
       name: yup
         .string()
         .required("Required")
-        .max(15, "Only 15 characters allowed"),
+        .max(30, "Only 30 characters allowed"),
       myPercentageScore: yup.number().required("Required"),
       worth: yup.number().required("Required field"),
     })
