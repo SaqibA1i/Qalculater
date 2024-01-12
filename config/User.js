@@ -4,40 +4,45 @@ const mongoose = require("mongoose");
 const UserSchema = new mongoose.Schema({
   encGoogleId: {
     type: String,
-    required: true
+    required: true,
+  },
+  email: {
+    type: String,
+    required: false,
+    default: "",
   },
   displayName: {
     type: String,
     required: true,
-    default: ""
+    default: "",
   },
   firstName: {
     type: String,
     required: true,
-    default: ""
+    default: "",
   },
   lastName: {
     type: String,
     required: true,
-    default: ""
+    default: "",
   },
   imgURL: {
     type: String,
     required: true,
-    default: ""
+    default: "",
   },
   ivString: {
     type: String,
-    required: true
+    required: true,
   },
   data: {
     type: String,
-    required: true
+    required: true,
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("User", UserSchema);

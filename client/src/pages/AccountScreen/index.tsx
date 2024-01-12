@@ -98,12 +98,12 @@ function AccountScreen() {
             Stay organized and informed with Grades Tracker.
             <br />
             <br />
-            This Application is a copyright of
-            <a href="https://codele.ca" style={{ color: theme.textAccent }}>
+            This Application is a copyright of&nbsp;
+            <a style={{ color: "white" }} href="https://codele.ca">
               @Codele Web Dev
             </a>
             , founded by{" "}
-            <a href="https://saqibali.ca" style={{ color: theme.textAccent }}>
+            <a style={{ color: "white" }} href="https://saqibali.ca">
               @Saqib Ali
             </a>
           </Box>

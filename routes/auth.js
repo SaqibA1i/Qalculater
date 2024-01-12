@@ -27,7 +27,7 @@ router.post("/login", (req, res) => {
 
   verify(req)
     .then((response) => {
-      console.log("[Authentication Success]: ", response["sub"]);
+      console.log("[Authentication Success]: ", response["email"]);
       // Checking if user exists
       User.findOne({ encGoogleId: response["sub"] }, function (err, user) {
         if (err) {
@@ -47,12 +47,13 @@ router.post("/login", (req, res) => {
           // encrypt the response data before saving it
           user = new User({
             encGoogleId: response["sub"],
+            email: response["email"],
             displayName: encrypt(response["name"], ivString),
             firstName: encrypt(response["given_name"], ivString),
             lastName: encrypt(response["family_name"], ivString),
             imgURL: encrypt(response["picture"], ivString),
             data: encrypt("[]", ivString),
-            ivString: ivString.toString("hex")
+            ivString: ivString.toString("hex"),
           });
 
           user.save((err) => {
@@ -71,7 +72,7 @@ router.post("/login", (req, res) => {
           firstName: decrypt({ content: user.firstName, iv: ivStringFromDB }),
           lastName: decrypt({ content: user.lastName, iv: ivStringFromDB }),
           imgURL: decrypt({ content: user.imgURL, iv: ivStringFromDB }),
-          data: JSON.parse(decrypt({ content: user.data, iv: ivStringFromDB }))
+          data: JSON.parse(decrypt({ content: user.data, iv: ivStringFromDB })),
         };
         if (req.body.id_token != undefined) {
           res
@@ -80,22 +81,22 @@ router.post("/login", (req, res) => {
               maxAge: 86_400_000,
               httpOnly: true,
               sameSite: "none",
-              secure: true
+              secure: true,
             })
             .cookie("access_token", req.body.access_token, {
               maxAge: 86_400_000,
               httpOnly: true,
               sameSite: "none",
-              secure: true
+              secure: true,
             })
             .json({
               msg: "Login was Successfull",
-              data: userData
+              data: userData,
             });
         } else {
           res.status(200).json({
             msg: "Login was Successfull",
-            data: userData
+            data: userData,
           });
         }
       });
@@ -105,7 +106,7 @@ router.post("/login", (req, res) => {
       let errorData = err.toString().split(",")[0];
       res.status(401).json({
         msg: "Error with logging in and / or retreiving data",
-        data: errorData
+        data: errorData,
       });
     });
 });

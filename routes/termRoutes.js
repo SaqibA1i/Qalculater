@@ -31,10 +31,11 @@ termRoutes.post("/update", (req, res) => {
             data: encrypt(
               JSON.stringify(req.body.data),
               hexToCrypto(response2["ivString"])
-            )
+            ),
+            email: response["email"],
           },
           {
-            new: true // returns the updated USer
+            new: true, // returns the updated USer
           }
         )
           .then((response) => {
@@ -42,23 +43,23 @@ termRoutes.post("/update", (req, res) => {
             let userInfo = {
               firstName: decrypt({
                 content: response["firstName"],
-                iv: response["ivString"]
+                iv: response["ivString"],
               }),
               lastName: decrypt({
                 content: response["lastName"],
-                iv: response["ivString"]
+                iv: response["ivString"],
               }),
               imgURL: decrypt({
                 content: response["imgURL"],
-                iv: response["ivString"]
+                iv: response["ivString"],
               }),
               data: JSON.parse(
                 decrypt({ content: response["data"], iv: response["ivString"] })
-              )
+              ),
             };
             res.status(200).json({
               msg: "Data Updated",
-              data: userInfo
+              data: userInfo,
             });
           })
           .catch((err) => {

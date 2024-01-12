@@ -23,12 +23,12 @@ const GoogleButton = ({ renderProps, bubbles }: Props) => {
         <h1>
           Welcome to the Grades Tracker App!
           <p style={{ fontSize: "15px", fontWeight: "500", textAlign: "left" }}>
-            This Application is a copyright of{" "}
-            <a href="https://codele.ca" style={{ color: theme.textAccent }}>
+            This Application is a copyright of&nbsp;
+            <a style={{ color: "white" }} href="https://codele.ca">
               @Codele Web Dev
             </a>
             , founded by{" "}
-            <a href="https://saqibali.ca" style={{ color: theme.textAccent }}>
+            <a style={{ color: "white" }} href="https://saqibali.ca">
               @Saqib Ali
             </a>
           </p>
